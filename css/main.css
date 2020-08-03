@@ -84,6 +84,8 @@ nav {
     border: 2px grey solid;
 }
 
+
+
 /* Media Queries */
 
 /* Extra small devices (portrait phones, less than 576px)
@@ -108,6 +110,9 @@ nav {
     }
     .navbar-right {
         margin-right: 5px;
+    }
+    #about {
+        width: 75%;
     }
  }
 
@@ -136,6 +141,9 @@ nav {
         width: 75%;
     }
     #resume {
+        width: 60%;
+    }
+    #about {
         width: 60%;
     }
  }
