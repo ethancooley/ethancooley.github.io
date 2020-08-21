@@ -76,7 +76,7 @@ nav {
     height: 180px;
 }
 
-#projects, #resume {
+#projects, #resume, #research {
     width: 100%;
 }
 
@@ -137,7 +137,7 @@ nav {
 
 /* Extra large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {
-    #projects {
+    #projects, #research {
         width: 75%;
     }
     #resume {
