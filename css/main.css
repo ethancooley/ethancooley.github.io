@@ -80,7 +80,7 @@ nav {
     width: 100%;
 }
 
-#contact-container {
+#contact-container, #software-engineering {
     border: 2px grey solid;
 }
 
