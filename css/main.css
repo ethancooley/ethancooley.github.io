@@ -86,6 +86,7 @@ nav {
 
 
 
+
 /* Media Queries */
 
 /* Extra small devices (portrait phones, less than 576px)
@@ -113,6 +114,9 @@ nav {
     }
     #about {
         width: 75%;
+    }
+    #research-intro {
+        width: 80%;
     }
  }
 
