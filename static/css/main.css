@@ -1,0 +1,153 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+}
+
+nav {
+    height: 100px;
+}
+
+.logo-text {
+    margin-left: 20px;
+    font-size: 32px;
+    color: #696969;
+}
+
+.navbar-right {
+    margin-left: auto;
+    text-align: center;
+    font-weight: normal;
+}
+
+.nav-item {
+    padding: 0px 10px;
+    font-size: 14px;
+}
+
+#navbarColor03 {
+    background-color: white;
+    padding: 20px 0px;
+    z-index: 1;
+}
+
+#s-img {
+    width: 280px;
+    object-fit: contain;
+}
+
+#p-img {
+    width: 240px;
+    margin-bottom: 40px;
+}
+
+#hero {
+    margin-top: 5vh;
+}
+
+#m-1 {
+    margin-top: 0px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+#m-2 {
+    display: block;
+}
+
+#m-3 {
+    display: none;
+}
+
+.card-text {
+    font-size: 12px;
+}
+
+.list-group-item {
+    font-size: 14px;
+}
+
+.p-img, .r-img {
+    height: 120px; 
+    width: 100%; 
+    object-fit: cover;
+    object-position: center;
+}
+
+.r-img {
+    height: 180px;
+}
+
+#projects, #resume, #research {
+    width: 100%;
+}
+
+#contact-container, #software-engineering {
+    border: 2px grey solid;
+}
+
+
+
+
+/* Media Queries */
+
+/* Extra small devices (portrait phones, less than 576px)
+ No media query since this is the default in Bootstrap */
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) {
+ }
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+    #m-2 {
+        display: none;
+    }
+    #m-3 {
+        display: block;
+    }
+    #m-1 {
+        margin-top: 60px;
+        padding-left: 0px;
+        text-align: left;
+    }
+    .navbar-right {
+        margin-right: 5px;
+    }
+    #about {
+        width: 75%;
+    }
+    #research-intro {
+        width: 80%;
+    }
+ }
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+    #m-1 {
+        padding-left: 60px;
+    }
+    #resume {
+        width: 75%;
+    } 
+    .nav-item {
+        padding: 0px 20px;
+    }
+    .navbar-right {
+        margin-right: 30px;
+    }
+    .logo-text {
+        margin-left: 50px;
+    }
+ }
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+    #projects, #research {
+        width: 75%;
+    }
+    #resume {
+        width: 60%;
+    }
+    #about {
+        width: 60%;
+    }
+ }
