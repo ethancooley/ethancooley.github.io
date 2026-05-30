@@ -1,96 +1,1298 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="utf-8">
-  <title>Ethan Cooley</title>
-  <meta name="description" content="Personal Portfolio.">
-  <meta name="keywords"
-    content="Ethan Cooley, Ethan, Cooley, Images, Student, Engineer, Wake Forest University, Software, Data">
-  <meta name="author" content="EFC">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
-  <!-- iOS Favicon -->
-  <link rel="apple-touch-icon" href="img/logoEC.png">
-  <!-- Cosmo Bootstrap Theme -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.0/cosmo/bootstrap.min.css"
-    integrity="sha384-9/chHLTCcBULgxOFoUyZXSgEF0uFXs+NrQqzcy/DXqcR+Sk8C1l4EgmUXAEzTb92" crossorigin="anonymous">
-  <!-- CSS -->
-  <link rel="stylesheet" href="css/main.css">
-  <meta name="theme-color" content="#fff">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ethan F. Cooley — ML Engineer</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0f0e;
+    --surface: #131615;
+    --surface2: #1a1d1b;
+    --border: #242824;
+    --accent: #2E7DA3;
+    --accent2: #4A8FA8;
+    --muted: #4a5258;
+    --text: #e8eced;
+    --text-secondary: #8a9aa3;
+    --tag-bg: #0f1e28;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* GRID LINES BACKGROUND */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 80px 80px;
+    opacity: 0.35;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 4rem;
+    background: rgba(13,15,14,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--accent); }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 4rem;
+    padding-top: 6rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .hero-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--accent);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.2s;
+  }
+
+  .hero-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(3.5rem, 8vw, 7rem);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.25rem;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.35s;
+  }
+
+  .hero-name em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .hero-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
+    color: var(--text-secondary);
+    font-style: italic;
+    margin-bottom: 2.5rem;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.5s;
+  }
+
+  .hero-contact {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.65s;
+  }
+
+  .hero-contact a {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    letter-spacing: 0.05em;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: color 0.2s;
+  }
+
+  .hero-contact a:hover { color: var(--accent); }
+
+  .hero-contact a::before {
+    content: '→';
+    color: var(--accent);
+  }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 2rem;
+    left: 4rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--muted);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 1s;
+  }
+
+  /* ABOUT */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .about-inner {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 3.5rem;
+    align-items: start;
+  }
+
+  .about-photo-wrap {
+    position: relative;
+    flex-shrink: 0;
+  }
+
+  .about-photo-wrap::before {
+    content: '';
+    position: absolute;
+    inset: -6px;
+    border: 1px solid var(--accent);
+    opacity: 0.3;
+    pointer-events: none;
+  }
+
+  .about-photo-wrap::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    right: -10px;
+    width: 50%;
+    height: 50%;
+    background: linear-gradient(135deg, rgba(46,125,163,0.12), transparent);
+    pointer-events: none;
+  }
+
+  .about-photo {
+    display: block;
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+    object-position: center top;
+    filter: grayscale(20%) contrast(1.05);
+    transition: filter 0.4s ease;
+  }
+
+  .about-photo-wrap:hover .about-photo {
+    filter: grayscale(0%) contrast(1.05);
+  }
+
+  .about-photo-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    background: var(--surface2);
+    border: 1px dashed var(--border);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    text-align: center;
+    line-height: 1.8;
+  }
+
+  .about-text-block {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1.75rem;
+  }
+
+  .about-bio {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(1.1rem, 1.8vw, 1.35rem);
+    line-height: 1.7;
+    color: var(--text-secondary);
+    font-style: italic;
+  }
+
+  .about-bio strong {
+    font-style: normal;
+    color: var(--text);
+    font-weight: 400;
+  }
+
+  .about-bio em.accent {
+    font-style: normal;
+    color: var(--accent);
+  }
+
+  .about-divider {
+    width: 2.5rem;
+    height: 1px;
+    background: var(--accent);
+    opacity: 0.5;
+  }
+
+  .about-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .about-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+  }
+
+  .about-meta-item::before {
+    content: '→';
+    color: var(--accent);
+    font-size: 0.7rem;
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 960px) {
+    .about-inner {
+      grid-template-columns: 200px 1fr;
+      gap: 2.5rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .about-grid { grid-template-columns: 1fr; gap: 1rem; }
+    .about-inner { grid-template-columns: 1fr; gap: 2rem; }
+    .about-photo-wrap { max-width: 240px; }
+  }
+
+  /* SECTIONS */
+  .container {
+    position: relative;
+    z-index: 1;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 4rem;
+  }
+
+  section {
+    padding: 6rem 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .section-header {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 4rem;
+    margin-bottom: 4rem;
+    align-items: baseline;
+  }
+
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--accent);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding-top: 0.4rem;
+  }
+
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+  }
+
+  /* EXPERIENCE */
+  .exp-grid {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 4rem;
+  }
+
+  .company-block {
+    margin-bottom: 5rem;
+  }
+
+  .company-block:last-child { margin-bottom: 0; }
+
+  .company-name {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.25rem;
+  }
+
+  .company-location {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+  }
+
+  .roles-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+  }
+
+  .role-block {
+    position: relative;
+    padding-left: 1.5rem;
+    border-left: 1px solid var(--border);
+    transition: border-color 0.3s;
+  }
+
+  .role-block:hover { border-color: var(--accent); }
+
+  .role-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .role-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.3rem;
+    letter-spacing: -0.01em;
+  }
+
+  .role-title.senior { color: var(--accent); }
+
+  .role-date {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+  }
+
+  .role-bullets {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .role-bullets li {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.65;
+    padding-left: 1rem;
+    position: relative;
+  }
+
+  .role-bullets li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--muted);
+    font-family: 'DM Mono', monospace;
+  }
+
+  .highlight {
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  /* SKILLS */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 4rem;
+  }
+
+  .skill-categories {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+
+  .skill-category-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--text-secondary);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+
+  .skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--accent);
+    background: var(--tag-bg);
+    border: 1px solid #1a2f3d;
+    padding: 0.3rem 0.75rem;
+    letter-spacing: 0.05em;
+    transition: all 0.2s;
+    cursor: default;
+  }
+
+  .tag:hover {
+    background: var(--accent);
+    color: var(--bg);
+    border-color: var(--accent);
+  }
+
+  /* EDUCATION */
+  .edu-grid {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 4rem;
+  }
+
+  .edu-entries {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+  }
+
+  .edu-entry {
+    padding-left: 1.5rem;
+    border-left: 1px solid var(--border);
+    transition: border-color 0.3s;
+  }
+
+  .edu-entry:hover { border-color: var(--accent); }
+
+  .edu-school {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.3rem;
+    margin-bottom: 0.2rem;
+  }
+
+  .edu-degree {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+    margin-bottom: 0.75rem;
+  }
+
+  .edu-details {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .edu-details li {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    padding-left: 1rem;
+    position: relative;
+  }
+
+  .edu-details li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--muted);
+    font-family: 'DM Mono', monospace;
+  }
+
+  /* PROJECT */
+  .project-grid {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 4rem;
+  }
+
+  .project-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 2rem;
+    transition: border-color 0.3s, background 0.3s;
+  }
+
+  .project-card:hover {
+    border-color: var(--accent);
+    background: var(--surface2);
+  }
+
+  .project-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 0.5rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .project-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.2rem;
+  }
+
+  .project-role {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--accent);
+    letter-spacing: 0.08em;
+  }
+
+  .project-bullets {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+
+  .project-bullets li {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    padding-left: 1rem;
+    position: relative;
+    line-height: 1.6;
+  }
+
+  .project-bullets li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--muted);
+    font-family: 'DM Mono', monospace;
+  }
+
+  .stat-pill {
+    display: inline-block;
+    background: rgba(46,125,163,0.1);
+    border: 1px solid rgba(46,125,163,0.3);
+    color: var(--accent);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    padding: 0.15rem 0.5rem;
+    letter-spacing: 0.05em;
+    margin-left: 0.25rem;
+  }
+
+  /* FOOTER */
+  footer {
+    position: relative;
+    z-index: 1;
+    border-top: 1px solid var(--border);
+    padding: 3rem 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .footer-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+  }
+
+  .footer-note {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+  }
+
+
+  /* CONTACT */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.6fr;
+    gap: 6rem;
+    align-items: start;
+  }
+
+  .contact-blurb {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+  }
+
+  .linkedin-link {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--accent);
+    text-decoration: none;
+    letter-spacing: 0.05em;
+    transition: opacity 0.2s;
+  }
+
+  .linkedin-link:hover { opacity: 0.7; }
+
+  .form-success {
+    display: none;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--accent);
+    background: rgba(110,181,212,0.08);
+    border: 1px solid rgba(110,181,212,0.25);
+    padding: 1rem 1.25rem;
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.05em;
+  }
+
+  .form-success[style*="block"] { display: block; }
+
+  .form-error {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    color: #e07070;
+    margin-bottom: 1rem;
+  }
+
+  .field-error {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    color: #e07070;
+    display: block;
+    margin-top: 0.3rem;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.25rem;
+  }
+
+  .form-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--text-secondary);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .form-input {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    padding: 0.75rem 1rem;
+    outline: none;
+    transition: border-color 0.2s;
+    width: 100%;
+  }
+
+  .form-input::placeholder { color: var(--muted); }
+
+  .form-input:focus { border-color: var(--accent); }
+
+  .form-textarea {
+    resize: vertical;
+    min-height: 140px;
+  }
+
+  .form-btn {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--bg);
+    background: var(--accent);
+    border: none;
+    padding: 0.85rem 2rem;
+    cursor: pointer;
+    transition: opacity 0.2s, transform 0.15s;
+  }
+
+  .form-btn:hover { opacity: 0.85; transform: translateY(-1px); }
+  .form-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+  @media (max-width: 768px) {
+    .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .form-row { grid-template-columns: 1fr; }
+  }
+
+  .view-project-link {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7em;
+    color: var(--accent);
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    transition: opacity 0.2s;
+    white-space: nowrap;
+  }
+
+  .view-project-link:hover { opacity: 0.7; }
+
+  /* EXTRACURRICULARS */
+  .extra-grid {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .extra-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .extra-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    padding: 1rem 1.25rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    min-width: 180px;
+    flex: 1;
+    transition: border-color 0.3s;
+  }
+
+  .extra-item:hover { border-color: var(--accent); }
+
+  .extra-item-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.05rem;
+    color: var(--text);
+  }
+
+  .extra-item-detail {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--accent);
+    letter-spacing: 0.06em;
+  }
+
+  @media (max-width: 768px) {
+    .extra-grid { grid-template-columns: 1fr; gap: 1rem; }
+  }
+
+  /* PRESENTATION EMBED */
+  .slides-embed {
+    margin-top: 1.5rem;
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+
+  .slides-embed iframe {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .hero, .container { padding: 0 1.5rem; }
+    .hero { padding-top: 5rem; }
+    .section-header, .exp-grid, .skills-grid, .edu-grid, .project-grid {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+    footer { flex-direction: column; gap: 0.5rem; padding: 2rem 1.5rem; }
+  }
+</style>
 </head>
-
-<!-- Inspecting my code? Check out my Github for more -->
-
 <body>
 
-  <!-- NavBar -->
-  <nav class="navbar navbar-expand-md navbar-light bg-white">
-    <a class="navbar-brand" href="index.html">
-      <span class="logo-text">EC</span>
-    </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03"
-      aria-controls="navbarColor03" aria-expanded="true" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="navbar-collapse collapse" id="navbarColor03">
-      <div class="navbar-right">
-        <ul class="navbar-nav">
-          <li class="nav-item active">
-            <a class="nav-link" href="">HOME <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="projects.html">PROJECTS</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="research.html">RESEARCH</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="about.html">ABOUT</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="contact.html">CONTACT</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="resume.html">RESUME</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
+<nav>
+  <div class="nav-logo">EFC</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#extracurriculars">Beyond Work</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
 
-  <div class="container-fluid mt-md-5" id="hero">
-    <div class="row justify-content-center">
-      <div class="col-md-4 text-center" id="m-2">
-        <img src="img/Pro.png" alt="Ethan Cooley Image" id="p-img">
-      </div>
-      <div class="col-md-4" id="m-1">
-        <h2>Hello.</h2>
-        <br>
-        <h5>My name is Ethan Cooley.</h5>
-        <h5>I am an engineer from Charlotte, NC.</h5>
-        <br>
-        <p>I focus on software and data technologies.</p>
-      </div>
-      <div class="col-md-4 text-center" id="m-3">
-        <img src="img/Sydney.jpg" alt="Ethan Cooley Image" id="s-img">
+<!-- HERO -->
+<div class="hero">
+  <p class="hero-label">Available for new opportunities</p>
+  <h1 class="hero-name">Ethan <em>F.</em><br>Cooley</h1>
+  <p class="hero-title">Senior Machine Learning Engineer</p>
+  <div class="hero-contact">
+    <a href="https://linkedin.com/in/ethancooley" target="_blank">linkedin.com/in/ethancooley</a>
+    <a href="#contact">Get in touch</a>
+  </div>
+  <p class="hero-scroll">Scroll to explore</p>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-label">00 / About</span>
+      <h2 class="section-title">The<br><em style="font-style:italic; color: var(--text-secondary)">Person</em></h2>
+    </div>
+    <div class="about-grid reveal">
+      <div></div>
+      <div class="about-inner">
+        <div class="about-photo-wrap">
+          <img
+            class="about-photo"
+            alt="Ethan Cooley"
+            src="ethan_photo.jpg"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+          />
+          <div class="about-photo-placeholder" style="display:none;">
+            Add your photo here<br>
+            <span style="opacity:0.5">src="ethan_photo.jpg"
+          </div>
+        </div>
+        <div class="about-text-block">
+          <p class="about-bio">
+            <strong>Ethan Cooley</strong> is a Senior Machine Learning Engineer based in
+            <em class="accent">Charlotte, NC</em>, building AI systems that improve how
+            clinicians make decisions. He studied engineering and computer science at
+            <strong>Wake Forest University</strong> and is currently pursuing a
+            Master's in AI at <strong>Duke University's Pratt School of Engineering</strong>.
+          </p>
+          <div class="about-divider"></div>
+          <p class="about-bio">
+            Outside of work he can be found running ultras in the mountains, skiing
+            backcountry, or shredding trails on his mountain bike. He's a brother, a son,
+            and a friend — the people in his life matter more than any finish line or job title.
+          </p>
+          <div class="about-meta">
+            <span class="about-meta-item">Charlotte, NC</span>
+            <span class="about-meta-item">Wake Forest University · Duke MEng AI (in progress)</span>
+            <span class="about-meta-item">Ultramarathons · Backcountry Skiing · MTB</span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-label">01 / Experience</span>
+      <h2 class="section-title">Professional<br><em style="font-style:italic; color: var(--text-secondary)">History</em></h2>
+    </div>
+
+    <!-- Stanson Health -->
+    <div class="company-block reveal">
+      <div class="exp-grid">
+        <div>
+          <p class="company-name">Stanson Health</p>
+          <p class="company-location" style="margin-bottom:0.15rem">a division of Premier Inc.</p>
+          <p class="company-location">Charlotte, NC</p>
+        </div>
+        <div class="roles-stack">
+
+          <div class="role-block">
+            <div class="role-header">
+              <span class="role-title senior">Senior Machine Learning Engineer</span>
+              <span class="role-date">July 2025 — Present</span>
+            </div>
+            <ul class="role-bullets">
+              <li>Optimize end-to-end LLM inference pipeline through kernel caching and batched sentence embedding strategies, reducing latency and cutting compute costs.</li>
+              <li>Architecting and continuously expanding a comprehensive functional test suite for LLM models, improving end-to-end coverage and ensuring reliability across model updates and pipeline changes.</li>
+              <li>Lead design, development, and maintenance of the data engine for the data science team, leveraging AWS OpenSearch as a centralized tool for efficient data interaction and retrieval.</li>
+              <li>Architect and implement RESTful API endpoints connecting front-end applications with ML models deployed in AWS SageMaker, enabling rapid access to model predictions and enhancing user experience.</li>
+              <li>Collaborate cross-functionally with clinical product teams and software engineers to define project requirements and deliver solutions aligned with business objectives.</li>
+            </ul>
+          </div>
+
+          <div class="role-block">
+            <div class="role-header">
+              <span class="role-title">Machine Learning Engineer</span>
+              <span class="role-date">September 2023 — July 2025</span>
+            </div>
+            <ul class="role-bullets">
+              <li>Designed and implemented an internal annotation tool enabling healthcare providers to efficiently label cases, directly improving training data quality for production ML models.</li>
+              <li>Established team-wide coding standards by introducing Black and Flake8 across all repositories, fostering a culture of maintainable, consistent code.</li>
+              <li>Built monitoring and logging solutions to track ECR pipeline and SageMaker model performance, leveraging AWS CloudWatch for real-time insights and proactive issue resolution.</li>
+              <li>Authored comprehensive documentation for data engine architecture and API endpoints, and led training sessions to onboard team members to new tools and workflows.</li>
+            </ul>
+          </div>
+
+          <div class="role-block">
+            <div class="role-header">
+              <span class="role-title">Data Scientist</span>
+              <span class="role-date">June 2021 — September 2023</span>
+            </div>
+            <ul class="role-bullets">
+              <li>Built active learning infrastructure that queries uncertain cases from production and surfaces them for annotation, continuously improving model accuracy over time.</li>
+              <li>Employed directed acyclic graphs (DAGs) to streamline and automate annotation jobs, significantly enhancing efficiency of case annotation for ML model training.</li>
+              <li>Utilized NLP techniques to assist clinicians in making medical predictions derived from electronic health record data, directly improving patient care outcomes.</li>
+            </ul>
+          </div>
+
+          <div class="role-block">
+            <div class="role-header">
+              <span class="role-title">Data Science Intern</span>
+              <span class="role-date">January 2021 — May 2021</span>
+            </div>
+            <ul class="role-bullets">
+              <li>Worked alongside data scientists to improve and reconstruct machine learning models.</li>
+              <li>Developed and enhanced an internal software app for testing and comparing model predictions, strengthening team understanding of model strengths and weaknesses.</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- MemoryCrafters -->
+    <div class="company-block reveal" style="margin-top: 4rem;">
+      <div class="exp-grid">
+        <div>
+          <p class="company-name">MemoryCrafters LLC</p>
+          <p class="company-location">Raleigh, NC</p>
+        </div>
+        <div class="roles-stack">
+          <div class="role-block">
+            <div class="role-header">
+              <span class="role-title">Software Engineering Intern</span>
+              <span class="role-date">May — August 2020</span>
+            </div>
+            <ul class="role-bullets">
+              <li>Led full-stack development of a dynamic web app using HTML, CSS, Bootstrap, JavaScript, and Firebase featuring user authentication, scalability, and responsive design.</li>
+              <li>Developed and implemented RESTful APIs to connect with multiple real-time cloud databases.</li>
+              <li>Launched a final product with <span class="highlight">275+ active users from 3 countries</span> over 28 days, resulting in new investor interest and acceptance into Launch Chapel Hill accelerator.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-label">02 / Skills</span>
+      <h2 class="section-title">Technical<br><em style="font-style:italic; color: var(--text-secondary)">Stack</em></h2>
+    </div>
+    <div class="skills-grid reveal">
+      <div></div>
+      <div class="skill-categories">
+        <div>
+          <p class="skill-category-label">Machine Learning</p>
+          <div class="skill-tags">
+            <span class="tag">Python</span>
+            <span class="tag">Huggingface</span>
+            <span class="tag">SciKit Learn</span>
+            <span class="tag">Numpy</span>
+            <span class="tag">TensorFlow</span>
+            <span class="tag">LLMs</span>
+            <span class="tag">NLP</span>
+            <span class="tag">Active Learning</span>
+            <span class="tag">CNNs</span>
+          </div>
+        </div>
+        <div>
+          <p class="skill-category-label">Cloud & Infrastructure</p>
+          <div class="skill-tags">
+            <span class="tag">AWS SageMaker</span>
+            <span class="tag">AWS ECR</span>
+            <span class="tag">AWS S3</span>
+            <span class="tag">AWS OpenSearch</span>
+            <span class="tag">AWS CloudWatch</span>
+            <span class="tag">Firebase</span>
+            <span class="tag">Google Cloud</span>
+          </div>
+        </div>
+        <div>
+          <p class="skill-category-label">Software Engineering</p>
+          <div class="skill-tags">
+            <span class="tag">Flask</span>
+            <span class="tag">RESTful APIs</span>
+            <span class="tag">HTML / CSS</span>
+            <span class="tag">JavaScript</span>
+            <span class="tag">Bootstrap</span>
+            <span class="tag">Material UI</span>
+            <span class="tag">DAGs</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-label">03 / Education</span>
+      <h2 class="section-title">Academic<br><em style="font-style:italic; color: var(--text-secondary)">Background</em></h2>
+    </div>
+    <div class="edu-grid reveal">
+      <div></div>
+      <div class="edu-entries">
+        <div class="edu-entry">
+          <p class="edu-school">Duke University</p>
+          <p class="edu-degree">Master of Engineering — Artificial Intelligence for Product Innovation &nbsp;·&nbsp; July 2025 — May 2027 &nbsp;·&nbsp; In Progress</p>
+        </div>
+        <div class="edu-entry">
+          <p class="edu-school">Wake Forest University</p>
+          <p class="edu-degree">B.S. in Engineering — Cum Laude &nbsp;·&nbsp; May 2021 &nbsp;·&nbsp; Winston-Salem, NC</p>
+          <ul class="edu-details">
+            <li>Won best senior capstone project overall — prototyping, presentation, pro-humanitate design, and final delivery. <a href="#projects" class="view-project-link">View project →</a></li>
+            <li>Relevant coursework: Calculus I/II, Multivariable Calculus, Linear Algebra, Discrete Mathematics, Data Structures & Algorithms, Computer Systems, Software Engineering, Computational Modeling, Control Systems & Instrumentation.</li>
+          </ul>
+        </div>
+        <div class="edu-entry">
+          <p class="edu-school">University of Sydney</p>
+          <p class="edu-degree">Study Abroad — School of Engineering & Computer Science &nbsp;·&nbsp; Fall 2019 &nbsp;·&nbsp; Sydney, Australia</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-label">04 / Projects</span>
+      <h2 class="section-title">Featured<br><em style="font-style:italic; color: var(--text-secondary)">Work</em></h2>
+    </div>
+    <div class="project-grid reveal">
+      <div></div>
+      <div>
+        <div class="project-card">
+          <div class="project-card-header">
+            <span class="project-title">ML Classification of Appendiceal Cancer</span>
+            <span class="project-role">Team Manager — Senior Capstone</span>
+          </div>
+          <p style="font-family:'DM Mono',monospace; font-size:0.65rem; color:var(--muted); letter-spacing:0.08em;">Wake Forest University &nbsp;·&nbsp; Aug 2020 — May 2021</p>
+          <ul class="project-bullets">
+            <li>Researched and developed ML models to process and classify histopathological images of appendiceal cancer — a rare, frequently misdiagnosed disease.</li>
+            <li>Built an object detection model using Faster-RCNN with Inception-ResNet-v2 to detect cancerous signet ring cells within histopathological images.</li>
+            <li>Developed a deep CNN using TensorFlow/Keras to classify appendiceal cancer subtypes with <span class="stat-pill">85% accuracy</span> vs. avg. pathologist accuracy of <span class="stat-pill">52%</span>.</li>
+            <li>Delivered a Flask/Python web app to Wake Forest Baptist Hospital doctors and pathologists for real-time image upload and model prediction.</li>
+          </ul>
+          <div class="slides-embed reveal">
+            <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vR0xGczZzpqWCDt7OZdt_APdO7OzuQRCq-VNiIowuP5Zr22w8tqWRrHc02r0oyNBQ/pubembed?start=false&loop=false&delayms=3000" frameborder="0" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXTRACURRICULARS -->
+<section id="extracurriculars">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-label">05 / Beyond Work</span>
+      <h2 class="section-title">Outside<br><em style="font-style:italic; color: var(--text-secondary)">the Office</em></h2>
+    </div>
+    <div class="extra-grid reveal">
+      <div></div>
+      <div class="extra-items">
+        <div class="extra-item">
+          <span class="extra-item-title">Ultramarathon Running</span>
+          <span class="extra-item-detail">48th place — Colorado Run Rabbit Run 50 miler</span>
+        </div>
+        <div class="extra-item">
+          <span class="extra-item-title">Backcountry Skiing</span>
+          <span class="extra-item-detail">AIARE Level 1 Certified</span>
+        </div>
+        <div class="extra-item">
+          <span class="extra-item-title">Mountain Biking</span>
+          <span class="extra-item-detail"></span>
+        </div>
+        <div class="extra-item">
+          <span class="extra-item-title">Guitar</span>
+          <span class="extra-item-detail"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-label">06 / Contact</span>
+      <h2 class="section-title">Get in<br><em style="font-style:italic; color: var(--text-secondary)">Touch</em></h2>
+    </div>
+    <div class="contact-grid reveal">
+      <div>
+        <p class="contact-blurb">Interested in working together or just want to say hello? Send a message and I'll get back to you.</p>
+        <a href="https://linkedin.com/in/ethancooley" target="_blank" class="linkedin-link">↗ linkedin.com/in/ethancooley</a>
+      </div>
+      <div>
+        <div class="form-success" style="display:none">Thanks — message sent! I'll be in touch soon.</div>
+        <div data-fs-error class="form-error"></div>
+        <form id="contact-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="name">Name</label>
+              <input class="form-input" type="text" id="name" name="name" placeholder="Your name" required />
+              <span class="field-error"></span>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="email">Email</label>
+              <input class="form-input" type="email" id="email" name="email" placeholder="your@email.com" required />
+              <span class="field-error"></span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="message">Message</label>
+            <textarea class="form-input form-textarea" id="message" name="message" placeholder="What's on your mind?" required></textarea>
+            <span class="field-error"></span>
+          </div>
+          <button class="form-btn" type="submit">Send Message</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
 
 
-  <!-- Bootstrap js / jQuery -->
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-    crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-    crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
-    integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
-    crossorigin="anonymous"></script>
+<footer>
+  <p class="footer-name">Ethan F. Cooley</p>
+  <p class="footer-note">Charlotte, NC</p>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+</script>
 
 
+<script>
+  document.getElementById('contact-form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const form = e.target;
+    const btn = form.querySelector('.form-btn');
+    const success = document.querySelector('.form-success');
+    const errorDiv = document.querySelector('.form-error');
+
+    btn.disabled = true;
+    btn.textContent = 'Sending...';
+    errorDiv.textContent = '';
+
+    try {
+      const res = await fetch('https://formspree.io/f/mdajvnnv', {
+        method: 'POST',
+        headers: { 'Accept': 'application/json' },
+        body: new FormData(form)
+      });
+
+      if (res.ok) {
+        form.style.display = 'none';
+        success.style.display = 'block';
+      } else {
+        const data = await res.json();
+        errorDiv.textContent = data.errors ? data.errors.map(e => e.message).join(', ') : 'Something went wrong. Please try again.';
+        btn.disabled = false;
+        btn.textContent = 'Send Message';
+      }
+    } catch (err) {
+      errorDiv.textContent = 'Something went wrong. Please try again.';
+      btn.disabled = false;
+      btn.textContent = 'Send Message';
+    }
+  });
+</script>
 </body>
-
 </html>
