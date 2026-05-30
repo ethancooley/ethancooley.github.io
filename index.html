@@ -94,8 +94,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 0 4rem;
-    padding-top: 6rem;
+    padding: 6rem 4rem;
     max-width: 1200px;
     margin: 0 auto;
   }
@@ -528,7 +527,29 @@
     font-size: 0.72rem;
     color: var(--accent);
     letter-spacing: 0.05em;
+    margin-bottom: 0.3rem;
+  }
+
+  .edu-meta {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--muted);
+    letter-spacing: 0.05em;
     margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .edu-status {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--accent);
+    background: var(--tag-bg);
+    border: 1px solid #1a2f3d;
+    padding: 0.15rem 0.55rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
   }
 
   .edu-details {
@@ -558,6 +579,17 @@
     display: grid;
     grid-template-columns: 200px 1fr;
     gap: 4rem;
+  }
+
+  .project-cards-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    align-items: start;
+  }
+
+  @media (max-width: 900px) {
+    .project-cards-grid { grid-template-columns: 1fr; }
   }
 
   .project-card {
@@ -831,25 +863,6 @@
     .extra-grid { grid-template-columns: 1fr; gap: 1rem; }
   }
 
-  /* PRESENTATION EMBED */
-  .slides-embed {
-    margin-top: 1.5rem;
-    position: relative;
-    width: 100%;
-    padding-bottom: 56.25%;
-    height: 0;
-    overflow: hidden;
-    border: 1px solid var(--border);
-  }
-
-  .slides-embed iframe {
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%;
-    height: 100%;
-    border: 0;
-  }
-
   /* ANIMATIONS */
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(20px); }
@@ -926,7 +939,7 @@
           />
           <div class="about-photo-placeholder" style="display:none;">
             Add your photo here<br>
-            <span style="opacity:0.5">src="ethan_photo.jpg"
+            <span style="opacity:0.5">src="ethan_photo.jpg"</span>
           </div>
         </div>
         <div class="about-text-block">
@@ -939,7 +952,7 @@
           </p>
           <div class="about-divider"></div>
           <p class="about-bio">
-            Outside of work he can be found running ultras in the mountains, skiing
+            Outside of work he can be found running ultras in the mountains, competing in triathlons, skiing
             backcountry, or shredding trails on his mountain bike. He's a brother, a son,
             and a friend — the people in his life matter more than any finish line or job title.
           </p>
@@ -1116,19 +1129,21 @@
       <div class="edu-entries">
         <div class="edu-entry">
           <p class="edu-school">Duke University</p>
-          <p class="edu-degree">Master of Engineering — Artificial Intelligence for Product Innovation &nbsp;·&nbsp; July 2025 — May 2027 &nbsp;·&nbsp; In Progress</p>
+          <p class="edu-degree">Master of Engineering — Artificial Intelligence for Product Innovation</p>
+          <p class="edu-meta">Jul 2025 — May 2027 &nbsp;<span class="edu-status">In Progress</span></p>
         </div>
         <div class="edu-entry">
           <p class="edu-school">Wake Forest University</p>
-          <p class="edu-degree">B.S. in Engineering — Cum Laude &nbsp;·&nbsp; May 2021 &nbsp;·&nbsp; Winston-Salem, NC</p>
+          <p class="edu-degree">B.S. in Engineering — Cum Laude</p>
+          <p class="edu-meta">May 2021 &nbsp;·&nbsp; Winston-Salem, NC</p>
           <ul class="edu-details">
             <li>Won best senior capstone project overall — prototyping, presentation, pro-humanitate design, and final delivery. <a href="#projects" class="view-project-link">View project →</a></li>
-            <li>Relevant coursework: Calculus I/II, Multivariable Calculus, Linear Algebra, Discrete Mathematics, Data Structures & Algorithms, Computer Systems, Software Engineering, Computational Modeling, Control Systems & Instrumentation.</li>
           </ul>
         </div>
         <div class="edu-entry">
           <p class="edu-school">University of Sydney</p>
-          <p class="edu-degree">Study Abroad — School of Engineering & Computer Science &nbsp;·&nbsp; Fall 2019 &nbsp;·&nbsp; Sydney, Australia</p>
+          <p class="edu-degree">Study Abroad — School of Engineering & Computer Science</p>
+          <p class="edu-meta">Fall 2019 &nbsp;·&nbsp; Sydney, Australia</p>
         </div>
       </div>
     </div>
@@ -1144,7 +1159,25 @@
     </div>
     <div class="project-grid reveal">
       <div></div>
-      <div>
+      <div class="project-cards-grid">
+
+        <div class="project-card">
+          <div class="project-card-header">
+            <span class="project-title">Trace</span>
+            <span class="project-role">Personal Project</span>
+          </div>
+          <p style="font-family:'DM Mono',monospace; font-size:0.65rem; color:var(--muted); letter-spacing:0.08em;">2025 &nbsp;·&nbsp; React, Node.js, Vercel</p>
+          <ul class="project-bullets">
+            <li>Built a Strava-connected activity dashboard that renders GPS routes as minimal, beautiful map visualizations — no base maps, just the pure trace of each route.</li>
+            <li>Implemented OAuth token exchange via a Node.js serverless backend, keeping credentials secure while enabling seamless Strava authentication.</li>
+            <li>Designed an animated card-to-fullscreen detail view that flies each activity open with a smooth position-aware transition and full performance stats.</li>
+            <li>Surfaced sport-specific metrics including pace, power, heart rate, elevation, and cadence depending on activity type.</li>
+          </ul>
+          <div style="margin-top: 1.5rem;">
+            <a href="https://trace-frontend-six.vercel.app" target="_blank" class="view-project-link" style="font-size:0.75rem;">View Live ↗</a>
+          </div>
+        </div>
+
         <div class="project-card">
           <div class="project-card-header">
             <span class="project-title">ML Classification of Appendiceal Cancer</span>
@@ -1157,10 +1190,11 @@
             <li>Developed a deep CNN using TensorFlow/Keras to classify appendiceal cancer subtypes with <span class="stat-pill">85% accuracy</span> vs. avg. pathologist accuracy of <span class="stat-pill">52%</span>.</li>
             <li>Delivered a Flask/Python web app to Wake Forest Baptist Hospital doctors and pathologists for real-time image upload and model prediction.</li>
           </ul>
-          <div class="slides-embed reveal">
-            <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vR0xGczZzpqWCDt7OZdt_APdO7OzuQRCq-VNiIowuP5Zr22w8tqWRrHc02r0oyNBQ/pubembed?start=false&loop=false&delayms=3000" frameborder="0" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+          <div style="margin-top: 1.5rem;">
+            <a href="https://docs.google.com/presentation/d/e/2PACX-1vR0xGczZzpqWCDt7OZdt_APdO7OzuQRCq-VNiIowuP5Zr22w8tqWRrHc02r0oyNBQ/pub?start=false&loop=false&delayms=3000" target="_blank" class="view-project-link" style="font-size:0.75rem;">View Slides ↗</a>
           </div>
         </div>
+
       </div>
     </div>
   </div>
@@ -1178,7 +1212,11 @@
       <div class="extra-items">
         <div class="extra-item">
           <span class="extra-item-title">Ultramarathon Running</span>
-          <span class="extra-item-detail">48th place — Colorado Run Rabbit Run 50 miler</span>
+          <span class="extra-item-detail">48th place — Colorado Run Rabbit Run 50 mile ultra</span>
+        </div>
+        <div class="extra-item">
+          <span class="extra-item-title">Triathlon</span>
+          <span class="extra-item-detail">Triathlete — road &amp; time trial</span>
         </div>
         <div class="extra-item">
           <span class="extra-item-title">Backcountry Skiing</span>
@@ -1186,11 +1224,11 @@
         </div>
         <div class="extra-item">
           <span class="extra-item-title">Mountain Biking</span>
-          <span class="extra-item-detail"></span>
+          <span class="extra-item-detail">Trail &amp; enduro riding</span>
         </div>
         <div class="extra-item">
           <span class="extra-item-title">Guitar</span>
-          <span class="extra-item-detail"></span>
+          <span class="extra-item-detail">Self-taught, playing for 10+ years</span>
         </div>
       </div>
     </div>
@@ -1259,12 +1297,72 @@
 
 
 <script>
-  document.getElementById('contact-form').addEventListener('submit', async function(e) {
+  const form = document.getElementById('contact-form');
+
+  function getField(id) { return form.querySelector('#' + id); }
+  function getError(id) { return getField(id).nextElementSibling; }
+
+  function setError(id, msg) {
+    const input = getField(id);
+    const err = getError(id);
+    input.style.borderColor = '#e07070';
+    err.textContent = msg;
+    return false;
+  }
+
+  function clearError(id) {
+    const input = getField(id);
+    const err = getError(id);
+    input.style.borderColor = '';
+    err.textContent = '';
+  }
+
+  // Clear errors on input
+  ['name', 'email', 'message'].forEach(id => {
+    getField(id).addEventListener('input', () => clearError(id));
+  });
+
+  function validate() {
+    let valid = true;
+    const name = getField('name').value.trim();
+    const email = getField('email').value.trim();
+    const message = getField('message').value.trim();
+
+    if (!name) {
+      valid = setError('name', 'Name is required.');
+    } else if (name.length < 2) {
+      valid = setError('name', 'Please enter your full name.');
+    } else {
+      clearError('name');
+    }
+
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email) {
+      valid = setError('email', 'Email is required.') && valid;
+    } else if (!emailPattern.test(email)) {
+      valid = setError('email', 'Please enter a valid email address.') && valid;
+    } else {
+      clearError('email');
+    }
+
+    if (!message) {
+      valid = setError('message', 'Message is required.') && valid;
+    } else if (message.length < 10) {
+      valid = setError('message', 'Message is too short.') && valid;
+    } else {
+      clearError('message');
+    }
+
+    return valid;
+  }
+
+  form.addEventListener('submit', async function(e) {
     e.preventDefault();
-    const form = e.target;
+    if (!validate()) return;
+
     const btn = form.querySelector('.form-btn');
     const success = document.querySelector('.form-success');
-    const errorDiv = document.querySelector('.form-error');
+    const errorDiv = document.querySelector('[data-fs-error]');
 
     btn.disabled = true;
     btn.textContent = 'Sending...';
