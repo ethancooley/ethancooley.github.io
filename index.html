@@ -1173,7 +1173,8 @@
             <li>Designed an animated card-to-fullscreen detail view that flies each activity open with a smooth position-aware transition and full performance stats.</li>
             <li>Surfaced sport-specific metrics including pace, power, heart rate, elevation, and cadence depending on activity type.</li>
           </ul>
-          <div style="margin-top: 1.5rem;">
+          <canvas id="trace-route-canvas" style="width:100%; height:180px; display:block; margin-top:1.5rem; background:var(--bg); border:1px solid var(--border);"></canvas>
+          <div style="margin-top: 1rem;">
             <a href="https://trace-frontend-six.vercel.app" target="_blank" class="view-project-link" style="font-size:0.75rem;">View Live ↗</a>
           </div>
         </div>
@@ -1190,9 +1191,10 @@
             <li>Developed a deep CNN using TensorFlow/Keras to classify appendiceal cancer subtypes with <span class="stat-pill">85% accuracy</span> vs. avg. pathologist accuracy of <span class="stat-pill">52%</span>.</li>
             <li>Delivered a Flask/Python web app to Wake Forest Baptist Hospital doctors and pathologists for real-time image upload and model prediction.</li>
           </ul>
-          <div style="margin-top: 1.5rem;">
-            <a href="https://docs.google.com/presentation/d/e/2PACX-1vR0xGczZzpqWCDt7OZdt_APdO7OzuQRCq-VNiIowuP5Zr22w8tqWRrHc02r0oyNBQ/pub?start=false&loop=false&delayms=3000" target="_blank" class="view-project-link" style="font-size:0.75rem;">View Slides ↗</a>
-          </div>
+          <a href="https://docs.google.com/presentation/d/e/2PACX-1vR0xGczZzpqWCDt7OZdt_APdO7OzuQRCq-VNiIowuP5Zr22w8tqWRrHc02r0oyNBQ/pub?start=false&loop=false&delayms=3000" target="_blank" style="display:block; margin-top:1.5rem; position:relative; overflow:hidden; border:1px solid var(--border); transition: border-color 0.3s;" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
+            <img src="signet_ring_slide.png" alt="Signet Ring Cell Detector slide" style="width:100%; height:180px; object-fit:cover; object-position:center top; display:block; filter:grayscale(15%) contrast(1.05); transition:filter 0.3s;" onmouseover="this.style.filter='grayscale(0%) contrast(1.05)'" onmouseout="this.style.filter='grayscale(15%) contrast(1.05)'"/>
+            <div style="position:absolute; bottom:0; left:0; right:0; padding:0.5rem 0.75rem; background:rgba(13,15,14,0.85); font-family:'DM Mono',monospace; font-size:0.6rem; color:var(--accent); letter-spacing:0.08em;">View Slides ↗</div>
+          </a>
         </div>
 
       </div>
@@ -1390,6 +1392,117 @@
       btn.textContent = 'Send Message';
     }
   });
+</script>
+
+<script>
+  (function() {
+    const canvas = document.getElementById('trace-route-canvas');
+    if (!canvas) return;
+
+    function initCanvas() {
+      const dpr = window.devicePixelRatio || 1;
+      const rect = canvas.getBoundingClientRect();
+      canvas.width = rect.width * dpr;
+      canvas.height = rect.height * dpr;
+      const ctx = canvas.getContext('2d');
+      ctx.scale(dpr, dpr);
+      return { ctx, W: rect.width, H: rect.height };
+    }
+
+    function generateRoute(W, H) {
+      const seed = [
+        [0.05, 0.55], [0.1, 0.45], [0.15, 0.5], [0.22, 0.38],
+        [0.28, 0.42], [0.35, 0.3], [0.42, 0.35], [0.48, 0.25],
+        [0.55, 0.3], [0.6, 0.22], [0.65, 0.28], [0.7, 0.2],
+        [0.75, 0.25], [0.8, 0.18], [0.85, 0.22], [0.9, 0.3],
+        [0.88, 0.38], [0.82, 0.42], [0.76, 0.48], [0.7, 0.42],
+        [0.63, 0.5], [0.56, 0.45], [0.5, 0.55], [0.42, 0.5],
+        [0.35, 0.58], [0.28, 0.52], [0.2, 0.6], [0.13, 0.55],
+        [0.07, 0.62], [0.05, 0.55],
+      ];
+      const pad = 24;
+      return seed.map(([x, y]) => [pad + x * (W - pad * 2), pad + y * (H - pad * 2)]);
+    }
+
+    function drawFrame(ctx, W, H, pts, progress, color) {
+      ctx.clearRect(0, 0, W, H);
+      const total = pts.length - 1;
+      const drawn = Math.min(progress * total, total);
+      const fullSegs = Math.floor(drawn);
+      const frac = drawn - fullSegs;
+      if (fullSegs < 1) return;
+
+      const visiblePts = pts.slice(0, fullSegs + 1);
+      if (frac > 0 && fullSegs < total) {
+        const p1 = pts[fullSegs], p2 = pts[fullSegs + 1];
+        visiblePts.push([p1[0] + (p2[0] - p1[0]) * frac, p1[1] + (p2[1] - p1[1]) * frac]);
+      }
+
+      [{ w: 10, a: '22' }, { w: 4, a: '44' }, { w: 1.5, a: 'ff' }].forEach(({ w, a }) => {
+        ctx.beginPath();
+        ctx.moveTo(visiblePts[0][0], visiblePts[0][1]);
+        for (let i = 1; i < visiblePts.length; i++) ctx.lineTo(visiblePts[i][0], visiblePts[i][1]);
+        ctx.strokeStyle = color + a;
+        ctx.lineWidth = w; ctx.lineCap = 'round'; ctx.lineJoin = 'round'; ctx.stroke();
+      });
+
+      ctx.beginPath();
+      ctx.arc(visiblePts[0][0], visiblePts[0][1], 3, 0, Math.PI * 2);
+      ctx.fillStyle = color; ctx.fill();
+
+      const tip = visiblePts[visiblePts.length - 1];
+      const pulse = 0.5 + 0.5 * Math.sin(Date.now() / 300);
+      ctx.beginPath();
+      ctx.arc(tip[0], tip[1], 3 + pulse * 2, 0, Math.PI * 2);
+      ctx.fillStyle = color + '33'; ctx.fill();
+      ctx.beginPath();
+      ctx.arc(tip[0], tip[1], 3, 0, Math.PI * 2);
+      ctx.fillStyle = '#fff'; ctx.fill();
+      ctx.beginPath();
+      ctx.arc(tip[0], tip[1], 3, 0, Math.PI * 2);
+      ctx.strokeStyle = color; ctx.lineWidth = 1.5; ctx.stroke();
+    }
+
+    let { ctx, W, H } = initCanvas();
+    let pts = generateRoute(W, H);
+    let animId, started = false, startTime = null;
+    const COLOR = '#2E7DA3';
+    const DURATION = 3000;
+
+    function animate(ts) {
+      if (!startTime) startTime = ts;
+      const progress = Math.min((ts - startTime) / DURATION, 1);
+      drawFrame(ctx, W, H, pts, progress, COLOR);
+      if (progress < 1) {
+        animId = requestAnimationFrame(animate);
+      } else {
+        (function pulse() { drawFrame(ctx, W, H, pts, 1, COLOR); animId = requestAnimationFrame(pulse); })();
+      }
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !started) {
+          started = true;
+          animId = requestAnimationFrame(animate);
+        }
+      });
+    }, { threshold: 0.3 });
+    observer.observe(canvas);
+
+    canvas.addEventListener('click', () => {
+      cancelAnimationFrame(animId);
+      startTime = null; started = true;
+      animId = requestAnimationFrame(animate);
+    });
+
+    window.addEventListener('resize', () => {
+      cancelAnimationFrame(animId);
+      ({ ctx, W, H } = initCanvas());
+      pts = generateRoute(W, H);
+      drawFrame(ctx, W, H, pts, 1, COLOR);
+    });
+  })();
 </script>
 </body>
 </html>
