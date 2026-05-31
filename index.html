@@ -582,14 +582,16 @@
   }
 
   .project-cards-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.5rem;
-    align-items: start;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    max-width: 800px;
   }
 
-  @media (max-width: 900px) {
-    .project-cards-grid { grid-template-columns: 1fr; }
+  .project-cards-grid .project-card + .project-card {
+    padding-top: 2.5rem;
+    border-top: 1px solid var(--border);
+    margin-top: 2.5rem;
   }
 
   .project-card {
@@ -1173,7 +1175,7 @@
             <li>Rendered GPS route traces as pure canvas visualizations — no base maps, just the raw polyline — with layered glow effects and an animated card-to-fullscreen transition driven by live screen coordinates.</li>
             <li>Surfaced sport-specific performance metrics per activity including pace, power, normalized power, heart rate, elevation gain, cadence, and suffer score.</li>
           </ul>
-          <canvas id="trace-route-canvas" style="width:100%; height:180px; display:block; margin-top:1.5rem; background:var(--bg); border:1px solid var(--border);"></canvas>
+          <canvas id="trace-route-canvas" style="width:100%; height:240px; display:block; margin-top:1.5rem; background:var(--bg); border:1px solid var(--border);"></canvas>
           <div style="margin-top: 1rem;">
             <a href="https://trace-frontend-six.vercel.app" target="_blank" class="view-project-link" style="font-size:0.75rem;">View Live ↗</a>
           </div>
@@ -1192,7 +1194,7 @@
             <li>Delivered a Flask/Python web app to Wake Forest Baptist Hospital doctors and pathologists for real-time image upload and model prediction.</li>
           </ul>
           <a href="https://docs.google.com/presentation/d/e/2PACX-1vR0xGczZzpqWCDt7OZdt_APdO7OzuQRCq-VNiIowuP5Zr22w8tqWRrHc02r0oyNBQ/pub?start=false&loop=false&delayms=3000" target="_blank" style="display:block; margin-top:1.5rem; position:relative; overflow:hidden; border:1px solid var(--border); transition: border-color 0.3s;" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
-            <img src="signet_ring_slide.png" alt="Signet Ring Cell Detector slide" style="width:100%; height:180px; object-fit:cover; object-position:center top; display:block; filter:grayscale(15%) contrast(1.05); transition:filter 0.3s;" onmouseover="this.style.filter='grayscale(0%) contrast(1.05)'" onmouseout="this.style.filter='grayscale(15%) contrast(1.05)'"/>
+            <img src="signet_ring_slide.png" alt="Signet Ring Cell Detector slide" style="width:100%; height:240px; object-fit:cover; object-position:center top; display:block; filter:grayscale(15%) contrast(1.05); transition:filter 0.3s;" onmouseover="this.style.filter='grayscale(0%) contrast(1.05)'" onmouseout="this.style.filter='grayscale(15%) contrast(1.05)'"/>
             <div style="position:absolute; bottom:0; left:0; right:0; padding:0.5rem 0.75rem; background:rgba(13,15,14,0.85); font-family:'DM Mono',monospace; font-size:0.6rem; color:var(--accent); letter-spacing:0.08em;">View Slides ↗</div>
           </a>
         </div>
@@ -1218,7 +1220,7 @@
         </div>
         <div class="extra-item">
           <span class="extra-item-title">Triathlon racing</span>
-          <span class="extra-item-detail">Triathlete racing — road &amp; time trial</span>
+          <span class="extra-item-detail">Triathlete — road &amp; time trial</span>
         </div>
         <div class="extra-item">
           <span class="extra-item-title">Backcountry Skiing</span>
