@@ -1205,6 +1205,65 @@
     line-height: 1.6;
   }
 
+  /* guitar toggle card */
+  button.beyond-card--guitar {
+    appearance: none;
+    -webkit-appearance: none;
+    font: inherit;
+    color: inherit;
+    text-align: left;
+    cursor: pointer;
+  }
+  .beyond-card--guitar .toggle-hint {
+    position: absolute;
+    top: 1.1rem; right: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-family: var(--mono);
+    font-size: 0.58rem;
+    color: var(--ocean-hi);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .beyond-card--guitar .chevron {
+    display: inline-block;
+    transition: transform 0.4s var(--ease-out);
+  }
+  .beyond-card--guitar[aria-expanded="true"] .chevron { transform: rotate(180deg); }
+  .beyond-card--guitar[aria-expanded="true"] { border-color: var(--ocean); }
+
+  /* expanding SoundCloud panel */
+  .guitar-panel {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.55s var(--ease-out);
+  }
+  .guitar-panel.open { grid-template-rows: 1fr; margin-top: 1.4rem; }
+  .guitar-panel-inner { overflow: hidden; min-height: 0; }
+  .guitar-panel-body {
+    padding: clamp(1.4rem, 3vw, 2rem);
+    background: var(--surface);
+    border: 1px solid var(--line);
+  }
+  .guitar-panel-label {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    color: var(--fog);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+  .guitar-panel-body iframe {
+    display: block;
+    width: 100%;
+    border: none;
+  }
+  .guitar-panel-link {
+    display: inline-block;
+    margin-top: 1.1rem;
+  }
+
   /* ============================================================
      CONTACT — finish line
   ============================================================ */
@@ -1825,9 +1884,24 @@
                 <span class="extra-item-title">Mountain Biking</span>
                 <span class="extra-item-detail">Trail &amp; enduro riding</span>
               </div>
-              <div class="beyond-card">
+              <button type="button" class="beyond-card beyond-card--guitar" id="guitar-toggle" aria-expanded="false" aria-controls="guitar-panel">
+                <span class="toggle-hint" aria-hidden="true">Listen <span class="chevron">⌄</span></span>
                 <span class="extra-item-title">Guitar</span>
                 <span class="extra-item-detail">Self-taught, playing for 10+ years</span>
+              </button>
+            </div>
+
+            <div class="guitar-panel" id="guitar-panel">
+              <div class="guitar-panel-inner">
+                <div class="guitar-panel-body">
+                  <p class="guitar-panel-label">SoundCloud · @cooleyethan</p>
+                  <iframe
+                    title="Ethan Cooley on SoundCloud"
+                    data-src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/cooleyethan&color=%232E7DA3&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false&visual=false"
+                    width="100%" height="400" scrolling="no" frameborder="no" allow="autoplay">
+                  </iframe>
+                  <a href="https://soundcloud.com/cooleyethan" target="_blank" rel="noopener" class="view-project-link guitar-panel-link">Open full profile on SoundCloud →</a>
+                </div>
               </div>
             </div>
           </div>
@@ -2260,6 +2334,29 @@ const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
   closeBtn.addEventListener('click', () => setOpen(false));
   overlay.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setOpen(false)));
   document.addEventListener('keydown', e => { if (e.key === 'Escape') setOpen(false); });
+})();
+
+/* ==============================================================
+   Guitar card → expanding SoundCloud panel
+============================================================== */
+(function () {
+  const btn = document.getElementById('guitar-toggle');
+  const panel = document.getElementById('guitar-panel');
+  if (!btn || !panel) return;
+  const iframe = panel.querySelector('iframe');
+
+  btn.addEventListener('click', () => {
+    const isOpen = panel.classList.toggle('open');
+    btn.setAttribute('aria-expanded', String(isOpen));
+    if (isOpen && iframe && !iframe.getAttribute('src')) {
+      iframe.setAttribute('src', iframe.dataset.src);
+    }
+    if (isOpen) {
+      setTimeout(() => {
+        panel.scrollIntoView({ behavior: REDUCED ? 'auto' : 'smooth', block: 'nearest' });
+      }, REDUCED ? 0 : 320);
+    }
+  });
 })();
 
 /* ==============================================================
