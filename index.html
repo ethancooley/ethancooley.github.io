@@ -620,6 +620,9 @@
   .about-photo-wrap {
     position: relative;
   }
+  .about-photo-box {
+    position: relative;
+  }
   .about-photo-frame {
     position: relative;
     overflow: hidden;
@@ -643,18 +646,19 @@
   html.js .rv.in .about-photo { transform: scale(1); }
   .about-photo-wrap:hover .about-photo { filter: grayscale(0%) contrast(1.05); }
 
-  .about-photo-wrap::before {
+  .about-photo-box::before {
     content: '';
     position: absolute;
     inset: -10px 10px 10px -10px;
     border: 1px solid var(--ocean-dim);
     pointer-events: none;
     transition: inset 0.6s var(--ease-out);
+    z-index: 1;
   }
-  .about-photo-wrap:hover::before { inset: -6px 6px 6px -6px; }
+  .about-photo-wrap:hover .about-photo-box::before { inset: -6px 6px 6px -6px; }
 
   .about-photo-caption {
-    margin-top: 1rem;
+    margin-top: 0.4rem;
     font-family: var(--mono);
     font-size: 0.58rem;
     color: var(--fog);
@@ -1410,7 +1414,7 @@
   <canvas id="ridge-canvas" aria-hidden="true"></canvas>
 
   <div class="hero-inner">
-    <p class="hero-eyebrow">Charlotte, NC &nbsp;·&nbsp; Machine Learning</p>
+    <p class="hero-eyebrow">Charlotte, NC &nbsp;·&nbsp; AI and Machine Learning Engineer</p>
 
     <h1 class="hero-name" aria-label="Ethan F. Cooley">
       <span class="ln" aria-hidden="true"><span>Ethan <em>F.</em></span></span>
@@ -1457,17 +1461,19 @@
 
           <div class="about-inner">
             <div class="about-photo-wrap rv">
-              <div class="about-photo-frame">
-                <img
-                  class="about-photo"
-                  alt="Ethan Cooley"
-                  src="ethan_photo.jpg"
-                  onerror="this.style.display='none'; this.parentElement.nextElementSibling.style.display='flex'; this.parentElement.style.display='none';"
-                />
-              </div>
-              <div class="about-photo-placeholder" style="display:none;">
-                Add your photo here<br>
-                <span style="opacity:0.5">src="ethan_photo.jpg"</span>
+              <div class="about-photo-box">
+                <div class="about-photo-frame">
+                  <img
+                    class="about-photo"
+                    alt="Ethan Cooley"
+                    src="ethan_photo.jpg"
+                    onerror="this.style.display='none'; this.parentElement.nextElementSibling.style.display='flex'; this.parentElement.style.display='none';"
+                  />
+                </div>
+                <div class="about-photo-placeholder" style="display:none;">
+                  Add your photo here<br>
+                  <span style="opacity:0.5">src="ethan_photo.jpg"</span>
+                </div>
               </div>
               <p class="about-photo-caption"><span>Ethan F. Cooley</span><span>35.2271° N</span></p>
             </div>
