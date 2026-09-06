@@ -1722,13 +1722,26 @@
     background: rgba(14,19,24,0.95);
     border: 1px solid var(--ocean-dim);
     box-shadow: 0 20px 50px rgba(0,0,0,0.4);
-    padding: 1rem 1.6rem;
+    padding: 1rem 2.2rem;
     text-align: center;
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.4s var(--ease-out), transform 0.4s var(--ease-out);
   }
-  .egg-toast.show { opacity: 1; transform: translate(-50%, 0); }
+  .egg-toast.show { opacity: 1; transform: translate(-50%, 0); pointer-events: auto; }
+  .egg-toast-close {
+    position: absolute;
+    top: 0.4rem; right: 0.5rem;
+    background: none;
+    border: none;
+    color: var(--fog);
+    font-size: 0.85rem;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0.3rem;
+    transition: color 0.25s;
+  }
+  .egg-toast-close:hover { color: var(--bone); }
   .egg-toast-title {
     font-family: var(--serif);
     font-size: 1.1rem;
@@ -2718,6 +2731,7 @@
 <!-- EASTER EGG -->
 <div class="egg-runner" id="egg-runner" aria-hidden="true">🏃</div>
 <div class="egg-toast" id="egg-toast" aria-hidden="true">
+  <button class="egg-toast-close" id="egg-toast-close" aria-label="Dismiss">×</button>
   <p class="egg-toast-title" id="egg-toast-title">Personal Record Unlocked</p>
   <p class="egg-toast-sub" id="egg-toast-sub">Colorado Marathon · 3:35:19</p>
 </div>
@@ -3833,17 +3847,29 @@ const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
   const toast = document.getElementById('egg-toast');
   const toastTitle = document.getElementById('egg-toast-title');
   const toastSub = document.getElementById('egg-toast-sub');
+  const toastClose = document.getElementById('egg-toast-close');
   if (!runner || !toast) return;
 
   const CODE = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
   let buffer = [];
+  let toastTimer = null;
 
+  function hideToast() {
+    if (toastTimer) clearTimeout(toastTimer);
+    toast.classList.remove('show');
+  }
+
+  // duration is optional — omit it (or pass null) to keep the toast open
+  // until the person dismisses it themselves via the close button.
   function showToast(title, sub, duration) {
+    if (toastTimer) clearTimeout(toastTimer);
     if (toastTitle) toastTitle.textContent = title;
     if (toastSub) toastSub.textContent = sub;
     toast.classList.add('show');
-    setTimeout(() => toast.classList.remove('show'), duration);
+    if (duration) toastTimer = setTimeout(hideToast, duration);
   }
+
+  if (toastClose) toastClose.addEventListener('click', hideToast);
 
   function trigger() {
     if (REDUCED) {
@@ -3857,8 +3883,9 @@ const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
   }
 
   // Exposed so the command palette's "secret" entry can reveal the code
-  // itself without spoiling the real animation.
-  window.showEggHint = () => showToast('Try this on your keyboard', '↑ ↑ ↓ ↓ ← → ← → B A', 4500);
+  // itself without spoiling the real animation. Left open (no auto-hide)
+  // so there's time to actually read and enter it.
+  window.showEggHint = () => showToast('Try this on your keyboard', '↑ ↑ ↓ ↓ ← → ← → B A', null);
 
   document.addEventListener('keydown', (e) => {
     const tag = (e.target && e.target.tagName || '').toLowerCase();
