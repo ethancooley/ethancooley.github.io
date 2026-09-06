@@ -1233,6 +1233,39 @@
   .beyond-card--guitar[aria-expanded="true"] .chevron { transform: rotate(180deg); }
   .beyond-card--guitar[aria-expanded="true"] { border-color: var(--ocean); }
 
+  /* now playing card */
+  .beyond-card--now-playing {
+    background-size: cover;
+    background-position: center;
+    transition: border-color 0.4s, transform 0.5s var(--ease-out), background-image 0.5s;
+  }
+  .np-status {
+    position: absolute;
+    top: 1.1rem; right: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: var(--mono);
+    font-size: 0.56rem;
+    color: var(--fog);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .np-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--fog);
+    flex-shrink: 0;
+  }
+  .np-dot.live {
+    background: var(--ocean);
+    box-shadow: 0 0 10px var(--glow), 0 0 3px var(--ocean);
+    animation: pip-pulse 2.6s ease-in-out infinite;
+  }
+  .np-track-link { text-decoration: none; color: inherit; display: flex; flex-direction: column; gap: 0.6rem; }
+  .np-track-link:hover .extra-item-title { color: var(--ocean-hi); }
+  #np-idle-text { display: block; }
+
   /* expanding SoundCloud panel */
   .guitar-panel {
     display: grid;
@@ -1889,6 +1922,14 @@
                 <span class="extra-item-title">Guitar</span>
                 <span class="extra-item-detail">Self-taught, playing for 10+ years</span>
               </button>
+              <div class="beyond-card beyond-card--now-playing" id="now-playing-card">
+                <span class="np-status" id="np-status"><span class="np-dot" id="np-dot"></span><span id="np-status-text">Checking…</span></span>
+                <a href="#" id="np-link" class="np-track-link" target="_blank" rel="noopener" style="display:none;">
+                  <span class="extra-item-title" id="np-title"></span>
+                  <span class="extra-item-detail" id="np-artist"></span>
+                </a>
+                <span class="extra-item-detail" id="np-idle-text">Not listening to anything right now</span>
+              </div>
             </div>
 
             <div class="guitar-panel" id="guitar-panel">
@@ -2334,6 +2375,63 @@ const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
   closeBtn.addEventListener('click', () => setOpen(false));
   overlay.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setOpen(false)));
   document.addEventListener('keydown', e => { if (e.key === 'Escape') setOpen(false); });
+})();
+
+/* ==============================================================
+   Now Playing — polls the Spotify serverless endpoint
+============================================================== */
+(function () {
+  const card = document.getElementById('now-playing-card');
+  if (!card) return;
+
+  const dot = document.getElementById('np-dot');
+  const statusText = document.getElementById('np-status-text');
+  const link = document.getElementById('np-link');
+  const title = document.getElementById('np-title');
+  const artist = document.getElementById('np-artist');
+  const idleText = document.getElementById('np-idle-text');
+
+  const ENDPOINT = 'https://portfolio-api-lac-eight.vercel.app/api/now_playing';
+  const POLL_MS = 45000;
+
+  function showIdle(label) {
+    dot.classList.remove('live');
+    statusText.textContent = label || 'Offline';
+    link.style.display = 'none';
+    idleText.style.display = 'block';
+    card.style.backgroundImage = '';
+  }
+
+  function showPlaying(data) {
+    dot.classList.add('live');
+    statusText.textContent = 'Now playing';
+    title.textContent = data.title;
+    artist.textContent = data.artist;
+    link.href = data.songUrl || '#';
+    link.style.display = 'flex';
+    idleText.style.display = 'none';
+    card.style.backgroundImage = data.albumImageUrl
+      ? `linear-gradient(180deg, rgba(14,19,24,0.5), rgba(10,14,18,0.94)), url("${data.albumImageUrl}")`
+      : '';
+  }
+
+  async function poll() {
+    try {
+      const res = await fetch(ENDPOINT, { cache: 'no-store' });
+      if (!res.ok) { showIdle('Offline'); return; }
+      const data = await res.json();
+      if (data && data.isPlaying && data.title) {
+        showPlaying(data);
+      } else {
+        showIdle('Not listening');
+      }
+    } catch (err) {
+      showIdle('Offline');
+    }
+  }
+
+  poll();
+  setInterval(poll, POLL_MS);
 })();
 
 /* ==============================================================
