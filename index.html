@@ -1161,6 +1161,122 @@
   }
 
   /* ============================================================
+     LIVE ML DEMO — in-browser sentence embeddings
+  ============================================================ */
+  .demo-intro {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--mist);
+    line-height: 1.8;
+    letter-spacing: 0.02em;
+    max-width: 38rem;
+    margin-bottom: 2.4rem;
+  }
+
+  .demo-panel {
+    border: 1px solid var(--line);
+    background: var(--surface);
+    padding: clamp(1.8rem, 4vw, 2.8rem);
+  }
+
+  .demo-hint {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    color: var(--fog);
+    letter-spacing: 0.04em;
+    line-height: 1.6;
+    margin-top: 1.1rem;
+    max-width: 30rem;
+  }
+  .demo-hint.error { color: #e07070; }
+
+  .demo-loading-text {
+    font-family: var(--mono);
+    font-size: 0.74rem;
+    color: var(--mist);
+    margin-bottom: 1.1rem;
+    letter-spacing: 0.02em;
+  }
+  .demo-progress {
+    height: 3px;
+    width: 100%;
+    background: var(--line-soft);
+  }
+  .demo-progress-fill {
+    display: block;
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--ocean), var(--ocean-hi));
+    box-shadow: 0 0 6px var(--glow);
+    transition: width 0.3s ease;
+  }
+
+  .demo-label {
+    display: block;
+    font-family: var(--mono);
+    font-size: 0.64rem;
+    color: var(--fog);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 1.2rem;
+  }
+  .demo-input-row {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .demo-input {
+    flex: 1;
+    min-width: 220px;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--line);
+    color: var(--bone);
+    font-family: var(--sans);
+    font-size: 0.95rem;
+    font-weight: 300;
+    padding: 0.7rem 0.15rem;
+    outline: none;
+    transition: border-color 0.3s;
+  }
+  .demo-input::placeholder { color: var(--fog); }
+  .demo-input:focus { border-color: var(--ocean-hi); }
+
+  .demo-results {
+    margin-top: 2.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+  .demo-result-label {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--mist);
+    margin-bottom: 0.5rem;
+  }
+  .demo-result-label b { color: var(--ocean-hi); font-weight: 400; flex-shrink: 0; }
+  .demo-result-bar-track {
+    height: 4px;
+    width: 100%;
+    background: var(--line-soft);
+  }
+  .demo-result-bar-fill {
+    display: block;
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--ocean), var(--ocean-hi));
+    transition: width 0.9s var(--ease-out);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .demo-result-bar-fill { transition: none; }
+  }
+
+  /* ============================================================
      BEYOND WORK — the horizontal stretch
   ============================================================ */
   .beyond-track {
@@ -1459,6 +1575,64 @@
     max-width: 34rem;
   }
 
+  .year-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: clamp(1.6rem, 4vw, 3.2rem);
+    padding: 1.8rem 0 2.2rem;
+    margin-bottom: 0.4rem;
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .year-stats .stat b {
+    display: block;
+    font-family: var(--serif);
+    font-size: clamp(1.7rem, 3.6vw, 2.4rem);
+    color: var(--ocean-hi);
+    line-height: 1;
+    font-weight: 400;
+    margin-bottom: 0.35rem;
+  }
+  .year-stats .stat > span {
+    font-family: var(--mono);
+    font-size: 0.58rem;
+    color: var(--fog);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .route-panel {
+    border: 1px solid var(--line);
+    background: var(--ink);
+    overflow: hidden;
+    margin-bottom: 2.4rem;
+  }
+  .route-panel-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.9rem 1.1rem;
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .route-panel-label {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    color: var(--ocean-hi);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .route-panel-meta {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    color: var(--fog);
+    letter-spacing: 0.06em;
+    text-align: right;
+  }
+  #route-canvas {
+    width: 100%;
+    height: 260px;
+    display: block;
+  }
+
   .activity-status {
     font-family: var(--mono);
     font-size: 0.72rem;
@@ -1715,6 +1889,7 @@
     <li><a href="#skills">Skills</a></li>
     <li><a href="#education">Education</a></li>
     <li><a href="#projects">Projects</a></li>
+    <li><a href="#ml-demo">Live Demo</a></li>
     <li><a href="#extracurriculars">Beyond Work</a></li>
     <li><a href="photography.html">Photography</a></li>
     <li><a href="#contact">Contact</a></li>
@@ -1730,9 +1905,10 @@
   <a href="#skills" style="transition-delay:0.15s"><span>02</span>Skills</a>
   <a href="#education" style="transition-delay:0.2s"><span>03</span>Education</a>
   <a href="#projects" style="transition-delay:0.25s"><span>04</span>Projects</a>
-  <a href="#extracurriculars" style="transition-delay:0.3s"><span>05</span>Beyond Work</a>
-  <a href="photography.html" style="transition-delay:0.35s"><span>06</span>Photography</a>
-  <a href="#contact" style="transition-delay:0.4s"><span>07</span>Contact</a>
+  <a href="#ml-demo" style="transition-delay:0.3s"><span>05</span>Live Demo</a>
+  <a href="#extracurriculars" style="transition-delay:0.35s"><span>06</span>Beyond Work</a>
+  <a href="photography.html" style="transition-delay:0.4s"><span>07</span>Photography</a>
+  <a href="#contact" style="transition-delay:0.45s"><span>08</span>Contact</a>
 </div>
 
 <!-- ============================ HERO ============================ -->
@@ -2118,15 +2294,55 @@
       </div>
     </section>
 
-    <!-- BEYOND WORK -->
-    <section id="extracurriculars">
+    <!-- LIVE ML DEMO -->
+    <section id="ml-demo">
       <div class="sec-grid">
         <div class="ckpt" aria-hidden="true">
           <div class="ckpt-dot"><span class="pt"></span><span class="num">05</span></div>
         </div>
         <div>
           <div class="sec-head rv">
-            <span class="sec-label">05 / Beyond Work</span>
+            <span class="sec-label">05 / Live Demo</span>
+            <h2 class="sec-title">See It<br><em>Think</em></h2>
+          </div>
+
+          <div class="rv">
+            <p class="demo-intro">This is the same idea behind the sentence-embedding work I do at Stanson Health — turning language into vectors a machine can compare. Except here, it's running entirely in your browser. No server, no API call — just a small model downloaded once and cached.</p>
+
+            <div class="demo-panel">
+              <div class="demo-start" id="demo-start">
+                <button type="button" class="btn primary magnetic" id="demo-load-btn"><span class="fill"></span>Load the model (~25MB) <span class="arrow">→</span></button>
+                <p class="demo-hint">Runs fully client-side via transformers.js — nothing you type ever leaves your browser.</p>
+              </div>
+
+              <div class="demo-loading" id="demo-loading" style="display:none;">
+                <p class="demo-loading-text" id="demo-loading-text">Downloading model…</p>
+                <div class="demo-progress"><div class="demo-progress-fill" id="demo-progress-fill"></div></div>
+              </div>
+
+              <div class="demo-active" id="demo-active" style="display:none;">
+                <label class="demo-label" for="demo-input">Type a sentence — see what it's closest to</label>
+                <div class="demo-input-row">
+                  <input type="text" id="demo-input" class="demo-input" placeholder="e.g. I love being outdoors" autocomplete="off" />
+                  <button type="button" class="btn magnetic" id="demo-run-btn"><span class="fill"></span>Compare</button>
+                </div>
+                <div class="demo-results" id="demo-results"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BEYOND WORK -->
+    <section id="extracurriculars">
+      <div class="sec-grid">
+        <div class="ckpt" aria-hidden="true">
+          <div class="ckpt-dot"><span class="pt"></span><span class="num">06</span></div>
+        </div>
+        <div>
+          <div class="sec-head rv">
+            <span class="sec-label">06 / Beyond Work</span>
             <h2 class="sec-title">Outside<br><em>the Office</em></h2>
           </div>
 
@@ -2177,16 +2393,32 @@
     <section id="recent-activity">
       <div class="sec-grid">
         <div class="ckpt" aria-hidden="true">
-          <div class="ckpt-dot"><span class="pt"></span><span class="num">06</span></div>
+          <div class="ckpt-dot"><span class="pt"></span><span class="num">07</span></div>
         </div>
         <div>
           <div class="sec-head rv">
-            <span class="sec-label">06 / Recent Activity</span>
+            <span class="sec-label">07 / Recent Activity</span>
             <h2 class="sec-title">Recent<br><em>Miles</em></h2>
           </div>
 
           <div class="rv">
             <p class="activity-intro">Pulled live from Strava — my last five workouts, whatever they happened to be.</p>
+
+            <div class="year-stats" id="year-stats" style="display:none;">
+              <div class="stat"><b><span class="count" id="stat-distance" data-count="0" data-suffix=" mi">0 mi</span></b><span>This year, total distance</span></div>
+              <div class="stat"><b><span class="count" id="stat-elevation" data-count="0" data-suffix=" ft">0 ft</span></b><span>Elevation climbed</span></div>
+              <div class="stat"><b><span class="count" id="stat-activities" data-count="0" data-suffix="">0</span></b><span>Activities logged</span></div>
+              <div class="stat"><b><span class="count" id="stat-hours" data-count="0" data-suffix=" hrs">0 hrs</span></b><span>Time in motion</span></div>
+            </div>
+
+            <div class="route-panel" id="route-panel" style="display:none;">
+              <div class="route-panel-head">
+                <span class="route-panel-label">Latest Route</span>
+                <span class="route-panel-meta" id="route-meta"></span>
+              </div>
+              <canvas id="route-canvas" aria-label="GPS route of latest outdoor activity"></canvas>
+            </div>
+
             <div class="activity-list" id="activity-list">
               <p class="activity-status" id="activity-status">Loading recent activity…</p>
             </div>
@@ -2199,11 +2431,11 @@
     <section id="contact">
       <div class="sec-grid">
         <div class="ckpt" aria-hidden="true">
-          <div class="ckpt-dot"><span class="pt"></span><span class="num">07</span></div>
+          <div class="ckpt-dot"><span class="pt"></span><span class="num">08</span></div>
         </div>
         <div>
           <div class="sec-head rv">
-            <span class="sec-label">07 / Contact</span>
+            <span class="sec-label">08 / Contact</span>
             <h2 class="sec-title">Get in<br><em>Touch</em></h2>
           </div>
 
@@ -2774,11 +3006,125 @@ const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
     return String(type || 'Activity').replace(/([a-z0-9])([A-Z])/g, '$1 $2');
   }
 
+  // Decodes Google's encoded polyline format (what Strava returns)
+  // into an array of [lat, lng] pairs.
+  function decodePolyline(str) {
+    let index = 0, lat = 0, lng = 0;
+    const points = [];
+    while (index < str.length) {
+      let b, shift = 0, result = 0;
+      do { b = str.charCodeAt(index++) - 63; result |= (b & 0x1f) << shift; shift += 5; } while (b >= 0x20);
+      lat += (result & 1) ? ~(result >> 1) : (result >> 1);
+      shift = 0; result = 0;
+      do { b = str.charCodeAt(index++) - 63; result |= (b & 0x1f) << shift; shift += 5; } while (b >= 0x20);
+      lng += (result & 1) ? ~(result >> 1) : (result >> 1);
+      points.push([lat / 1e5, lng / 1e5]);
+    }
+    return points;
+  }
+
+  function renderRoute(route) {
+    const panel = document.getElementById('route-panel');
+    const canvas = document.getElementById('route-canvas');
+    const meta = document.getElementById('route-meta');
+    if (!route || !route.polyline || !panel || !canvas) return;
+
+    const latLngs = decodePolyline(route.polyline);
+    if (latLngs.length < 2) return;
+
+    panel.style.display = 'block';
+    if (meta) meta.textContent = `${esc(route.name)} · ${route.distanceMiles} mi`;
+
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const rect = canvas.getBoundingClientRect();
+    const W = rect.width, H = rect.height;
+    canvas.width = W * dpr; canvas.height = H * dpr;
+    const ctx = canvas.getContext('2d');
+    ctx.scale(dpr, dpr);
+
+    const lats = latLngs.map((p) => p[0]);
+    const lngs = latLngs.map((p) => p[1]);
+    const minLat = Math.min(...lats), maxLat = Math.max(...lats);
+    const minLng = Math.min(...lngs), maxLng = Math.max(...lngs);
+    const pad = 24;
+    const spanLat = (maxLat - minLat) || 0.0001;
+    const spanLng = (maxLng - minLng) || 0.0001;
+    // preserve aspect ratio by scaling both axes by the same factor
+    const scale = Math.min((W - pad * 2) / spanLng, (H - pad * 2) / spanLat);
+    const offX = (W - spanLng * scale) / 2;
+    const offY = (H - spanLat * scale) / 2;
+
+    const pts = latLngs.map(([la, ln]) => [
+      offX + (ln - minLng) * scale,
+      H - (offY + (la - minLat) * scale), // flip Y since lat increases upward
+    ]);
+
+    const COLOR = '#2E7DA3';
+
+    function drawFrame(progress) {
+      ctx.clearRect(0, 0, W, H);
+      const total = pts.length - 1;
+      const drawn = Math.min(progress * total, total);
+      const fullSegs = Math.floor(drawn);
+      const frac = drawn - fullSegs;
+      if (fullSegs < 1) return;
+
+      const visible = pts.slice(0, fullSegs + 1);
+      if (frac > 0 && fullSegs < total) {
+        const p1 = pts[fullSegs], p2 = pts[fullSegs + 1];
+        visible.push([p1[0] + (p2[0] - p1[0]) * frac, p1[1] + (p2[1] - p1[1]) * frac]);
+      }
+
+      [{ w: 10, a: '1f' }, { w: 4, a: '3d' }, { w: 1.4, a: 'ff' }].forEach(({ w, a }) => {
+        ctx.beginPath();
+        ctx.moveTo(visible[0][0], visible[0][1]);
+        for (let i = 1; i < visible.length; i++) ctx.lineTo(visible[i][0], visible[i][1]);
+        ctx.strokeStyle = COLOR + a;
+        ctx.lineWidth = w; ctx.lineCap = 'round'; ctx.lineJoin = 'round'; ctx.stroke();
+      });
+
+      ctx.beginPath();
+      ctx.arc(visible[0][0], visible[0][1], 3, 0, Math.PI * 2);
+      ctx.fillStyle = COLOR; ctx.fill();
+
+      const tip = visible[visible.length - 1];
+      ctx.beginPath();
+      ctx.arc(tip[0], tip[1], 3, 0, Math.PI * 2);
+      ctx.fillStyle = '#fff'; ctx.fill();
+      ctx.beginPath();
+      ctx.arc(tip[0], tip[1], 3, 0, Math.PI * 2);
+      ctx.strokeStyle = COLOR; ctx.lineWidth = 1.5; ctx.stroke();
+    }
+
+    if (REDUCED) { drawFrame(1); return; }
+
+    let started = false;
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting && !started) {
+          started = true;
+          const startTime = performance.now();
+          const DURATION = 2200;
+          function animate(ts) {
+            const progress = Math.min((ts - startTime) / DURATION, 1);
+            drawFrame(progress);
+            if (progress < 1) requestAnimationFrame(animate);
+          }
+          requestAnimationFrame(animate);
+        }
+      });
+    }, { threshold: 0.3 });
+    io.observe(canvas);
+  }
+
   async function load() {
     try {
       const res = await fetch(ENDPOINT, { cache: 'no-store' });
       const data = await res.json();
       const activities = (data && data.activities) || [];
+
+      if (data && data.latestRoute) renderRoute(data.latestRoute);
+
       if (!activities.length) {
         if (status) status.textContent = 'Recent activity unavailable right now.';
         return;
@@ -2812,6 +3158,66 @@ const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
       }
     } catch (err) {
       if (status) status.textContent = 'Recent activity unavailable right now.';
+    }
+  }
+
+  load();
+})();
+
+/* ==============================================================
+   Year stats — aggregate Strava totals for the current year
+============================================================== */
+(function () {
+  const wrap = document.getElementById('year-stats');
+  if (!wrap) return;
+
+  const ENDPOINT = 'https://trace-backend-iota.vercel.app/api/yearly_stats';
+
+  function animateCount(el, target) {
+    if (REDUCED) { el.textContent = target + (el.dataset.suffix || ''); return; }
+    const dur = 1300;
+    const t0 = performance.now();
+    function step(now) {
+      const p = Math.min((now - t0) / dur, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(target * eased) + (el.dataset.suffix || '');
+      if (p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  async function load() {
+    try {
+      const res = await fetch(ENDPOINT, { cache: 'no-store' });
+      const data = await res.json();
+      if (!data || !data.available) return;
+
+      const fields = [
+        ['stat-distance', data.totalDistanceMiles],
+        ['stat-elevation', data.totalElevationFt],
+        ['stat-activities', data.totalActivities],
+        ['stat-hours', data.totalHours],
+      ];
+      fields.forEach(([id, val]) => {
+        const el = document.getElementById(id);
+        if (el) el.dataset.count = val;
+      });
+
+      wrap.style.display = 'flex';
+
+      const counters = wrap.querySelectorAll('.count');
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const el = entry.target;
+            animateCount(el, parseFloat(el.dataset.count) || 0);
+            io.unobserve(el);
+          }
+        });
+      }, { threshold: 0.5 });
+      counters.forEach((c) => io.observe(c));
+    } catch (err) {
+      // fail silently — strip just stays hidden
     }
   }
 
@@ -3053,5 +3459,125 @@ const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
   });
 })();
 </script>
+<script type="module">
+  import { pipeline } from 'https://cdn.jsdelivr.net/npm/@xenova/transformers@2.17.2';
+
+  (function () {
+    const startEl = document.getElementById('demo-start');
+    const loadingEl = document.getElementById('demo-loading');
+    const loadingText = document.getElementById('demo-loading-text');
+    const progressFill = document.getElementById('demo-progress-fill');
+    const activeEl = document.getElementById('demo-active');
+    const loadBtn = document.getElementById('demo-load-btn');
+    const runBtn = document.getElementById('demo-run-btn');
+    const input = document.getElementById('demo-input');
+    const resultsEl = document.getElementById('demo-results');
+    if (!loadBtn) return;
+
+    const CANDIDATES = [
+      'I love going for long runs in the mountains.',
+      'Building and optimizing machine learning models is my job.',
+      'The weather today is really nice.',
+      'I play guitar in my free time.',
+      'Data pipelines and cloud infrastructure keep everything running.',
+      'Skiing in the backcountry requires careful planning.',
+    ];
+
+    let extractor = null;
+    let candidateEmbeddings = null;
+
+    function cosineSim(a, b) {
+      let dot = 0;
+      for (let i = 0; i < a.length; i++) dot += a[i] * b[i];
+      return dot; // both vectors are normalized, so the dot product IS the cosine similarity
+    }
+
+    async function embed(text) {
+      const output = await extractor(text, { pooling: 'mean', normalize: true });
+      return output.data;
+    }
+
+    function showError(message) {
+      loadingEl.style.display = 'none';
+      startEl.style.display = 'block';
+      let err = startEl.querySelector('.demo-hint.error');
+      if (!err) {
+        err = document.createElement('p');
+        err.className = 'demo-hint error';
+        startEl.appendChild(err);
+      }
+      err.textContent = message;
+    }
+
+    loadBtn.addEventListener('click', async () => {
+      startEl.style.display = 'none';
+      loadingEl.style.display = 'block';
+      progressFill.style.width = '0%';
+
+      try {
+        extractor = await pipeline('feature-extraction', 'Xenova/all-MiniLM-L6-v2', {
+          progress_callback: (p) => {
+            if (p.status === 'progress' && p.total) {
+              const pct = Math.round((p.loaded / p.total) * 100);
+              progressFill.style.width = pct + '%';
+              loadingText.textContent = `Downloading model… ${pct}%`;
+            }
+          },
+        });
+
+        loadingText.textContent = 'Embedding reference sentences…';
+        progressFill.style.width = '100%';
+        candidateEmbeddings = [];
+        for (const c of CANDIDATES) {
+          candidateEmbeddings.push(await embed(c));
+        }
+
+        loadingEl.style.display = 'none';
+        activeEl.style.display = 'block';
+        input.focus();
+      } catch (err) {
+        showError('Could not load the model in this browser — this can happen with older browsers or strict content blockers.');
+      }
+    });
+
+    async function runComparison() {
+      const text = input.value.trim();
+      if (!text || !extractor) return;
+      runBtn.disabled = true;
+      runBtn.textContent = 'Comparing…';
+
+      try {
+        const inputEmbedding = await embed(text);
+        const scored = CANDIDATES.map((c, i) => ({
+          text: c,
+          score: cosineSim(inputEmbedding, candidateEmbeddings[i]),
+        })).sort((a, b) => b.score - a.score);
+
+        resultsEl.innerHTML = scored.map((r) => {
+          const pct = Math.max(0, Math.min(100, Math.round(r.score * 100)));
+          return `
+            <div class="demo-result-row">
+              <div class="demo-result-label"><span>${r.text}</span><b>${pct}%</b></div>
+              <div class="demo-result-bar-track"><div class="demo-result-bar-fill" data-pct="${pct}"></div></div>
+            </div>
+          `;
+        }).join('');
+
+        requestAnimationFrame(() => {
+          resultsEl.querySelectorAll('.demo-result-bar-fill').forEach((el) => {
+            el.style.width = el.dataset.pct + '%';
+          });
+        });
+      } finally {
+        runBtn.disabled = false;
+        runBtn.textContent = 'Compare';
+      }
+    }
+
+    runBtn.addEventListener('click', runComparison);
+    input.addEventListener('keydown', (e) => { if (e.key === 'Enter') runComparison(); });
+  })();
+</script>
+
 </body>
 </html>
