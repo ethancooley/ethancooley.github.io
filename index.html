@@ -1233,38 +1233,133 @@
   .beyond-card--guitar[aria-expanded="true"] .chevron { transform: rotate(180deg); }
   .beyond-card--guitar[aria-expanded="true"] { border-color: var(--ocean); }
 
-  /* now playing card */
-  .beyond-card--now-playing {
-    background-size: cover;
-    background-position: center;
-    transition: border-color 0.4s, transform 0.5s var(--ease-out), background-image 0.5s;
+  /* ============================================================
+     Now Playing — floating widget
+  ============================================================ */
+  .np-widget {
+    position: fixed;
+    left: 1.3rem; bottom: 1.3rem;
+    z-index: 150;
+    width: min(300px, calc(100vw - 2.6rem));
+    background: rgba(12,17,22,0.74);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--line);
+    box-shadow: 0 18px 46px rgba(0,0,0,0.38);
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out), border-color 0.4s;
   }
-  .np-status {
-    position: absolute;
-    top: 1.1rem; right: 1.2rem;
+  .np-widget.ready { opacity: 1; transform: translateY(0); }
+  .np-widget:hover { border-color: var(--ocean-dim); }
+  .np-widget.live { border-color: var(--ocean-dim); }
+
+  .np-widget-inner {
     display: flex;
     align-items: center;
-    gap: 0.4rem;
-    font-family: var(--mono);
-    font-size: 0.56rem;
-    color: var(--fog);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
+    gap: 0.8rem;
+    padding: 0.7rem 0.85rem;
+    text-decoration: none;
+    color: inherit;
   }
-  .np-dot {
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: var(--fog);
+
+  .np-art-wrap {
+    position: relative;
+    width: 42px; height: 42px;
     flex-shrink: 0;
+    background: var(--surface-2);
+    border: 1px solid var(--line-soft);
+    overflow: hidden;
   }
-  .np-dot.live {
-    background: var(--ocean);
-    box-shadow: 0 0 10px var(--glow), 0 0 3px var(--ocean);
-    animation: pip-pulse 2.6s ease-in-out infinite;
+  .np-art-wrap::before {
+    content: '♪';
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--fog);
+    font-size: 1rem;
   }
-  .np-track-link { text-decoration: none; color: inherit; display: flex; flex-direction: column; gap: 0.6rem; }
-  .np-track-link:hover .extra-item-title { color: var(--ocean-hi); }
-  #np-idle-text { display: block; }
+  .np-widget.live .np-art-wrap::before { display: none; }
+  .np-art {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: none;
+  }
+  .np-widget.live .np-art { display: block; }
+
+  .np-bars {
+    display: none;
+    align-items: flex-end;
+    gap: 2px;
+    height: 12px;
+    position: absolute;
+    bottom: 3px; right: 3px;
+    padding: 2px 3px;
+    background: rgba(6,9,12,0.62);
+  }
+  .np-widget.live .np-bars { display: flex; }
+  .np-bars span {
+    width: 2px;
+    background: var(--ocean-hi);
+    animation: np-bar 0.9s ease-in-out infinite;
+  }
+  .np-bars span:nth-child(1) { animation-delay: 0s; }
+  .np-bars span:nth-child(2) { animation-delay: 0.2s; }
+  .np-bars span:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes np-bar {
+    0%, 100% { height: 3px; }
+    50% { height: 10px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .np-bars span { animation: none; height: 7px; }
+  }
+
+  .np-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.18rem;
+    min-width: 0;
+  }
+  .np-title {
+    font-family: var(--serif);
+    font-size: 0.9rem;
+    color: var(--bone);
+    line-height: 1.25;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .np-widget:not(.live) .np-title { color: var(--mist); font-style: italic; }
+  .np-artist {
+    font-family: var(--mono);
+    font-size: 0.58rem;
+    color: var(--ocean-hi);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .np-widget:not(.live) .np-artist { display: none; }
+
+  .np-progress {
+    display: none;
+    height: 2px;
+    width: 100%;
+    background: var(--line-soft);
+  }
+  .np-widget.live .np-progress { display: block; }
+  .np-progress-fill {
+    display: block;
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--ocean), var(--ocean-hi));
+    box-shadow: 0 0 6px var(--glow);
+  }
+
+  @media (max-width: 620px) {
+    .np-widget { left: 1rem; bottom: 1rem; }
+  }
 
   /* expanding SoundCloud panel */
   .guitar-panel {
@@ -1922,14 +2017,6 @@
                 <span class="extra-item-title">Guitar</span>
                 <span class="extra-item-detail">Self-taught, playing for 10+ years</span>
               </button>
-              <div class="beyond-card beyond-card--now-playing" id="now-playing-card">
-                <span class="np-status" id="np-status"><span class="np-dot" id="np-dot"></span><span id="np-status-text">Checking…</span></span>
-                <a href="#" id="np-link" class="np-track-link" target="_blank" rel="noopener" style="display:none;">
-                  <span class="extra-item-title" id="np-title"></span>
-                  <span class="extra-item-detail" id="np-artist"></span>
-                </a>
-                <span class="extra-item-detail" id="np-idle-text">Not listening to anything right now</span>
-              </div>
             </div>
 
             <div class="guitar-panel" id="guitar-panel">
@@ -2004,6 +2091,20 @@
     <p class="footer-note"><span class="pip"></span>Charlotte, NC</p>
   </div>
 </footer>
+
+<div class="np-widget" id="np-widget" aria-live="polite">
+  <a href="#" id="np-link" class="np-widget-inner" target="_blank" rel="noopener">
+    <span class="np-art-wrap">
+      <img id="np-art" class="np-art" alt="" />
+      <span class="np-bars" aria-hidden="true"><span></span><span></span><span></span></span>
+    </span>
+    <span class="np-text">
+      <span class="np-title" id="np-title">Not listening right now</span>
+      <span class="np-artist" id="np-artist"></span>
+    </span>
+  </a>
+  <span class="np-progress"><span class="np-progress-fill" id="np-progress-fill"></span></span>
+</div>
 
 <script>
 /* ==============================================================
@@ -2378,60 +2479,73 @@ const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
 })();
 
 /* ==============================================================
-   Now Playing — polls the Spotify serverless endpoint
+   Now Playing — floating widget, polls the Spotify serverless endpoint
 ============================================================== */
 (function () {
-  const card = document.getElementById('now-playing-card');
-  if (!card) return;
+  const widget = document.getElementById('np-widget');
+  if (!widget) return;
 
-  const dot = document.getElementById('np-dot');
-  const statusText = document.getElementById('np-status-text');
   const link = document.getElementById('np-link');
+  const art = document.getElementById('np-art');
   const title = document.getElementById('np-title');
   const artist = document.getElementById('np-artist');
-  const idleText = document.getElementById('np-idle-text');
+  const progressFill = document.getElementById('np-progress-fill');
 
   const ENDPOINT = 'https://portfolio-api-lac-eight.vercel.app/api/now_playing';
   const POLL_MS = 45000;
 
-  function showIdle(label) {
-    dot.classList.remove('live');
-    statusText.textContent = label || 'Offline';
-    link.style.display = 'none';
-    idleText.style.display = 'block';
-    card.style.backgroundImage = '';
+  let durationMs = 0;
+  let baseProgressMs = 0;
+  let baseTimestamp = 0;
+
+  function tickProgress() {
+    if (!durationMs) { progressFill.style.width = '0%'; return; }
+    const elapsed = Date.now() - baseTimestamp;
+    const estimated = Math.min(durationMs, baseProgressMs + elapsed);
+    progressFill.style.width = ((estimated / durationMs) * 100) + '%';
+  }
+
+  function showIdle() {
+    widget.classList.remove('live');
+    title.textContent = 'Not listening right now';
+    artist.textContent = '';
+    link.href = '#';
+    durationMs = 0;
+    progressFill.style.width = '0%';
   }
 
   function showPlaying(data) {
-    dot.classList.add('live');
-    statusText.textContent = 'Now playing';
+    widget.classList.add('live');
     title.textContent = data.title;
     artist.textContent = data.artist;
     link.href = data.songUrl || '#';
-    link.style.display = 'flex';
-    idleText.style.display = 'none';
-    card.style.backgroundImage = data.albumImageUrl
-      ? `linear-gradient(180deg, rgba(14,19,24,0.5), rgba(10,14,18,0.94)), url("${data.albumImageUrl}")`
-      : '';
+    if (data.albumImageUrl) art.src = data.albumImageUrl;
+    durationMs = data.durationMs || 0;
+    baseProgressMs = data.progressMs || 0;
+    baseTimestamp = Date.now();
+    tickProgress();
   }
 
   async function poll() {
     try {
       const res = await fetch(ENDPOINT, { cache: 'no-store' });
-      if (!res.ok) { showIdle('Offline'); return; }
+      if (!res.ok) { showIdle(); return; }
       const data = await res.json();
       if (data && data.isPlaying && data.title) {
         showPlaying(data);
       } else {
-        showIdle('Not listening');
+        showIdle();
       }
     } catch (err) {
-      showIdle('Offline');
+      showIdle();
+    } finally {
+      widget.classList.add('ready');
     }
   }
 
   poll();
   setInterval(poll, POLL_MS);
+  if (!REDUCED) setInterval(tickProgress, 1000);
 })();
 
 /* ==============================================================
