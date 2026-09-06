@@ -230,20 +230,22 @@
 
   .gallery-item .cap {
     position: absolute; left: 0; right: 0; bottom: 0;
-    padding: 1.6rem 1rem 0.8rem;
-    background: linear-gradient(to top, rgba(6,9,12,0.92), transparent);
+    padding: 2.2rem 1.1rem 1rem;
+    background: linear-gradient(to top, rgba(6,9,12,0.94) 20%, transparent);
     opacity: 0;
     transform: translateY(6px);
     transition: opacity 0.35s, transform 0.35s;
     pointer-events: none;
   }
-  .gallery-item:hover .cap { opacity: 1; transform: translateY(0); }
+  .gallery-item.item-hovered .cap { opacity: 1; transform: translateY(0); }
   .gallery-item .cap-title {
-    font-family: var(--serif); font-size: 1.05rem; color: var(--bone); line-height: 1.2;
+    display: block;
+    font-family: var(--serif); font-size: 1.1rem; color: var(--bone); line-height: 1.3;
   }
   .gallery-item .cap-meta {
+    display: block;
     font-family: var(--mono); font-size: 0.58rem; color: var(--ocean-hi);
-    letter-spacing: 0.1em; text-transform: uppercase; margin-top: 0.3rem;
+    letter-spacing: 0.1em; text-transform: uppercase; margin-top: 0.85rem;
   }
 
   .gallery-placeholder {
@@ -335,7 +337,11 @@
   <ul class="nav-links">
     <li><a href="index.html#about">About</a></li>
     <li><a href="index.html#experience">Experience</a></li>
+    <li><a href="index.html#skills">Skills</a></li>
+    <li><a href="index.html#education">Education</a></li>
     <li><a href="index.html#projects">Projects</a></li>
+    <li><a href="index.html#ml-demo">Live Demo</a></li>
+    <li><a href="index.html#extracurriculars">Beyond Work</a></li>
     <li><a href="photography.html" class="active">Photography</a></li>
     <li><a href="index.html#contact">Contact</a></li>
   </ul>
@@ -346,9 +352,14 @@
   <button class="menu-close" id="menu-close" aria-label="Close menu">Close</button>
   <a href="index.html" style="transition-delay:0.05s"><span>00</span>Home</a>
   <a href="index.html#about" style="transition-delay:0.1s"><span>01</span>About</a>
-  <a href="index.html#projects" style="transition-delay:0.15s"><span>02</span>Projects</a>
-  <a href="photography.html" style="transition-delay:0.2s"><span>03</span>Photography</a>
-  <a href="index.html#contact" style="transition-delay:0.25s"><span>04</span>Contact</a>
+  <a href="index.html#experience" style="transition-delay:0.15s"><span>02</span>Experience</a>
+  <a href="index.html#skills" style="transition-delay:0.2s"><span>03</span>Skills</a>
+  <a href="index.html#education" style="transition-delay:0.25s"><span>04</span>Education</a>
+  <a href="index.html#projects" style="transition-delay:0.3s"><span>05</span>Projects</a>
+  <a href="index.html#ml-demo" style="transition-delay:0.35s"><span>06</span>Live Demo</a>
+  <a href="index.html#extracurriculars" style="transition-delay:0.4s"><span>07</span>Beyond Work</a>
+  <a href="photography.html" style="transition-delay:0.45s"><span>08</span>Photography</a>
+  <a href="index.html#contact" style="transition-delay:0.5s"><span>09</span>Contact</a>
 </div>
 
 <header class="gallery-header">
@@ -364,73 +375,73 @@
     <figure class="gallery-item" data-ar="4/5" style="--ar:4/5">
       <img src="photos/photo-01.jpg" alt="Photo 01" loading="lazy" decoding="async"
            onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'gallery-placeholder',style:'--ar:4/5',innerHTML:'Add photo-01.jpg to /photos'}));" />
-      <figcaption class="cap"><span class="cap-title">Run Rabbit Run 50 Mile Ultramarathon</span><span class="cap-meta">Steamboat Springs, Colorado · 2025</span></figcaption>
+      <figcaption class="cap"><span class="cap-title">Ridge Line</span><span class="cap-meta">Add location · year</span></figcaption>
     </figure>
 
     <figure class="gallery-item" data-ar="3/4" style="--ar:3/4">
       <img src="photos/photo-02.jpg" alt="Photo 02" loading="lazy" decoding="async"
            onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'gallery-placeholder',style:'--ar:3/4',innerHTML:'Add photo-02.jpg to /photos'}));" />
-      <figcaption class="cap"><span class="cap-title">Backcountry Skiing</span><span class="cap-meta">Jones Pass, Colorado · 2025</span></figcaption>
+      <figcaption class="cap"><span class="cap-title">Untitled</span><span class="cap-meta">Add location · year</span></figcaption>
     </figure>
 
     <figure class="gallery-item" data-ar="1/1" style="--ar:1/1">
       <img src="photos/photo-03.jpg" alt="Photo 03" loading="lazy" decoding="async"
            onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'gallery-placeholder',style:'--ar:1/1',innerHTML:'Add photo-03.jpg to /photos'}));" />
-      <figcaption class="cap"><span class="cap-title">Pacific Beach</span><span class="cap-meta">San Diego, California · 2025</span></figcaption>
+      <figcaption class="cap"><span class="cap-title">Untitled</span><span class="cap-meta">Add location · year</span></figcaption>
     </figure>
 
     <figure class="gallery-item" data-ar="4/5" style="--ar:4/5">
       <img src="photos/photo-04.jpg" alt="Photo 04" loading="lazy" decoding="async"
            onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'gallery-placeholder',style:'--ar:4/5',innerHTML:'Add photo-04.jpg to /photos'}));" />
-      <figcaption class="cap"><span class="cap-title">Nick & Emily's Wedding</span><span class="cap-meta">Denver, Colorado · 2025</span></figcaption>
+      <figcaption class="cap"><span class="cap-title">Untitled</span><span class="cap-meta">Add location · year</span></figcaption>
     </figure>
 
     <figure class="gallery-item" data-ar="3/2" style="--ar:3/2">
       <img src="photos/photo-05.jpg" alt="Photo 05" loading="lazy" decoding="async"
            onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'gallery-placeholder',style:'--ar:3/2',innerHTML:'Add photo-05.jpg to /photos'}));" />
-      <figcaption class="cap"><span class="cap-title">The Colorado Marathon (3:35:19)</span><span class="cap-meta">Fort Collins, Colorado · 2025</span></figcaption>
+      <figcaption class="cap"><span class="cap-title">Untitled</span><span class="cap-meta">Add location · year</span></figcaption>
     </figure>
 
     <figure class="gallery-item" data-ar="4/5" style="--ar:4/5">
       <img src="photos/photo-06.jpg" alt="Photo 06" loading="lazy" decoding="async"
            onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'gallery-placeholder',style:'--ar:4/5',innerHTML:'Add photo-06.jpg to /photos'}));" />
-      <figcaption class="cap"><span class="cap-title">Dog Sledding</span><span class="cap-meta">Vail, Colorado · 2024</span></figcaption>
+      <figcaption class="cap"><span class="cap-title">Untitled</span><span class="cap-meta">Add location · year</span></figcaption>
     </figure>
 
     <figure class="gallery-item" data-ar="3/4" style="--ar:3/4">
       <img src="photos/photo-07.jpg" alt="Photo 07" loading="lazy" decoding="async"
            onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'gallery-placeholder',style:'--ar:3/4',innerHTML:'Add photo-07.jpg to /photos'}));" />
-      <figcaption class="cap"><span class="cap-title">Hans Peak</span><span class="cap-meta">Steamboat Springs, Colorado · 2024</span></figcaption>
+      <figcaption class="cap"><span class="cap-title">Untitled</span><span class="cap-meta">Add location · year</span></figcaption>
     </figure>
 
     <figure class="gallery-item" data-ar="1/1" style="--ar:1/1">
       <img src="photos/photo-08.jpg" alt="Photo 08" loading="lazy" decoding="async"
            onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'gallery-placeholder',style:'--ar:1/1',innerHTML:'Add photo-08.jpg to /photos'}));" />
-      <figcaption class="cap"><span class="cap-title">Burch Boy</span><span class="cap-meta">Denver, Colorado · 2022</span></figcaption>
+      <figcaption class="cap"><span class="cap-title">Untitled</span><span class="cap-meta">Add location · year</span></figcaption>
     </figure>
 
     <figure class="gallery-item" data-ar="4/5" style="--ar:4/5">
       <img src="photos/photo-09.jpg" alt="Photo 09" loading="lazy" decoding="async"
            onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'gallery-placeholder',style:'--ar:4/5',innerHTML:'Add photo-09.jpg to /photos'}));" />
-      <figcaption class="cap"><span class="cap-title">Monkey</span><span class="cap-meta">Bali · 2019</span></figcaption>
+      <figcaption class="cap"><span class="cap-title">Untitled</span><span class="cap-meta">Add location · year</span></figcaption>
     </figure>
 
     <figure class="gallery-item" data-ar="3/2" style="--ar:3/2">
       <img src="photos/photo-10.jpg" alt="Photo 10" loading="lazy" decoding="async"
            onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'gallery-placeholder',style:'--ar:3/2',innerHTML:'Add photo-10.jpg to /photos'}));" />
-      <figcaption class="cap"><span class="cap-title">Kiwis</span><span class="cap-meta">New Zealand · 2019</span></figcaption>
+      <figcaption class="cap"><span class="cap-title">Untitled</span><span class="cap-meta">Add location · year</span></figcaption>
     </figure>
 
     <figure class="gallery-item" data-ar="3/4" style="--ar:3/4">
       <img src="photos/photo-11.jpg" alt="Photo 11" loading="lazy" decoding="async"
            onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'gallery-placeholder',style:'--ar:3/4',innerHTML:'Add photo-11.jpg to /photos'}));" />
-      <figcaption class="cap"><span class="cap-title">Sydney Harbor</span><span class="cap-meta">Sydney, Australia · 2019</span></figcaption>
+      <figcaption class="cap"><span class="cap-title">Untitled</span><span class="cap-meta">Add location · year</span></figcaption>
     </figure>
 
     <figure class="gallery-item" data-ar="4/5" style="--ar:4/5">
       <img src="photos/photo-12.jpg" alt="Photo 12" loading="lazy" decoding="async"
            onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'gallery-placeholder',style:'--ar:4/5',innerHTML:'Add photo-12.jpg to /photos'}));" />
-      <figcaption class="cap"><span class="cap-title">Queenstown Hill Summit</span><span class="cap-meta">Queenstown, New Zealand · 2019</span></figcaption>
+      <figcaption class="cap"><span class="cap-title">Untitled</span><span class="cap-meta">Add location · year</span></figcaption>
     </figure>
 
   </div>
@@ -502,6 +513,21 @@ const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     });
   }, { threshold: 0.08, rootMargin: '0px 0px -4% 0px' });
   items.forEach(el => io.observe(el));
+})();
+
+/* caption hover-intent — a short grace period on leave keeps the
+   caption from flickering on minor cursor jitter near the image edges */
+(function () {
+  document.querySelectorAll('.gallery-item').forEach(el => {
+    let leaveTimer = null;
+    el.addEventListener('mouseenter', () => {
+      clearTimeout(leaveTimer);
+      el.classList.add('item-hovered');
+    });
+    el.addEventListener('mouseleave', () => {
+      leaveTimer = setTimeout(() => el.classList.remove('item-hovered'), 180);
+    });
+  });
 })();
 
 /* lightbox */
