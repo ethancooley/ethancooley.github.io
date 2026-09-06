@@ -888,6 +888,26 @@
     transform: translateY(-2px);
     box-shadow: 0 6px 18px rgba(46,125,163,0.25);
   }
+  .tag.core {
+    background: var(--ocean);
+    color: var(--ink);
+    border-color: var(--ocean);
+    font-weight: 500;
+    box-shadow: 0 0 12px rgba(46,125,163,0.22);
+  }
+  .tag.core:hover {
+    background: var(--ocean-hi);
+    border-color: var(--ocean-hi);
+    box-shadow: 0 6px 18px rgba(46,125,163,0.32);
+  }
+
+  .skill-legend {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    color: var(--fog);
+    letter-spacing: 0.04em;
+    margin-bottom: 2.2rem;
+  }
 
   @media (max-width: 720px) {
     .skill-row { grid-template-columns: 1fr; gap: 0.8rem; }
@@ -2113,30 +2133,33 @@
             <h2 class="sec-title">Technical<br><em>Stack</em></h2>
           </div>
 
+          <p class="skill-legend rv">Filled tags are what I use daily. Outlined tags I'm also comfortable with.</p>
+
           <div class="skill-row rv">
             <p class="skill-category-label">Machine Learning</p>
             <div class="skill-tags">
-              <span class="tag">Python</span>
-              <span class="tag">PyTorch</span>
+              <span class="tag core">Python</span>
+              <span class="tag core">LLMs</span>
+              <span class="tag core">RAG</span>
+              <span class="tag core">NLP</span>
+              <span class="tag core">Sentence Embeddings</span>
+              <span class="tag core">Active Learning</span>
+              <span class="tag core">PyTorch</span>
+              <span class="tag core">Hugging Face</span>
               <span class="tag">TensorFlow</span>
-              <span class="tag">Hugging Face</span>
               <span class="tag">Scikit-Learn</span>
-              <span class="tag">EfficientNet</span>
               <span class="tag">Transfer Learning</span>
               <span class="tag">CNNs</span>
-              <span class="tag">NLP</span>
-              <span class="tag">Active Learning</span>
-              <span class="tag">RAG</span>
-              <span class="tag">LLMs</span>
+              <span class="tag">EfficientNet</span>
             </div>
           </div>
           <div class="skill-row rv" style="--d:0.06s">
             <p class="skill-category-label">Cloud &amp; Infrastructure</p>
             <div class="skill-tags">
-              <span class="tag">AWS SageMaker</span>
-              <span class="tag">AWS ECR</span>
+              <span class="tag core">AWS SageMaker</span>
+              <span class="tag core">AWS OpenSearch</span>
+              <span class="tag core">AWS ECR</span>
               <span class="tag">AWS S3</span>
-              <span class="tag">AWS OpenSearch</span>
               <span class="tag">AWS CloudWatch</span>
               <span class="tag">Google Cloud</span>
               <span class="tag">Firebase</span>
@@ -2146,27 +2169,27 @@
           <div class="skill-row rv" style="--d:0.12s">
             <p class="skill-category-label">Software Engineering</p>
             <div class="skill-tags">
-              <span class="tag">React</span>
-              <span class="tag">Node.js</span>
+              <span class="tag core">RESTful APIs</span>
+              <span class="tag core">OAuth 2.0</span>
+              <span class="tag core">React</span>
+              <span class="tag core">Node.js</span>
               <span class="tag">JavaScript</span>
               <span class="tag">HTML / CSS</span>
               <span class="tag">Flask</span>
               <span class="tag">FastAPI</span>
-              <span class="tag">RESTful APIs</span>
-              <span class="tag">OAuth 2.0</span>
               <span class="tag">Git</span>
             </div>
           </div>
           <div class="skill-row rv" style="--d:0.18s">
             <p class="skill-category-label">Data &amp; MLOps</p>
             <div class="skill-tags">
+              <span class="tag core">Data Pipelines</span>
+              <span class="tag core">DAGs</span>
+              <span class="tag core">Model Monitoring</span>
               <span class="tag">NumPy</span>
               <span class="tag">Pandas</span>
               <span class="tag">SQL</span>
-              <span class="tag">DAGs</span>
-              <span class="tag">Model Monitoring</span>
               <span class="tag">A/B Testing</span>
-              <span class="tag">Data Pipelines</span>
             </div>
           </div>
         </div>
