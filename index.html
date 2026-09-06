@@ -2718,8 +2718,8 @@
 <!-- EASTER EGG -->
 <div class="egg-runner" id="egg-runner" aria-hidden="true">🏃</div>
 <div class="egg-toast" id="egg-toast" aria-hidden="true">
-  <p class="egg-toast-title">Personal Record Unlocked</p>
-  <p class="egg-toast-sub">Colorado Marathon · 3:35:19</p>
+  <p class="egg-toast-title" id="egg-toast-title">Personal Record Unlocked</p>
+  <p class="egg-toast-sub" id="egg-toast-sub">Colorado Marathon · 3:35:19</p>
 </div>
 
 <script>
@@ -3721,6 +3721,7 @@ const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
     { label: 'LinkedIn', meta: 'External', keywords: 'linkedin', action: () => window.open('https://linkedin.com/in/ethancooley', '_blank', 'noopener') },
     { label: 'Hugging Face', meta: 'External', keywords: 'huggingface models nlp', action: () => window.open('https://huggingface.co/ecooley', '_blank', 'noopener') },
     { label: 'SoundCloud', meta: 'External', keywords: 'soundcloud guitar music tracks', action: () => window.open('https://soundcloud.com/cooleyethan', '_blank', 'noopener') },
+    { label: 'Psst…', meta: 'Secret', keywords: 'secret hint konami cheat code easter egg', hidden: true, action: () => { if (window.showEggHint) window.showEggHint(); } },
   ];
 
   function go(hash) {
@@ -3758,7 +3759,7 @@ const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
   function filterItems(query) {
     const q = query.trim().toLowerCase();
     filtered = !q
-      ? ITEMS.slice()
+      ? ITEMS.filter((item) => !item.hidden)
       : ITEMS.filter((item) => (item.label + ' ' + item.keywords).toLowerCase().includes(q));
     activeIndex = 0;
     render();
@@ -3829,25 +3830,34 @@ const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
 (function () {
   const runner = document.getElementById('egg-runner');
   const toast = document.getElementById('egg-toast');
+  const toastTitle = document.getElementById('egg-toast-title');
+  const toastSub = document.getElementById('egg-toast-sub');
   if (!runner || !toast) return;
 
   const CODE = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
   let buffer = [];
 
+  function showToast(title, sub, duration) {
+    if (toastTitle) toastTitle.textContent = title;
+    if (toastSub) toastSub.textContent = sub;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), duration);
+  }
+
   function trigger() {
     if (REDUCED) {
-      toast.classList.add('show');
-      setTimeout(() => toast.classList.remove('show'), 4000);
+      showToast('Personal Record Unlocked', 'Colorado Marathon · 3:35:19', 4000);
       return;
     }
     runner.classList.remove('run');
     void runner.offsetWidth; // restart animation
     runner.classList.add('run');
-    setTimeout(() => {
-      toast.classList.add('show');
-      setTimeout(() => toast.classList.remove('show'), 3600);
-    }, 1400);
+    setTimeout(() => showToast('Personal Record Unlocked', 'Colorado Marathon · 3:35:19', 3600), 1400);
   }
+
+  // Exposed so the command palette's "secret" entry can reveal the code
+  // itself without spoiling the real animation.
+  window.showEggHint = () => showToast('Try this on your keyboard', '↑ ↑ ↓ ↓ ← → ← → B A', 4500);
 
   document.addEventListener('keydown', (e) => {
     const tag = (e.target && e.target.tagName || '').toLowerCase();
@@ -3868,6 +3878,7 @@ const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
 ============================================================== */
 console.log('%cHey, curious developer 👋', 'font-size:18px;font-weight:bold;color:#6FB4D6;');
 console.log('%cIf you\'re digging around in here, you\'ll probably enjoy the Live Demo section more. Or say hi: linkedin.com/in/ethancooley', 'font-size:12px;color:#8da0ab;line-height:1.6;');
+console.log('%cPsst — this site also knows the Konami code.', 'font-size:12px;color:#56646e;font-style:italic;');
 </script>
 <script type="module">
   import { pipeline } from 'https://cdn.jsdelivr.net/npm/@xenova/transformers@2.17.2';
