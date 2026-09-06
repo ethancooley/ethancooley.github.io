@@ -3778,6 +3778,7 @@ const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
     overlay.classList.remove('open');
     overlay.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
+    input.blur();
   }
 
   function runActive() {
