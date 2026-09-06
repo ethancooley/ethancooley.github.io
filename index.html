@@ -1447,6 +1447,88 @@
   }
 
   /* ============================================================
+     RECENT ACTIVITY — live Strava feed
+  ============================================================ */
+  .activity-intro {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    color: var(--fog);
+    letter-spacing: 0.04em;
+    line-height: 1.7;
+    margin-bottom: 2.2rem;
+    max-width: 34rem;
+  }
+
+  .activity-status {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--fog);
+    letter-spacing: 0.05em;
+    padding: 1.6rem 0;
+  }
+
+  .activity-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .activity-row {
+    display: grid;
+    grid-template-columns: 130px 1fr;
+    gap: 0.4rem 1.6rem;
+    align-items: baseline;
+    padding: 1.7rem 0;
+    border-top: 1px solid var(--line-soft);
+  }
+  .activity-list .activity-row:last-child { border-bottom: 1px solid var(--line-soft); }
+
+  .activity-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .activity-type {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    color: var(--ocean-hi);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .activity-date {
+    font-family: var(--mono);
+    font-size: 0.58rem;
+    color: var(--fog);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .activity-main {
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+    min-width: 0;
+  }
+  .activity-name {
+    font-family: var(--serif);
+    font-size: clamp(1.05rem, 2vw, 1.3rem);
+    color: var(--bone);
+    line-height: 1.25;
+  }
+  .activity-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem 1.3rem;
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    color: var(--mist);
+  }
+  .activity-stats b { color: var(--bone); font-weight: 400; }
+
+  @media (max-width: 620px) {
+    .activity-row { grid-template-columns: 1fr; gap: 0.5rem; }
+  }
+
+  /* ============================================================
      CONTACT — finish line
   ============================================================ */
   #contact .sec-title { margin-bottom: 0; }
@@ -2091,15 +2173,37 @@
       </div>
     </section>
 
-    <!-- CONTACT -->
-    <section id="contact">
+    <!-- RECENT ACTIVITY -->
+    <section id="recent-activity">
       <div class="sec-grid">
         <div class="ckpt" aria-hidden="true">
           <div class="ckpt-dot"><span class="pt"></span><span class="num">06</span></div>
         </div>
         <div>
           <div class="sec-head rv">
-            <span class="sec-label">06 / Contact</span>
+            <span class="sec-label">06 / Recent Activity</span>
+            <h2 class="sec-title">Recent<br><em>Miles</em></h2>
+          </div>
+
+          <div class="rv">
+            <p class="activity-intro">Pulled live from Strava — my last five workouts, whatever they happened to be.</p>
+            <div class="activity-list" id="activity-list">
+              <p class="activity-status" id="activity-status">Loading recent activity…</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <div class="sec-grid">
+        <div class="ckpt" aria-hidden="true">
+          <div class="ckpt-dot"><span class="pt"></span><span class="num">07</span></div>
+        </div>
+        <div>
+          <div class="sec-head rv">
+            <span class="sec-label">07 / Contact</span>
             <h2 class="sec-title">Get in<br><em>Touch</em></h2>
           </div>
 
@@ -2148,7 +2252,7 @@
 
 <div class="np-wrap" id="np-wrap">
   <div class="np-tooltip" id="np-tooltip">
-    <span class="np-tooltip-text">This is what I'm listening to, live.</span>
+    <span class="np-tooltip-text">Shows what I'm listening to on Spotify, live.</span>
     <button class="np-tooltip-close" id="np-tooltip-close" aria-label="Dismiss">×</button>
   </div>
   <div class="np-widget" id="np-widget" aria-live="polite">
@@ -2628,6 +2732,90 @@ const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
   poll();
   setInterval(poll, POLL_MS);
   if (!REDUCED) setInterval(tickProgress, 1000);
+})();
+
+/* ==============================================================
+   Recent Activity — pulls last 5 activities from Strava
+============================================================== */
+(function () {
+  const list = document.getElementById('activity-list');
+  const status = document.getElementById('activity-status');
+  if (!list) return;
+
+  const ENDPOINT = 'https://trace-backend-iota.vercel.app/api/recent_activities';
+
+  function relativeDate(iso) {
+    const d = new Date(iso);
+    const now = new Date();
+    const startOfDay = (x) => new Date(x.getFullYear(), x.getMonth(), x.getDate());
+    const diffDays = Math.round((startOfDay(now) - startOfDay(d)) / 86400000);
+    if (diffDays === 0) return 'Today';
+    if (diffDays === 1) return 'Yesterday';
+    if (diffDays > 1 && diffDays < 7) return d.toLocaleDateString(undefined, { weekday: 'long' });
+    return d.toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
+  }
+
+  function buildStats(a) {
+    const stats = [];
+    if (a.distanceMiles > 0) stats.push(`<b>${a.distanceMiles}</b> mi`);
+    if (a.movingTimeMin > 0) stats.push(`<b>${a.movingTimeMin}</b> min`);
+    if (a.pace) stats.push(`<b>${a.pace}</b>`);
+    if (a.elevationFt > 0) stats.push(`<b>${a.elevationFt}</b> ft gain`);
+    return stats.join(' &middot; ');
+  }
+
+  function esc(s) {
+    const d = document.createElement('div');
+    d.textContent = s == null ? '' : String(s);
+    return d.innerHTML;
+  }
+
+  function formatType(type) {
+    return String(type || 'Activity').replace(/([a-z0-9])([A-Z])/g, '$1 $2');
+  }
+
+  async function load() {
+    try {
+      const res = await fetch(ENDPOINT, { cache: 'no-store' });
+      const data = await res.json();
+      const activities = (data && data.activities) || [];
+      if (!activities.length) {
+        if (status) status.textContent = 'Recent activity unavailable right now.';
+        return;
+      }
+
+      list.innerHTML = activities.map((a) => `
+        <div class="activity-row rv">
+          <div class="activity-meta">
+            <span class="activity-type">${esc(formatType(a.type))}</span>
+            <span class="activity-date">${esc(relativeDate(a.date))}</span>
+          </div>
+          <div class="activity-main">
+            <span class="activity-name">${esc(a.name)}</span>
+            <span class="activity-stats">${buildStats(a)}</span>
+          </div>
+        </div>
+      `).join('');
+
+      const rows = list.querySelectorAll('.activity-row');
+      rows.forEach((el, i) => el.style.setProperty('--d', (i * 0.07) + 's'));
+
+      if (REDUCED) {
+        rows.forEach((el) => el.classList.add('in'));
+      } else {
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+          });
+        }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+        rows.forEach((el) => io.observe(el));
+      }
+    } catch (err) {
+      if (status) status.textContent = 'Recent activity unavailable right now.';
+    }
+  }
+
+  load();
 })();
 
 /* ==============================================================
