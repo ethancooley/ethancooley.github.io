@@ -277,6 +277,7 @@
   @media (max-width: 880px) {
     .nav-links { display: none; }
     .menu-btn { display: block; }
+    .cmdk-hint { display: none; }
   }
 
   /* ============================================================
@@ -1583,6 +1584,170 @@
   }
 
   /* ============================================================
+     COMMAND PALETTE
+  ============================================================ */
+  .cmdk-hint {
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
+    background: none;
+    border: 1px solid var(--line);
+    color: var(--fog);
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.06em;
+    padding: 0.4rem 0.6rem;
+    margin-left: 1.6rem;
+    cursor: pointer;
+    transition: border-color 0.25s, color 0.25s;
+  }
+  .cmdk-hint:hover { border-color: var(--ocean-dim); color: var(--mist); }
+  .cmdk-hint-icon { font-size: 0.72rem; }
+
+  .cmdk-overlay {
+    position: fixed; inset: 0;
+    z-index: 600;
+    background: rgba(6,9,12,0.72);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: min(18vh, 160px);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.25s var(--ease-out), visibility 0.25s;
+  }
+  .cmdk-overlay.open { opacity: 1; visibility: visible; }
+
+  .cmdk-box {
+    width: min(560px, 90vw);
+    background: rgba(14,19,24,0.96);
+    border: 1px solid var(--ocean-dim);
+    box-shadow: 0 30px 90px rgba(0,0,0,0.55);
+    transform: translateY(-10px);
+    transition: transform 0.25s var(--ease-out);
+  }
+  .cmdk-overlay.open .cmdk-box { transform: translateY(0); }
+
+  .cmdk-input-row {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 1.1rem 1.2rem;
+    border-bottom: 1px solid var(--line);
+  }
+  .cmdk-prompt { color: var(--ocean-hi); font-family: var(--mono); font-size: 0.9rem; }
+  .cmdk-input {
+    flex: 1;
+    background: none;
+    border: none;
+    outline: none;
+    color: var(--bone);
+    font-family: var(--sans);
+    font-size: 0.95rem;
+    font-weight: 300;
+  }
+  .cmdk-input::placeholder { color: var(--fog); }
+  .cmdk-esc {
+    font-family: var(--mono);
+    font-size: 0.56rem;
+    color: var(--fog);
+    border: 1px solid var(--line);
+    padding: 0.15rem 0.4rem;
+    letter-spacing: 0.05em;
+  }
+
+  .cmdk-list {
+    list-style: none;
+    max-height: 340px;
+    overflow-y: auto;
+    padding: 0.5rem;
+  }
+  .cmdk-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.7rem 0.8rem;
+    cursor: pointer;
+    font-family: var(--sans);
+    font-size: 0.85rem;
+    color: var(--mist);
+  }
+  .cmdk-item.active { background: rgba(46,125,163,0.14); color: var(--bone); }
+  .cmdk-item-meta {
+    font-family: var(--mono);
+    font-size: 0.58rem;
+    color: var(--fog);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    flex-shrink: 0;
+  }
+  .cmdk-item.active .cmdk-item-meta { color: var(--ocean-hi); }
+  .cmdk-empty {
+    padding: 1.6rem 1rem;
+    text-align: center;
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    color: var(--fog);
+  }
+
+  /* ============================================================
+     EASTER EGG — Konami code
+  ============================================================ */
+  .egg-runner {
+    position: fixed;
+    top: 0; left: -8vw;
+    z-index: 40;
+    font-size: 2.2rem;
+    filter: drop-shadow(0 4px 10px rgba(0,0,0,0.5));
+    pointer-events: none;
+    opacity: 0;
+    transform: scaleX(-1);
+  }
+  .egg-runner.run {
+    animation: egg-run 2.6s linear forwards;
+  }
+  @keyframes egg-run {
+    0% { left: -8vw; top: 30vh; opacity: 1; }
+    100% { left: 106vw; top: 22vh; opacity: 1; }
+  }
+
+  .egg-toast {
+    position: fixed;
+    top: 1.6rem; left: 50%;
+    transform: translate(-50%, -14px);
+    z-index: 601;
+    background: rgba(14,19,24,0.95);
+    border: 1px solid var(--ocean-dim);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+    padding: 1rem 1.6rem;
+    text-align: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s var(--ease-out), transform 0.4s var(--ease-out);
+  }
+  .egg-toast.show { opacity: 1; transform: translate(-50%, 0); }
+  .egg-toast-title {
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    color: var(--ocean-hi);
+  }
+  .egg-toast-sub {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    color: var(--mist);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-top: 0.3rem;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .egg-runner.run { animation: none; opacity: 0; }
+  }
+
+  /* ============================================================
      RECENT ACTIVITY — live Strava feed
   ============================================================ */
   .activity-intro {
@@ -1651,6 +1816,15 @@
     width: 100%;
     height: 260px;
     display: block;
+  }
+
+  .activity-list-label {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    color: var(--fog);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
   }
 
   .activity-status {
@@ -1914,6 +2088,9 @@
     <li><a href="photography.html">Photography</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
+  <button class="cmdk-hint" id="cmdk-open" aria-label="Open command palette" type="button">
+    <span class="cmdk-hint-icon">⌘</span>K
+  </button>
   <button class="menu-btn" id="menu-open" aria-label="Open menu" aria-expanded="false">Menu</button>
   <div class="nav-progress" id="nav-progress" aria-hidden="true"></div>
 </nav>
@@ -2425,7 +2602,7 @@
           </div>
 
           <div class="rv">
-            <p class="activity-intro">Pulled live from Strava — my last five workouts, whatever they happened to be.</p>
+            <p class="activity-intro">Pulled live from Strava — training totals for the year, my latest route, and my most recent workouts.</p>
 
             <div class="year-stats" id="year-stats" style="display:none;">
               <div class="stat"><b><span class="count" id="stat-distance" data-count="0" data-suffix=" mi">0 mi</span></b><span>This year, total distance</span></div>
@@ -2442,6 +2619,7 @@
               <canvas id="route-canvas" aria-label="GPS route of latest outdoor activity"></canvas>
             </div>
 
+            <p class="activity-list-label">Last 5 Activities</p>
             <div class="activity-list" id="activity-list">
               <p class="activity-status" id="activity-status">Loading recent activity…</p>
             </div>
@@ -2523,6 +2701,25 @@
     </a>
     <span class="np-progress"><span class="np-progress-fill" id="np-progress-fill"></span></span>
   </div>
+</div>
+
+<!-- COMMAND PALETTE -->
+<div class="cmdk-overlay" id="cmdk-overlay" aria-hidden="true">
+  <div class="cmdk-box" role="dialog" aria-modal="true" aria-label="Command palette">
+    <div class="cmdk-input-row">
+      <span class="cmdk-prompt" aria-hidden="true">→</span>
+      <input type="text" id="cmdk-input" class="cmdk-input" placeholder="Jump to a section, or a link…" autocomplete="off" spellcheck="false" />
+      <span class="cmdk-esc">ESC</span>
+    </div>
+    <ul class="cmdk-list" id="cmdk-list"></ul>
+  </div>
+</div>
+
+<!-- EASTER EGG -->
+<div class="egg-runner" id="egg-runner" aria-hidden="true">🏃</div>
+<div class="egg-toast" id="egg-toast" aria-hidden="true">
+  <p class="egg-toast-title">Personal Record Unlocked</p>
+  <p class="egg-toast-sub">Colorado Marathon · 3:35:19</p>
 </div>
 
 <script>
@@ -2926,17 +3123,33 @@ const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
     if (tooltip) tooltip.classList.remove('show');
   }
 
+  function displayTooltip() {
+    if (!tooltip) return;
+    if (tooltipTimer) clearTimeout(tooltipTimer);
+    tooltip.classList.add('show');
+    tooltipTimer = setTimeout(hideTooltip, 6000);
+  }
+
   function showTooltipOnce() {
     if (hasShownTooltip || !tooltip) return;
     hasShownTooltip = true;
-    setTimeout(() => {
-      tooltip.classList.add('show');
-      tooltipTimer = setTimeout(hideTooltip, 6000);
-    }, 500);
+    setTimeout(displayTooltip, 500);
   }
 
   if (tooltipClose) tooltipClose.addEventListener('click', (e) => { e.preventDefault(); hideTooltip(); });
-  widget.addEventListener('click', hideTooltip);
+
+  // While idle, there's no track to open — clicking should just re-explain
+  // the widget instead of following the placeholder "#" link.
+  if (link) {
+    link.addEventListener('click', (e) => {
+      if (!widget.classList.contains('live')) {
+        e.preventDefault();
+        displayTooltip();
+      } else {
+        hideTooltip();
+      }
+    });
+  }
 
   function tickProgress() {
     if (!durationMs) { progressFill.style.width = '0%'; return; }
@@ -3481,6 +3694,180 @@ const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
     drawFrame(ctx, W, H, pts, 1, COLOR);
   });
 })();
+
+/* ==============================================================
+   Command palette (Cmd+K / Ctrl+K)
+============================================================== */
+(function () {
+  const overlay = document.getElementById('cmdk-overlay');
+  const input = document.getElementById('cmdk-input');
+  const list = document.getElementById('cmdk-list');
+  const openBtn = document.getElementById('cmdk-open');
+  if (!overlay || !input || !list) return;
+
+  const ITEMS = [
+    { label: 'About', meta: 'Section', keywords: 'about person bio', action: () => go('#about') },
+    { label: 'Experience', meta: 'Section', keywords: 'experience work stanson premier job', action: () => go('#experience') },
+    { label: 'Skills', meta: 'Section', keywords: 'skills stack technical tools', action: () => go('#skills') },
+    { label: 'Education', meta: 'Section', keywords: 'education duke wake forest school', action: () => go('#education') },
+    { label: 'Projects', meta: 'Section', keywords: 'projects work trace capstone', action: () => go('#projects') },
+    { label: 'Live Demo', meta: 'Section', keywords: 'demo ml machine learning embeddings model', action: () => go('#ml-demo') },
+    { label: 'Beyond Work', meta: 'Section', keywords: 'hobbies running guitar skiing biking', action: () => go('#extracurriculars') },
+    { label: 'Recent Activity', meta: 'Section', keywords: 'strava running miles training recent activity', action: () => go('#recent-activity') },
+    { label: 'Contact', meta: 'Section', keywords: 'contact email message form', action: () => go('#contact') },
+    { label: 'Photography', meta: 'Page', keywords: 'photography photos gallery pictures', action: () => window.location.href = 'photography.html' },
+    { label: 'What I\u2019m listening to', meta: 'Live', keywords: 'spotify music now playing song', action: () => pulseWidget() },
+    { label: 'GitHub', meta: 'External', keywords: 'github code repos', action: () => window.open('https://github.com/ethancooley', '_blank', 'noopener') },
+    { label: 'LinkedIn', meta: 'External', keywords: 'linkedin', action: () => window.open('https://linkedin.com/in/ethancooley', '_blank', 'noopener') },
+    { label: 'Hugging Face', meta: 'External', keywords: 'huggingface models nlp', action: () => window.open('https://huggingface.co/ecooley', '_blank', 'noopener') },
+    { label: 'SoundCloud', meta: 'External', keywords: 'soundcloud guitar music tracks', action: () => window.open('https://soundcloud.com/cooleyethan', '_blank', 'noopener') },
+  ];
+
+  function go(hash) {
+    const el = document.querySelector(hash);
+    if (el) el.scrollIntoView({ behavior: REDUCED ? 'auto' : 'smooth' });
+  }
+
+  function pulseWidget() {
+    go('#top');
+    const widget = document.getElementById('np-widget');
+    if (!widget) return;
+    setTimeout(() => {
+      widget.style.transition = 'box-shadow 0.4s ease';
+      widget.style.boxShadow = '0 0 0 3px rgba(46,125,163,0.5)';
+      setTimeout(() => { widget.style.boxShadow = ''; }, 1200);
+    }, 300);
+  }
+
+  let filtered = ITEMS.slice();
+  let activeIndex = 0;
+
+  function render() {
+    if (!filtered.length) {
+      list.innerHTML = '<li class="cmdk-empty">No matches — try a section name or "github"</li>';
+      return;
+    }
+    list.innerHTML = filtered.map((item, i) => `
+      <li class="cmdk-item${i === activeIndex ? ' active' : ''}" data-index="${i}">
+        <span>${item.label}</span>
+        <span class="cmdk-item-meta">${item.meta}</span>
+      </li>
+    `).join('');
+  }
+
+  function filterItems(query) {
+    const q = query.trim().toLowerCase();
+    filtered = !q
+      ? ITEMS.slice()
+      : ITEMS.filter((item) => (item.label + ' ' + item.keywords).toLowerCase().includes(q));
+    activeIndex = 0;
+    render();
+  }
+
+  function openPalette() {
+    overlay.classList.add('open');
+    overlay.setAttribute('aria-hidden', 'false');
+    input.value = '';
+    filterItems('');
+    document.body.style.overflow = 'hidden';
+    setTimeout(() => input.focus(), 30);
+  }
+
+  function closePalette() {
+    overlay.classList.remove('open');
+    overlay.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  function runActive() {
+    const item = filtered[activeIndex];
+    if (!item) return;
+    closePalette();
+    item.action();
+  }
+
+  document.addEventListener('keydown', (e) => {
+    const isK = e.key === 'k' || e.key === 'K';
+    if ((e.metaKey || e.ctrlKey) && isK) {
+      e.preventDefault();
+      overlay.classList.contains('open') ? closePalette() : openPalette();
+    } else if (e.key === 'Escape' && overlay.classList.contains('open')) {
+      closePalette();
+    }
+  });
+
+  if (openBtn) openBtn.addEventListener('click', openPalette);
+  overlay.addEventListener('click', (e) => { if (e.target === overlay) closePalette(); });
+
+  input.addEventListener('input', () => filterItems(input.value));
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      activeIndex = Math.min(activeIndex + 1, filtered.length - 1);
+      render();
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      activeIndex = Math.max(activeIndex - 1, 0);
+      render();
+    } else if (e.key === 'Enter') {
+      e.preventDefault();
+      runActive();
+    }
+  });
+
+  list.addEventListener('click', (e) => {
+    const li = e.target.closest('.cmdk-item');
+    if (!li) return;
+    activeIndex = parseInt(li.dataset.index, 10);
+    runActive();
+  });
+})();
+
+/* ==============================================================
+   Easter egg — Konami code
+============================================================== */
+(function () {
+  const runner = document.getElementById('egg-runner');
+  const toast = document.getElementById('egg-toast');
+  if (!runner || !toast) return;
+
+  const CODE = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+  let buffer = [];
+
+  function trigger() {
+    if (REDUCED) {
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 4000);
+      return;
+    }
+    runner.classList.remove('run');
+    void runner.offsetWidth; // restart animation
+    runner.classList.add('run');
+    setTimeout(() => {
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 3600);
+    }, 1400);
+  }
+
+  document.addEventListener('keydown', (e) => {
+    const tag = (e.target && e.target.tagName || '').toLowerCase();
+    if (tag === 'input' || tag === 'textarea') return;
+
+    const key = e.key.length === 1 ? e.key.toLowerCase() : e.key;
+    buffer.push(key);
+    if (buffer.length > CODE.length) buffer.shift();
+    if (buffer.length === CODE.length && buffer.every((k, i) => k === CODE[i])) {
+      trigger();
+      buffer = [];
+    }
+  });
+})();
+
+/* ==============================================================
+   A little something for anyone checking the console
+============================================================== */
+console.log('%cHey, curious developer 👋', 'font-size:18px;font-weight:bold;color:#6FB4D6;');
+console.log('%cIf you\'re digging around in here, you\'ll probably enjoy the Live Demo section more. Or say hi: linkedin.com/in/ethancooley', 'font-size:12px;color:#8da0ab;line-height:1.6;');
 </script>
 <script type="module">
   import { pipeline } from 'https://cdn.jsdelivr.net/npm/@xenova/transformers@2.17.2';
