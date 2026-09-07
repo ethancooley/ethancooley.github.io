@@ -1126,7 +1126,7 @@
     pointer-events: none;
   }
 
-  .project-links { margin-top: 1.6rem; }
+  .project-links { margin-top: 1.6rem; display: flex; gap: 1rem; flex-wrap: wrap; }
 
   .slide-link {
     display: block;
@@ -1928,6 +1928,12 @@
     line-height: 1.7;
     margin-bottom: 1.8rem;
   }
+  .contact-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    align-items: flex-start;
+  }
   .linkedin-link {
     font-family: var(--mono);
     font-size: 0.7rem;
@@ -2471,6 +2477,36 @@
             </div>
           </article>
 
+          <!-- Medium article -->
+          <article class="project-panel rv">
+            <div class="project-top">
+              <h3 class="project-title">From Elite to Everyone</h3>
+              <span class="project-role">Personal Writing · Data Analysis</span>
+            </div>
+            <p class="project-meta">Medium · September 2025 · Python, Pandas, Data Visualization</p>
+
+            <div class="project-body" style="grid-template-columns: 1fr;">
+              <div class="project-copy">
+                <ul class="project-bullets">
+                  <li>Analyzed 7.4 million ultramarathon results from 1.6 million athletes, spanning 1798–2022, to understand how the sport's participation and performance have evolved over time.</li>
+                  <li>Used pandas for feature engineering and time-series analysis, uncovering a steady rise in finish times since the 1970s — driven not by declining performance, but by a surge of first-time, older, and more geographically diverse participants.</li>
+                  <li>Visualized total finishers, age distribution, and country diversity across seven decades to make the case that slower average times reflect a sport becoming more inclusive rather than less competitive.</li>
+                </ul>
+
+                <div class="stat-strip" aria-label="Headline stats">
+                  <div class="stat"><b><span class="count" data-count="7" data-suffix="M+">0M+</span></b><span>Race results analyzed</span></div>
+                  <div class="stat"><b><span class="count" data-count="224" data-suffix="">0</span></b><span>Years of data (1798–2022)</span></div>
+                  <div class="stat"><b><span class="count" data-count="150" data-suffix="+">0+</span></b><span>Countries by 2020</span></div>
+                </div>
+
+                <div class="project-links">
+                  <a href="https://medium.com/@ethancooley17/from-elite-to-everyone-the-evolving-face-of-ultramarathon-running-27bc6a80d507" target="_blank" rel="noopener" class="btn magnetic" style="padding:0.8rem 1.5rem;"><span class="fill"></span>Read on Medium <span class="arrow">↗</span></a>
+                  <a href="https://github.com/ecooleyduke/Elite-to-Everyone-Ultramarathon" target="_blank" rel="noopener" class="btn magnetic" style="padding:0.8rem 1.5rem;"><span class="fill"></span>View code <span class="arrow">↗</span></a>
+                </div>
+              </div>
+            </div>
+          </article>
+
           <!-- Capstone -->
           <article class="project-panel rv" id="cancer-project">
             <div class="project-top">
@@ -2656,7 +2692,9 @@
           <div class="contact-grid rv">
             <div>
               <p class="contact-blurb">Interested in working together or just want to say hello? Send a message and I'll get back to you.</p>
-              <a href="https://linkedin.com/in/ethancooley" target="_blank" rel="noopener" class="linkedin-link">↗ linkedin.com/in/ethancooley</a>
+              <div class="contact-links">
+                <a href="https://linkedin.com/in/ethancooley" target="_blank" rel="noopener" class="linkedin-link">↗ linkedin.com/in/ethancooley</a>
+              </div>
             </div>
             <div>
               <div class="form-success" style="display:none">Thanks — message sent! I'll be in touch soon.</div>
@@ -3735,6 +3773,7 @@ const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
     { label: 'LinkedIn', meta: 'External', keywords: 'linkedin', action: () => window.open('https://linkedin.com/in/ethancooley', '_blank', 'noopener') },
     { label: 'Hugging Face', meta: 'External', keywords: 'huggingface models nlp', action: () => window.open('https://huggingface.co/ecooley', '_blank', 'noopener') },
     { label: 'SoundCloud', meta: 'External', keywords: 'soundcloud guitar music tracks', action: () => window.open('https://soundcloud.com/cooleyethan', '_blank', 'noopener') },
+    { label: 'Medium', meta: 'External', keywords: 'medium blog writing articles posts', action: () => window.open('https://medium.com/@ethancooley17', '_blank', 'noopener') },
     { label: 'Psst…', meta: 'Secret', keywords: 'secret hint konami cheat code easter egg', hidden: true, action: () => { if (window.showEggHint) window.showEggHint(); } },
   ];
 
