@@ -3284,7 +3284,11 @@ const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
 
   function buildStats(a) {
     const stats = [];
-    if (a.distanceMiles > 0) stats.push(`<b>${a.distanceMiles}</b> mi`);
+    if (a.type === 'Swim' && a.distanceYards > 0) {
+      stats.push(`<b>${a.distanceYards}</b> yd`);
+    } else if (a.distanceMiles > 0) {
+      stats.push(`<b>${a.distanceMiles}</b> mi`);
+    }
     if (a.movingTimeMin > 0) stats.push(`<b>${a.movingTimeMin}</b> min`);
     if (a.pace) stats.push(`<b>${a.pace}</b>`);
     if (a.elevationFt > 0) stats.push(`<b>${a.elevationFt}</b> ft gain`);
