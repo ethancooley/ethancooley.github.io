@@ -3199,7 +3199,9 @@ const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
 
   // Show on hover (desktop) rather than automatically on page load —
   // a short leave-delay avoids it flickering if the cursor briefly
-  // drifts off the widget.
+  // drifts off the widget. The tooltip sits above the widget, so it
+  // also needs its own hover handlers — otherwise moving toward its
+  // close button counts as leaving the widget and hides it first.
   widget.addEventListener('mouseenter', () => {
     clearTimeout(hoverLeaveTimer);
     displayTooltip();
@@ -3207,6 +3209,12 @@ const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
   widget.addEventListener('mouseleave', () => {
     hoverLeaveTimer = setTimeout(hideTooltip, 250);
   });
+  if (tooltip) {
+    tooltip.addEventListener('mouseenter', () => clearTimeout(hoverLeaveTimer));
+    tooltip.addEventListener('mouseleave', () => {
+      hoverLeaveTimer = setTimeout(hideTooltip, 250);
+    });
+  }
 
   // While idle, there's no track to open — clicking should just re-explain
   // the widget instead of following the placeholder "#" link. This also
