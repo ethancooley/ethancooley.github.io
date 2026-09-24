@@ -3180,8 +3180,8 @@ const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
   let durationMs = 0;
   let baseProgressMs = 0;
   let baseTimestamp = 0;
-  let hasShownTooltip = false;
   let tooltipTimer = null;
+  let hoverLeaveTimer = null;
 
   function hideTooltip() {
     if (tooltipTimer) clearTimeout(tooltipTimer);
@@ -3195,16 +3195,22 @@ const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
     tooltipTimer = setTimeout(hideTooltip, 6000);
   }
 
-  function showTooltipOnce() {
-    if (hasShownTooltip || !tooltip) return;
-    hasShownTooltip = true;
-    setTimeout(displayTooltip, 500);
-  }
-
   if (tooltipClose) tooltipClose.addEventListener('click', (e) => { e.preventDefault(); hideTooltip(); });
 
+  // Show on hover (desktop) rather than automatically on page load —
+  // a short leave-delay avoids it flickering if the cursor briefly
+  // drifts off the widget.
+  widget.addEventListener('mouseenter', () => {
+    clearTimeout(hoverLeaveTimer);
+    displayTooltip();
+  });
+  widget.addEventListener('mouseleave', () => {
+    hoverLeaveTimer = setTimeout(hideTooltip, 250);
+  });
+
   // While idle, there's no track to open — clicking should just re-explain
-  // the widget instead of following the placeholder "#" link.
+  // the widget instead of following the placeholder "#" link. This also
+  // serves as the touch-device equivalent of hovering.
   if (link) {
     link.addEventListener('click', (e) => {
       if (!widget.classList.contains('live')) {
@@ -3258,7 +3264,6 @@ const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
       showIdle();
     } finally {
       widget.classList.add('ready');
-      showTooltipOnce();
     }
   }
 
