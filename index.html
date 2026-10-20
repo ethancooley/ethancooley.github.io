@@ -1136,6 +1136,28 @@
     pointer-events: none;
   }
 
+
+  .project-lede {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 1.15rem;
+    color: var(--bone);
+    margin-bottom: 0.9rem;
+    line-height: 1.4;
+  }
+  .project-desc {
+    font-size: 0.9rem;
+    color: var(--mist);
+    line-height: 1.7;
+    margin-bottom: 1.2rem;
+  }
+  .verdicts { padding: 1.4rem 1.2rem 3rem; display: flex; flex-direction: column; gap: 0.7rem; }
+  .verdicts .v-title { font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--fog); margin-bottom: 0.2rem; }
+  .verdicts .v { display: flex; align-items: center; gap: 0.8rem; padding: 0.75rem 0.9rem; border: 1px solid var(--line); background: var(--surface, #0e1318); }
+  .verdicts .v i { width: 8px; height: 8px; border-radius: 50%; flex: none; background: var(--c); box-shadow: 0 0 8px var(--c); }
+  .verdicts .v b { font-family: var(--mono); font-weight: 400; font-size: 0.66rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--bone); }
+  .verdicts .v span { margin-left: auto; font-family: var(--mono); font-size: 0.56rem; letter-spacing: 0.08em; color: var(--fog); text-align: right; }
+
   .project-links { margin-top: 1.6rem; display: flex; gap: 1rem; flex-wrap: wrap; }
 
   .slide-link {
@@ -2430,6 +2452,44 @@
             <span class="sec-label">04 / Projects</span>
             <h2 class="sec-title">Featured<br><em>Work</em></h2>
           </div>
+
+          <!-- Groundmark -->
+          <article class="project-panel rv" id="groundmark-project">
+            <div class="project-top">
+              <h3 class="project-title">Groundmark</h3>
+              <span class="project-role">Personal Project · Responsible AI</span>
+            </div>
+            <p class="project-meta">2026 · JavaScript, Chrome Extensions, Gemini Nano, Next.js, Tailwind, NLP, BM25, Responsible AI, XAI</p>
+
+            <div class="project-body">
+              <div class="project-copy">
+                <p class="project-lede">Google's AI cites its sources. Groundmark reads them.</p>
+                <p class="project-desc">A free Chrome extension that checks each sentence of a Google AI Overview against the pages Google cited for it. Every sentence gets a verdict (supported, not found in its source, contradicted by its source, or couldn't check) with the exact passage behind it and a link that opens the source scrolled to that passage. It runs entirely on-device with Gemini Nano, Chrome's built-in language model: no server, no account, no cost, and searches never leave the computer.</p>
+                <ul class="project-bullets">
+                  <li>Built a Chrome MV3 extension and a Next.js site. The checking pipeline splits sentences, maps each to its citations, fetches pages without cookies, ranks passages with BM25 plus a number-match bonus, and asks Gemini Nano for a verdict through Chrome's Prompt API.</li>
+                  <li>Designed for Responsible AI: prompt-injection-resistant prompting, word-for-word quote verification so every quote shown exists on the page, confidence computed from evidence checks rather than self-reported, and "couldn't check" instead of guesses.</li>
+                  <li>Added an inspector ("See what the model saw") that shows the sources, the passages compared, the exact prompt, the raw model answer, and each post-processing check behind a verdict.</li>
+                  <li>Published on the Chrome Web Store, with a lite fallback mode for computers that can't run the on-device model.</li>
+                </ul>
+                <div class="project-links">
+                  <a href="https://chromewebstore.google.com/detail/mhfdggfjdiphhboegcnlkaialmmhjodl" target="_blank" rel="noopener" class="btn magnetic" style="padding:0.8rem 1.5rem;"><span class="fill"></span>Chrome Web Store <span class="arrow">↗</span></a>
+                  <a href="https://groundmark-ai.vercel.app" target="_blank" rel="noopener" class="btn magnetic" style="padding:0.8rem 1.5rem;"><span class="fill"></span>Website <span class="arrow">↗</span></a>
+                  <a href="https://github.com/ethancooley/groundmark" target="_blank" rel="noopener" class="btn magnetic" style="padding:0.8rem 1.5rem;"><span class="fill"></span>View code <span class="arrow">↗</span></a>
+                </div>
+              </div>
+
+              <div class="project-visual">
+                <div class="verdicts" aria-label="The four verdicts Groundmark can give each sentence">
+                  <div class="v-title">Verdict per sentence</div>
+                  <div class="v" style="--c:#5fd39a"><i></i><b>Supported</b><span>passage + link</span></div>
+                  <div class="v" style="--c:#e0b95a"><i></i><b>Not found in source</b><span>passage + link</span></div>
+                  <div class="v" style="--c:#e0685a"><i></i><b>Contradicted</b><span>passage + link</span></div>
+                  <div class="v" style="--c:#8da0ab"><i></i><b>Couldn't check</b><span>no guessing</span></div>
+                </div>
+                <div class="visual-caption"><span>On-device · Gemini Nano</span><span>Verdicts</span></div>
+              </div>
+            </div>
+          </article>
 
           <!-- Trace -->
           <article class="project-panel rv">
@@ -3765,7 +3825,7 @@ const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
     { label: 'Experience', meta: 'Section', keywords: 'experience work stanson premier job', action: () => go('#experience') },
     { label: 'Skills', meta: 'Section', keywords: 'skills stack technical tools', action: () => go('#skills') },
     { label: 'Education', meta: 'Section', keywords: 'education duke wake forest school', action: () => go('#education') },
-    { label: 'Projects', meta: 'Section', keywords: 'projects work trace capstone', action: () => go('#projects') },
+    { label: 'Projects', meta: 'Section', keywords: 'projects work groundmark trace capstone', action: () => go('#projects') },
     { label: 'Live Demo', meta: 'Section', keywords: 'demo ml machine learning embeddings model', action: () => go('#ml-demo') },
     { label: 'Beyond Work', meta: 'Section', keywords: 'hobbies running guitar skiing biking', action: () => go('#extracurriculars') },
     { label: 'Recent Activity', meta: 'Section', keywords: 'strava running miles training recent activity', action: () => go('#recent-activity') },
