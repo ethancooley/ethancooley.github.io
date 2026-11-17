@@ -1951,6 +1951,43 @@
     .activity-row { grid-template-columns: 1fr; gap: 0.5rem; }
   }
 
+  /* Strava photo gallery + lightbox */
+  .act-photos { margin: 0 0 2.6rem; }
+  .act-photos-head { display:flex; justify-content:space-between; align-items:baseline; margin-bottom:1rem; }
+  .act-photos-grid {
+    display: grid; grid-template-columns: repeat(6, 1fr); grid-auto-rows: 120px; gap: 6px;
+  }
+  .act-photo { position: relative; overflow: hidden; border: 1px solid var(--line); background: var(--ink); cursor: zoom-in; padding: 0; grid-column: span 2; }
+  .act-photo:first-child { grid-column: span 4; grid-row: span 2; }
+  .act-photo img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.9s var(--ease-out), opacity 0.6s; opacity: 0; }
+  .act-photo img.loaded { opacity: 1; }
+  .act-photo:hover img { transform: scale(1.05); }
+  .act-photo figcaption, .act-photo .cap {
+    position: absolute; left: 0; right: 0; bottom: 0; padding: 1.4rem 0.8rem 0.6rem; text-align: left;
+    background: linear-gradient(to top, rgba(6,9,12,0.9), transparent);
+    font-family: var(--mono); font-size: 0.56rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ocean-hi);
+    opacity: 0; transform: translateY(6px); transition: opacity 0.35s, transform 0.35s var(--ease-out);
+  }
+  .act-photo:hover .cap, .act-photo:focus-visible .cap, .act-photo:first-child .cap { opacity: 1; transform: none; }
+  .act-badge {
+    display: inline-block; margin-left: 0.2rem; font-family: var(--mono); font-size: 0.56rem; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--ocean-hi); border: 1px solid var(--ocean-dim); padding: 0.1rem 0.45rem;
+  }
+  @media (max-width: 620px) {
+    .act-photos-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 130px; }
+    .act-photo, .act-photo:first-child { grid-column: span 1; grid-row: span 1; }
+    .act-photo:first-child { grid-column: span 2; grid-row: span 2; }
+  }
+  .act-lb { position: fixed; inset: 0; z-index: 400; background: rgba(4,6,9,0.94); display: none; align-items: center; justify-content: center; flex-direction: column; padding: 4vh 4vw; }
+  .act-lb.open { display: flex; }
+  .act-lb img { max-width: 100%; max-height: 78vh; object-fit: contain; border: 1px solid var(--line); }
+  .act-lb-cap { margin-top: 1rem; font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.1em; color: var(--mist); text-align: center; text-transform: uppercase; }
+  .act-lb-cap b { color: var(--bone); font-weight: 400; }
+  .act-lb button { position: absolute; background: none; border: 1px solid var(--line); color: var(--bone); font-family: var(--mono); cursor: pointer; padding: 0.7rem 0.9rem; transition: background .3s, border-color .3s; }
+  .act-lb button:hover { background: var(--ocean); border-color: var(--ocean); color: var(--ink); }
+  .act-lb .x { top: 2vh; right: 2vw; } .act-lb .prev { left: 2vw; top: 50%; } .act-lb .next { right: 2vw; top: 50%; }
+
+
   /* ============================================================
      CONTACT — finish line
   ============================================================ */
@@ -2743,6 +2780,11 @@
               <canvas id="route-canvas" aria-label="GPS route of latest outdoor activity"></canvas>
             </div>
 
+            <div class="act-photos" id="act-photos" style="display:none;">
+              <div class="act-photos-head"><p class="activity-list-label" style="margin:0;">From the Route</p><span class="route-panel-meta">Photos from recent activities</span></div>
+              <div class="act-photos-grid" id="act-photos-grid"></div>
+            </div>
+
             <p class="activity-list-label">Last 5 Activities</p>
             <div class="activity-list" id="activity-list">
               <p class="activity-status" id="activity-status">Loading recent activity…</p>
@@ -3525,6 +3567,55 @@ const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
     io.observe(canvas);
   }
 
+  function renderPhotos(photos) {
+    const wrap = document.getElementById('act-photos');
+    const grid = document.getElementById('act-photos-grid');
+    if (!wrap || !grid || !photos.length) return;
+    photos = photos.filter((p) => typeof p.url === 'string' && p.url.startsWith('https://'));
+    if (!photos.length) return;
+
+    grid.innerHTML = photos.map((p, i) => `
+      <button class="act-photo" type="button" data-i="${i}" aria-label="Open photo from ${esc(p.activityName)}">
+        <img src="${esc(p.url)}" alt="${esc(p.caption || p.activityName)}" loading="lazy" referrerpolicy="no-referrer">
+        <span class="cap">${esc(p.activityName)} · ${esc(relativeDate(p.date))}</span>
+      </button>`).join('');
+    // Hide any photo that fails to load (expired URL, blocked, etc.)
+    grid.querySelectorAll('img').forEach((img) => {
+      img.addEventListener('load', () => img.classList.add('loaded'));
+      img.addEventListener('error', () => { const b = img.closest('.act-photo'); if (b) b.remove(); if (!grid.children.length) wrap.style.display = 'none'; });
+      if (img.complete && img.naturalWidth) img.classList.add('loaded');
+    });
+    wrap.style.display = '';
+
+    // Lightbox
+    const lb = document.createElement('div');
+    lb.className = 'act-lb';
+    lb.setAttribute('role', 'dialog'); lb.setAttribute('aria-modal', 'true'); lb.setAttribute('aria-label', 'Photo viewer');
+    lb.innerHTML = '<button class="x" type="button" aria-label="Close">✕</button><button class="prev" type="button" aria-label="Previous">←</button><img alt=""><div class="act-lb-cap"></div><button class="next" type="button" aria-label="Next">→</button>';
+    document.body.appendChild(lb);
+    const img = lb.querySelector('img'), cap = lb.querySelector('.act-lb-cap');
+    let cur = 0;
+    function show(i) {
+      cur = (i + photos.length) % photos.length;
+      const p = photos[cur];
+      img.src = p.url; img.alt = p.caption || p.activityName;
+      cap.innerHTML = `<b>${esc(p.activityName)}</b> · ${esc(formatType(p.type))} · ${esc(relativeDate(p.date))}${p.caption ? '<br>' + esc(p.caption) : ''}`;
+    }
+    function open(i) { show(i); lb.classList.add('open'); document.addEventListener('keydown', onKey); }
+    function close() { lb.classList.remove('open'); document.removeEventListener('keydown', onKey); }
+    function onKey(e) {
+      if (e.key === 'Escape') close();
+      else if (e.key === 'ArrowRight') show(cur + 1);
+      else if (e.key === 'ArrowLeft') show(cur - 1);
+    }
+    grid.addEventListener('click', (e) => { const b = e.target.closest('.act-photo'); if (b) open(parseInt(b.dataset.i, 10)); });
+    lb.addEventListener('click', (e) => {
+      if (e.target === lb || e.target.classList.contains('x')) close();
+      else if (e.target.classList.contains('prev')) show(cur - 1);
+      else if (e.target.classList.contains('next')) show(cur + 1);
+    });
+  }
+
   async function load() {
     try {
       const res = await fetch(ENDPOINT, { cache: 'no-store' });
@@ -3532,6 +3623,7 @@ const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
       const activities = (data && data.activities) || [];
 
       if (data && data.latestRoute) renderRoute(data.latestRoute);
+      renderPhotos((data && data.photos) || []);
 
       if (!activities.length) {
         if (status) status.textContent = 'Recent activity unavailable right now.';
@@ -3545,7 +3637,7 @@ const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
             <span class="activity-date">${esc(relativeDate(a.date))}</span>
           </div>
           <div class="activity-main">
-            <span class="activity-name">${esc(a.name)}</span>
+            <span class="activity-name">${esc(a.name)}${a.photoCount ? ` <span class="act-badge">${a.photoCount} photo${a.photoCount > 1 ? 's' : ''}</span>` : ''}</span>
             <span class="activity-stats">${buildStats(a)}</span>
           </div>
         </div>
