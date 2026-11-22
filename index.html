@@ -1145,6 +1145,9 @@
     margin-bottom: 0.9rem;
     line-height: 1.4;
   }
+  .project-proof { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; margin: -0.2rem 0 1rem; }
+  .project-proof .stat-pill { margin: 0; }
+  .project-proof .proof-src { font-size: 0.85rem; color: var(--fog); }
   .verdicts { padding: 1.4rem 1.2rem 3rem; display: flex; flex-direction: column; gap: 0.7rem; }
   .verdicts .v-title { font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--fog); margin-bottom: 0.2rem; }
   .verdicts .v { display: flex; align-items: center; gap: 0.8rem; padding: 0.75rem 0.9rem; border: 1px solid var(--line); background: var(--surface, #0e1318); }
@@ -2556,6 +2559,7 @@
             <div class="project-body">
               <div class="project-copy">
                 <p class="project-lede">Google's AI cites its sources. Groundmark reads them.</p>
+                <p class="project-proof"><span class="stat-pill">500+ installs</span><span class="stat-pill">5-star rating</span><span class="proof-src">on the Chrome Web Store</span></p>
                 <ul class="project-bullets">
                   <li>Built a Chrome MV3 extension and a Next.js site. The checking pipeline splits sentences, maps each to its citations, fetches pages without cookies, ranks passages with BM25 plus a number-match bonus, and asks Gemini Nano for a verdict through Chrome's Prompt API.</li>
                   <li>Designed for Responsible AI: prompt-injection-resistant prompting, word-for-word quote verification so every quote shown exists on the page, confidence computed from evidence checks rather than self-reported, and "couldn't check" instead of guesses.</li>
