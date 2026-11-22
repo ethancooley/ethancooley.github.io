@@ -2507,6 +2507,44 @@
             <h2 class="sec-title">Featured<br><em>Work</em></h2>
           </div>
 
+          <!-- IDT Prep Copilot -->
+          <article class="project-panel rv" id="idt-project">
+            <div class="project-top">
+              <h3 class="project-title">IDT Prep Copilot</h3>
+              <span class="project-role">Personal Project · Agentic AI</span>
+            </div>
+            <p class="project-meta">2026 · Python, Claude, LangGraph, MCP, Agents, Evals, Postgres, pgvector, React, TypeScript, AWS, GitHub Actions</p>
+
+            <div class="project-body">
+              <div class="project-copy">
+                <p class="project-lede">Know what changed before the IDT meeting.</p>
+                <ul class="project-bullets">
+                  <li>Built a clinical copilot for PACE interdisciplinary team (IDT) meetings and owned it from the data layer to the interface. An agent reads a participant's chart since the last review and drafts a one-page brief of what changed, citing the note behind every line, for a clinician to approve.</li>
+                  <li>Built the data and tooling layer the agent works through: Postgres with pgvector holding EHR-style notes, vitals, encounters, and medications, exposed as read-only MCP tools scoped to one participant.</li>
+                  <li>Designed the agent and its prompting logic in LangGraph. Claude Haiku plans and gathers, Claude Sonnet drafts, and a verification step rereads each line against only its cited sources and removes anything unsupported before a person sees it.</li>
+                  <li>Ran structured evaluations against clinical expectations, using synthetic charts with planted events and answer keys, scored on recall, high-severity recall, old events wrongly reported as new, cost, and latency. The first run surfaced two failure patterns, which I debugged and fixed before release.</li>
+                  <li>Shipped it as a full-stack product: a React and TypeScript review app where clinicians approve, edit, or reject each line and can watch a new brief stream in live, infrastructure as code on AWS Lambda, CloudFront, and S3, and GitHub Actions that test and deploy every change.</li>
+                </ul>
+                <div class="project-links">
+                  <a href="https://idt.ethancooley.com" target="_blank" rel="noopener" class="btn magnetic" style="padding:0.8rem 1.5rem;"><span class="fill"></span>Live site <span class="arrow">↗</span></a>
+                  <a href="https://github.com/ethancooley/idt-prep-copilot" target="_blank" rel="noopener" class="btn magnetic" style="padding:0.8rem 1.5rem;"><span class="fill"></span>View code <span class="arrow">↗</span></a>
+                </div>
+              </div>
+
+              <div class="project-visual">
+                <div class="verdicts" aria-label="The steps the agent takes for each participant">
+                  <div class="v-title">One brief, step by step</div>
+                  <div class="v" style="--c:#6FB4D6"><i></i><b>Plan</b><span>Haiku · checklist</span></div>
+                  <div class="v" style="--c:#6FB4D6"><i></i><b>Read the chart</b><span>MCP · notes, vitals, meds</span></div>
+                  <div class="v" style="--c:#6FB4D6"><i></i><b>Draft</b><span>Sonnet · every line cited</span></div>
+                  <div class="v" style="--c:#5fd39a"><i></i><b>Verify each line</b><span>sources only</span></div>
+                  <div class="v" style="--c:#e0b95a"><i></i><b>Clinician approves</b><span>final call</span></div>
+                </div>
+                <div class="visual-caption"><span>Claude · LangGraph · MCP</span><span>Agent run</span></div>
+              </div>
+            </div>
+          </article>
+
           <!-- Groundmark -->
           <article class="project-panel rv" id="groundmark-project">
             <div class="project-top">
@@ -3979,7 +4017,7 @@ const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
     { label: 'Experience', meta: 'Section', keywords: 'experience work stanson premier job', action: () => go('#experience') },
     { label: 'Skills', meta: 'Section', keywords: 'skills stack technical tools', action: () => go('#skills') },
     { label: 'Education', meta: 'Section', keywords: 'education duke wake forest school', action: () => go('#education') },
-    { label: 'Projects', meta: 'Section', keywords: 'projects work groundmark trace capstone', action: () => go('#projects') },
+    { label: 'Projects', meta: 'Section', keywords: 'projects work idt prep copilot agent pace groundmark trace capstone', action: () => go('#projects') },
     { label: 'Live Demo', meta: 'Section', keywords: 'demo ml machine learning embeddings model', action: () => go('#ml-demo') },
     { label: 'Beyond Work', meta: 'Section', keywords: 'hobbies running guitar skiing biking', action: () => go('#extracurriculars') },
     { label: 'Recent Activity', meta: 'Section', keywords: 'strava running miles training recent activity', action: () => go('#recent-activity') },
