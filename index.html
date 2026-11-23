@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ethan F. Cooley — ML Engineer</title>
-<meta name="description" content="Ethan F. Cooley — Senior Machine Learning Engineer in Charlotte, NC. Building AI systems that improve how clinicians make decisions.">
+<title>Ethan F. Cooley — Machine Learning Engineer, Agentic AI for Healthcare</title>
+<meta name="description" content="Ethan F. Cooley, Senior Machine Learning Engineer in Charlotte, NC. Embeds with clinical teams and ships AI agents, LLM pipelines, and evaluations into healthcare workflows, from prototype to production.">
 
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" href="favicon-32.png" type="image/png" sizes="32x32">
@@ -14,14 +14,14 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://ethancooley.github.io/">
 <meta property="og:title" content="Ethan F. Cooley — AI &amp; Machine Learning Engineer">
-<meta property="og:description" content="Senior Machine Learning Engineer building AI systems that improve how clinicians make decisions. Live Spotify and Strava data, an in-browser ML demo, and more.">
+<meta property="og:description" content="Senior Machine Learning Engineer who embeds with clinical teams and ships AI agents into their workflows, from prototype to production. Projects, live demos, and more.">
 <meta property="og:image" content="https://ethancooley.github.io/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Ethan F. Cooley — AI &amp; Machine Learning Engineer">
-<meta name="twitter:description" content="Senior Machine Learning Engineer building AI systems that improve how clinicians make decisions.">
+<meta name="twitter:description" content="Senior Machine Learning Engineer who embeds with clinical teams and ships AI agents into their workflows, from prototype to production.">
 <meta name="twitter:image" content="https://ethancooley.github.io/og-image.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -202,7 +202,9 @@
     display: flex;
     gap: 2.2rem;
     list-style: none;
+    margin-left: auto;          /* links sit at the right, like the photography page */
   }
+  .nav-links + .cmdk-hint { margin-left: 2.2rem; }
   .nav-links a {
     position: relative;
     font-family: var(--mono);
@@ -2181,9 +2183,9 @@
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
     <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
     <li><a href="#skills">Skills</a></li>
     <li><a href="#education">Education</a></li>
-    <li><a href="#projects">Projects</a></li>
     <li><a href="#ml-demo">Live Demo</a></li>
     <li><a href="#extracurriculars">Beyond Work</a></li>
     <li><a href="photography.html">Photography</a></li>
@@ -2200,9 +2202,9 @@
   <button class="menu-close" id="menu-close" aria-label="Close menu">Close</button>
   <a href="#about" style="transition-delay:0.05s"><span>00</span>About</a>
   <a href="#experience" style="transition-delay:0.1s"><span>01</span>Experience</a>
-  <a href="#skills" style="transition-delay:0.15s"><span>02</span>Skills</a>
-  <a href="#education" style="transition-delay:0.2s"><span>03</span>Education</a>
-  <a href="#projects" style="transition-delay:0.25s"><span>04</span>Projects</a>
+  <a href="#projects" style="transition-delay:0.15s"><span>02</span>Projects</a>
+  <a href="#skills" style="transition-delay:0.2s"><span>03</span>Skills</a>
+  <a href="#education" style="transition-delay:0.25s"><span>04</span>Education</a>
   <a href="#ml-demo" style="transition-delay:0.3s"><span>05</span>Live Demo</a>
   <a href="#extracurriculars" style="transition-delay:0.35s"><span>06</span>Beyond Work</a>
   <a href="photography.html" style="transition-delay:0.4s"><span>07</span>Photography</a>
@@ -2329,11 +2331,12 @@
                   <span class="role-date">July 2025 — Present</span>
                 </div>
                 <ul class="role-bullets">
-                  <li>Optimize end-to-end LLM inference pipeline through kernel caching and batched sentence embedding strategies, reducing latency and cutting compute costs.</li>
-                  <li>Architect and continuously expand a comprehensive functional test suite for LLM models, improving end-to-end coverage and ensuring reliability across model updates and pipeline changes.</li>
-                  <li>Lead design, development, and maintenance of the data engine for the data science team, leveraging AWS OpenSearch as a centralized tool for efficient data interaction and retrieval.</li>
-                  <li>Architect and implement RESTful API endpoints connecting front-end applications with ML models deployed in AWS SageMaker, enabling rapid access to model predictions and enhancing user experience.</li>
-                  <li>Collaborate cross-functionally with clinical product teams and software engineers to define project requirements and deliver solutions aligned with business objectives.</li>
+                  <li>Build an agentic AI system on AWS Bedrock (Amazon Nova, Claude Haiku and Sonnet, Qwen) that checks whether a patient meets clinical guideline criteria, replacing manual chart review by nurses and reviewers and cutting it from hours to minutes for hundreds to thousands of patients a day.</li>
+                  <li>Work alongside clinicians and reviewers to learn how they annotate HCC cases, and turn that workflow into production models that check whether documentation supports an HCC and flag likely undocumented ones, for thousands of patients a day.</li>
+                  <li>Own the LLM evaluation suite: structured functional tests that catch regressions across model and pipeline updates before they reach users.</li>
+                  <li>Optimize the end-to-end LLM inference pipeline with kernel caching and batched sentence embeddings, reducing latency and compute cost in production.</li>
+                  <li>Own the integration layer from model to product: REST APIs connecting front-end applications to models on AWS SageMaker, and the AWS OpenSearch data engine the data science team builds on.</li>
+                  <li>Run requirements discovery with clinical product teams and engineers, translating clinical workflows into data and model requirements and shipping the solutions end to end.</li>
                 </ul>
               </div>
 
@@ -2343,10 +2346,10 @@
                   <span class="role-date">September 2023 — July 2025</span>
                 </div>
                 <ul class="role-bullets">
-                  <li>Designed and implemented an internal annotation tool enabling healthcare providers to efficiently label cases, directly improving training data quality for production ML models.</li>
+                  <li>Built an annotation tool with and for healthcare providers so they could label cases quickly, improving the training data behind production models.</li>
                   <li>Established team-wide coding standards by introducing Black and Flake8 across all repositories, fostering a culture of maintainable, consistent code.</li>
-                  <li>Built monitoring and logging solutions to track ECR pipeline and SageMaker model performance, leveraging AWS CloudWatch for real-time insights and proactive issue resolution.</li>
-                  <li>Authored comprehensive documentation for data engine architecture and API endpoints, and led training sessions to onboard team members to new tools and workflows.</li>
+                  <li>Built production monitoring and logging for ECR pipelines and SageMaker models with AWS CloudWatch, so issues were caught and fixed proactively.</li>
+                  <li>Wrote the documentation for the data engine and its APIs, and ran hands-on training sessions that drove adoption of new tools and workflows across the team.</li>
                 </ul>
               </div>
 
@@ -2358,7 +2361,7 @@
                 <ul class="role-bullets">
                   <li>Built active learning infrastructure that queried uncertain cases from production and surfaced them for annotation, continuously improving model accuracy over time.</li>
                   <li>Employed directed acyclic graphs (DAGs) to streamline and automate annotation jobs, significantly enhancing efficiency of case annotation for ML model training.</li>
-                  <li>Utilized NLP techniques to assist clinicians in making medical predictions derived from electronic health record data, directly improving patient care outcomes.</li>
+                  <li>Applied NLP to electronic health record data to support clinicians’ medical predictions, directly improving patient care outcomes.</li>
                 </ul>
               </div>
 
@@ -2378,135 +2381,15 @@
       </div>
     </section>
 
-    <!-- SKILLS -->
-    <section id="skills">
+    <!-- PROJECTS -->
+    <section id="projects">
       <div class="sec-grid">
         <div class="ckpt" aria-hidden="true">
           <div class="ckpt-dot"><span class="pt"></span><span class="num">02</span></div>
         </div>
         <div>
           <div class="sec-head rv">
-            <span class="sec-label">02 / Skills</span>
-            <h2 class="sec-title">Technical<br><em>Stack</em></h2>
-          </div>
-
-          <p class="skill-legend rv">Filled tags are what I use daily. Outlined tags I'm also comfortable with.</p>
-
-          <div class="skill-row rv">
-            <p class="skill-category-label">Machine Learning</p>
-            <div class="skill-tags">
-              <span class="tag core">Python</span>
-              <span class="tag core">LLMs</span>
-              <span class="tag core">RAG</span>
-              <span class="tag core">NLP</span>
-              <span class="tag core">Sentence Embeddings</span>
-              <span class="tag core">Active Learning</span>
-              <span class="tag core">PyTorch</span>
-              <span class="tag core">Hugging Face</span>
-              <span class="tag">TensorFlow</span>
-              <span class="tag">Scikit-Learn</span>
-              <span class="tag">Transfer Learning</span>
-              <span class="tag">CNNs</span>
-              <span class="tag">EfficientNet</span>
-            </div>
-          </div>
-          <div class="skill-row rv" style="--d:0.06s">
-            <p class="skill-category-label">Cloud &amp; Infrastructure</p>
-            <div class="skill-tags">
-              <span class="tag core">AWS SageMaker</span>
-              <span class="tag core">AWS OpenSearch</span>
-              <span class="tag core">AWS ECR</span>
-              <span class="tag">AWS S3</span>
-              <span class="tag">AWS CloudWatch</span>
-              <span class="tag">Google Cloud</span>
-              <span class="tag">Firebase</span>
-              <span class="tag">Vercel</span>
-            </div>
-          </div>
-          <div class="skill-row rv" style="--d:0.12s">
-            <p class="skill-category-label">Software Engineering</p>
-            <div class="skill-tags">
-              <span class="tag core">RESTful APIs</span>
-              <span class="tag core">OAuth 2.0</span>
-              <span class="tag core">React</span>
-              <span class="tag core">Node.js</span>
-              <span class="tag">JavaScript</span>
-              <span class="tag">HTML / CSS</span>
-              <span class="tag">Flask</span>
-              <span class="tag">FastAPI</span>
-              <span class="tag">Git</span>
-            </div>
-          </div>
-          <div class="skill-row rv" style="--d:0.18s">
-            <p class="skill-category-label">Data &amp; MLOps</p>
-            <div class="skill-tags">
-              <span class="tag core">Data Pipelines</span>
-              <span class="tag core">DAGs</span>
-              <span class="tag core">Model Monitoring</span>
-              <span class="tag">NumPy</span>
-              <span class="tag">Pandas</span>
-              <span class="tag">SQL</span>
-              <span class="tag">A/B Testing</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- EDUCATION -->
-    <section id="education">
-      <div class="sec-grid">
-        <div class="ckpt" aria-hidden="true">
-          <div class="ckpt-dot"><span class="pt"></span><span class="num">03</span></div>
-        </div>
-        <div>
-          <div class="sec-head rv">
-            <span class="sec-label">03 / Education</span>
-            <h2 class="sec-title">Academic<br><em>Background</em></h2>
-          </div>
-
-          <div class="edu-entries">
-            <div class="edu-entry rv">
-              <div>
-                <p class="edu-school">Duke University</p>
-                <p class="edu-degree">Master of Engineering — Artificial Intelligence for Product Innovation</p>
-                <p class="edu-meta">Jul 2025 — May 2027 <span class="edu-status">In Progress</span></p>
-              </div>
-              <span class="edu-year">'27</span>
-            </div>
-            <div class="edu-entry rv" style="--d:0.08s">
-              <div>
-                <p class="edu-school">Wake Forest University</p>
-                <p class="edu-degree">B.S. in Engineering — Cum Laude</p>
-                <p class="edu-meta">May 2021 · Winston-Salem, NC</p>
-                <ul class="edu-details">
-                  <li>Won best senior capstone project overall — prototyping, presentation, pro-humanitate design, and final delivery. <a href="#cancer-project" class="view-project-link">View project →</a></li>
-                </ul>
-              </div>
-              <span class="edu-year">'21</span>
-            </div>
-            <div class="edu-entry rv" style="--d:0.16s">
-              <div>
-                <p class="edu-school">University of Sydney</p>
-                <p class="edu-degree">Study Abroad — School of Engineering &amp; Computer Science</p>
-                <p class="edu-meta">Fall 2019 · Sydney, Australia</p>
-              </div>
-              <span class="edu-year">'19</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- PROJECTS -->
-    <section id="projects">
-      <div class="sec-grid">
-        <div class="ckpt" aria-hidden="true">
-          <div class="ckpt-dot"><span class="pt"></span><span class="num">04</span></div>
-        </div>
-        <div>
-          <div class="sec-head rv">
-            <span class="sec-label">04 / Projects</span>
+            <span class="sec-label">02 / Projects</span>
             <h2 class="sec-title">Featured<br><em>Work</em></h2>
           </div>
 
@@ -2698,6 +2581,161 @@
             </div>
             </div></div>
           </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills">
+      <div class="sec-grid">
+        <div class="ckpt" aria-hidden="true">
+          <div class="ckpt-dot"><span class="pt"></span><span class="num">03</span></div>
+        </div>
+        <div>
+          <div class="sec-head rv">
+            <span class="sec-label">03 / Skills</span>
+            <h2 class="sec-title">Technical<br><em>Stack</em></h2>
+          </div>
+
+          <p class="skill-legend rv">Filled tags are what I use daily. Outlined tags I'm also comfortable with.</p>
+
+          <div class="skill-row rv">
+            <p class="skill-category-label">Agentic AI &amp; LLM Apps</p>
+            <div class="skill-tags">
+              <span class="tag core">LLM Agents</span>
+              <span class="tag core">Tool Use</span>
+              <span class="tag core">Prompt Engineering</span>
+              <span class="tag core">Structured Evals</span>
+              <span class="tag core">AWS Bedrock</span>
+              <span class="tag core">Claude / Anthropic API</span>
+              <span class="tag core">RAG</span>
+              <span class="tag">LangGraph</span>
+              <span class="tag">Model Context Protocol (MCP)</span>
+              <span class="tag">Streaming UIs</span>
+            </div>
+          </div>
+          <div class="skill-row rv" style="--d:0.03s">
+            <p class="skill-category-label">Machine Learning &amp; MLOps</p>
+            <div class="skill-tags">
+              <span class="tag core">Python</span>
+              <span class="tag core">LLMs</span>
+              <span class="tag core">NLP</span>
+              <span class="tag core">Sentence Embeddings</span>
+              <span class="tag core">PyTorch</span>
+              <span class="tag core">Hugging Face</span>
+              <span class="tag core">Data Pipelines</span>
+              <span class="tag core">Model Monitoring</span>
+              <span class="tag core">Active Learning</span>
+              <span class="tag">DAGs</span>
+              <span class="tag">SQL</span>
+              <span class="tag">Pandas</span>
+              <span class="tag">NumPy</span>
+              <span class="tag">Scikit-Learn</span>
+              <span class="tag">Transfer Learning</span>
+              <span class="tag">A/B Testing</span>
+            </div>
+          </div>
+          <div class="skill-row rv" style="--d:0.06s">
+            <p class="skill-category-label">Cloud &amp; Infrastructure</p>
+            <div class="skill-tags">
+              <span class="tag core">AWS SageMaker</span>
+              <span class="tag core">AWS OpenSearch</span>
+              <span class="tag core">AWS ECR</span>
+              <span class="tag core">AWS S3</span>
+              <span class="tag core">AWS CloudWatch</span>
+              <span class="tag">AWS Lambda</span>
+              <span class="tag">AWS CloudFront</span>
+              <span class="tag">Infrastructure as Code (AWS SAM)</span>
+              <span class="tag">Google Cloud</span>
+            </div>
+          </div>
+          <div class="skill-row rv" style="--d:0.12s">
+            <p class="skill-category-label">Software Engineering</p>
+            <div class="skill-tags">
+              <span class="tag core">RESTful APIs</span>
+              <span class="tag core">React</span>
+              <span class="tag core">Node.js</span>
+              <span class="tag">JavaScript</span>
+              <span class="tag">HTML / CSS</span>
+              <span class="tag">Flask</span>
+              <span class="tag">FastAPI</span>
+              <span class="tag">TypeScript</span>
+              <span class="tag">PostgreSQL</span>
+              <span class="tag">pgvector</span>
+              <span class="tag">GitHub Actions (CI/CD)</span>
+              <span class="tag">Git</span>
+            </div>
+          </div>
+          </div>
+          <div class="skill-row rv" style="--d:0.24s">
+            <p class="skill-category-label">Healthcare Data</p>
+            <div class="skill-tags">
+              <span class="tag core">EHR Data</span>
+              <span class="tag core">ICD-10</span>
+              <span class="tag core">HCC</span>
+              <span class="tag core">HIPAA</span>
+              <span class="tag core">Clinical NLP</span>
+              <span class="tag">PACE</span>
+              <span class="tag">Clinical Guidelines</span>
+            </div>
+          </div>
+          <div class="skill-row rv" style="--d:0.3s">
+            <p class="skill-category-label">Working with Users</p>
+            <div class="skill-tags">
+              <span class="tag core">Workflow Mapping</span>
+              <span class="tag core">Requirements Discovery</span>
+              <span class="tag core">0-to-1 Prototyping</span>
+              <span class="tag core">End-to-End Ownership</span>
+              <span class="tag core">Technical Documentation</span>
+              <span class="tag core">User Training</span>
+              <span class="tag">Cross-Functional Delivery</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EDUCATION -->
+    <section id="education">
+      <div class="sec-grid">
+        <div class="ckpt" aria-hidden="true">
+          <div class="ckpt-dot"><span class="pt"></span><span class="num">04</span></div>
+        </div>
+        <div>
+          <div class="sec-head rv">
+            <span class="sec-label">04 / Education</span>
+            <h2 class="sec-title">Academic<br><em>Background</em></h2>
+          </div>
+
+          <div class="edu-entries">
+            <div class="edu-entry rv">
+              <div>
+                <p class="edu-school">Duke University</p>
+                <p class="edu-degree">Master of Engineering — Artificial Intelligence for Product Innovation</p>
+                <p class="edu-meta">Jul 2025 — May 2027 <span class="edu-status">In Progress</span></p>
+              </div>
+              <span class="edu-year">'27</span>
+            </div>
+            <div class="edu-entry rv" style="--d:0.08s">
+              <div>
+                <p class="edu-school">Wake Forest University</p>
+                <p class="edu-degree">B.S. in Engineering — Cum Laude</p>
+                <p class="edu-meta">May 2021 · Winston-Salem, NC</p>
+                <ul class="edu-details">
+                  <li>Won best senior capstone project overall — prototyping, presentation, pro-humanitate design, and final delivery. <a href="#cancer-project" class="view-project-link">View project →</a></li>
+                </ul>
+              </div>
+              <span class="edu-year">'21</span>
+            </div>
+            <div class="edu-entry rv" style="--d:0.16s">
+              <div>
+                <p class="edu-school">University of Sydney</p>
+                <p class="edu-degree">Study Abroad — School of Engineering &amp; Computer Science</p>
+                <p class="edu-meta">Fall 2019 · Sydney, Australia</p>
+              </div>
+              <span class="edu-year">'19</span>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -4019,9 +4057,9 @@ const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
   const ITEMS = [
     { label: 'About', meta: 'Section', keywords: 'about person bio', action: () => go('#about') },
     { label: 'Experience', meta: 'Section', keywords: 'experience work stanson premier job', action: () => go('#experience') },
+    { label: 'Projects', meta: 'Section', keywords: 'projects work idt prep copilot agent pace groundmark trace capstone', action: () => go('#projects') },
     { label: 'Skills', meta: 'Section', keywords: 'skills stack technical tools', action: () => go('#skills') },
     { label: 'Education', meta: 'Section', keywords: 'education duke wake forest school', action: () => go('#education') },
-    { label: 'Projects', meta: 'Section', keywords: 'projects work idt prep copilot agent pace groundmark trace capstone', action: () => go('#projects') },
     { label: 'Live Demo', meta: 'Section', keywords: 'demo ml machine learning embeddings model', action: () => go('#ml-demo') },
     { label: 'Beyond Work', meta: 'Section', keywords: 'hobbies running guitar skiing biking', action: () => go('#extracurriculars') },
     { label: 'Recent Activity', meta: 'Section', keywords: 'strava running miles training recent activity', action: () => go('#recent-activity') },
