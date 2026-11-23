@@ -14,7 +14,7 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://ethancooley.github.io/">
 <meta property="og:title" content="Ethan F. Cooley — AI &amp; Machine Learning Engineer">
-<meta property="og:description" content="Senior Machine Learning Engineer who embeds with clinical teams and ships AI agents into their workflows, from prototype to production. Projects, live demos, and more.">
+<meta property="og:description" content="Senior Machine Learning Engineer who embeds with clinical teams and ships AI agents into their workflows, from prototype to production. Projects, a live agent demo, and more.">
 <meta property="og:image" content="https://ethancooley.github.io/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -1182,6 +1182,46 @@
 
   .project-links { margin-top: 1.6rem; display: flex; gap: 1rem; flex-wrap: wrap; }
 
+  /* IDT: open-the-app callout */
+  .try-live {
+    position: relative;
+    margin: 0.4rem 0 1.6rem;
+    padding: 1.3rem 1.4rem 1.4rem 1.6rem;
+    border: 1px solid var(--ocean-dim);
+    background: linear-gradient(135deg, rgba(46,125,163,0.12), rgba(46,125,163,0.03) 60%);
+    display: grid;
+    gap: 1.1rem;
+  }
+  .try-live::before {
+    content: ""; position: absolute; left: -1px; top: -1px; bottom: -1px; width: 3px;
+    background: var(--ocean-hi);
+  }
+  .try-live-title {
+    display: flex; align-items: center; gap: 0.6rem;
+    font-family: var(--serif); font-size: 1.25rem; color: var(--bone);
+    margin-bottom: 0.5rem;
+  }
+  .try-live-copy p:not(.try-live-title) { font-size: 0.92rem; color: var(--mist); line-height: 1.6; max-width: 40rem; }
+  .try-live-copy p + p:not(.try-live-title) { margin-top: 0.4rem; }
+  .try-live-copy strong { color: var(--bone); font-weight: 500; }
+  .try-live-actions { display: flex; flex-wrap: wrap; gap: 0.8rem; }
+  .try-live-actions .btn { padding: 0.85rem 1.4rem; }
+  .try-live-actions .btn.primary { background: var(--ocean); border-color: var(--ocean); color: var(--ink); }
+  .try-live-actions .btn.primary .fill { background: var(--ocean-hi); }
+  .live-dot {
+    width: 9px; height: 9px; border-radius: 50%; flex: none;
+    background: #5fd39a; box-shadow: 0 0 0 0 rgba(95,211,154,0.6);
+    animation: live-pulse 2.4s ease-out infinite;
+  }
+  @keyframes live-pulse {
+    0% { box-shadow: 0 0 0 0 rgba(95,211,154,0.55); }
+    70%, 100% { box-shadow: 0 0 0 9px rgba(95,211,154,0); }
+  }
+  @media (prefers-reduced-motion: reduce) { .live-dot { animation: none; } }
+  .contact-blurb + .contact-blurb { margin-top: 0.9rem; }
+  .contact-blurb a { color: var(--ocean-hi); text-decoration: none; border-bottom: 1px solid var(--ocean-dim); }
+  .contact-blurb a:hover { border-color: var(--ocean-hi); }
+
   .slide-link {
     display: block;
     position: relative;
@@ -1233,122 +1273,6 @@
     .project-body, .project-body.flip { grid-template-columns: 1fr; }
     .project-body.flip .project-copy { order: 1; }
     .project-body.flip .project-visual { order: 2; }
-  }
-
-  /* ============================================================
-     LIVE ML DEMO — in-browser sentence embeddings
-  ============================================================ */
-  .demo-intro {
-    font-family: var(--mono);
-    font-size: 0.72rem;
-    color: var(--mist);
-    line-height: 1.8;
-    letter-spacing: 0.02em;
-    max-width: 38rem;
-    margin-bottom: 2.4rem;
-  }
-
-  .demo-panel {
-    border: 1px solid var(--line);
-    background: var(--surface);
-    padding: clamp(1.8rem, 4vw, 2.8rem);
-  }
-
-  .demo-hint {
-    font-family: var(--mono);
-    font-size: 0.62rem;
-    color: var(--fog);
-    letter-spacing: 0.04em;
-    line-height: 1.6;
-    margin-top: 1.1rem;
-    max-width: 30rem;
-  }
-  .demo-hint.error { color: #e07070; }
-
-  .demo-loading-text {
-    font-family: var(--mono);
-    font-size: 0.74rem;
-    color: var(--mist);
-    margin-bottom: 1.1rem;
-    letter-spacing: 0.02em;
-  }
-  .demo-progress {
-    height: 3px;
-    width: 100%;
-    background: var(--line-soft);
-  }
-  .demo-progress-fill {
-    display: block;
-    height: 100%;
-    width: 0%;
-    background: linear-gradient(90deg, var(--ocean), var(--ocean-hi));
-    box-shadow: 0 0 6px var(--glow);
-    transition: width 0.3s ease;
-  }
-
-  .demo-label {
-    display: block;
-    font-family: var(--mono);
-    font-size: 0.64rem;
-    color: var(--fog);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    margin-bottom: 1.2rem;
-  }
-  .demo-input-row {
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-    align-items: center;
-  }
-  .demo-input {
-    flex: 1;
-    min-width: 220px;
-    background: transparent;
-    border: none;
-    border-bottom: 1px solid var(--line);
-    color: var(--bone);
-    font-family: var(--sans);
-    font-size: 0.95rem;
-    font-weight: 300;
-    padding: 0.7rem 0.15rem;
-    outline: none;
-    transition: border-color 0.3s;
-  }
-  .demo-input::placeholder { color: var(--fog); }
-  .demo-input:focus { border-color: var(--ocean-hi); }
-
-  .demo-results {
-    margin-top: 2.2rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1.2rem;
-  }
-  .demo-result-label {
-    display: flex;
-    justify-content: space-between;
-    gap: 1rem;
-    font-family: var(--mono);
-    font-size: 0.7rem;
-    color: var(--mist);
-    margin-bottom: 0.5rem;
-  }
-  .demo-result-label b { color: var(--ocean-hi); font-weight: 400; flex-shrink: 0; }
-  .demo-result-bar-track {
-    height: 4px;
-    width: 100%;
-    background: var(--line-soft);
-  }
-  .demo-result-bar-fill {
-    display: block;
-    height: 100%;
-    width: 0%;
-    background: linear-gradient(90deg, var(--ocean), var(--ocean-hi));
-    transition: width 0.9s var(--ease-out);
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .demo-result-bar-fill { transition: none; }
   }
 
   /* ============================================================
@@ -2186,7 +2110,6 @@
     <li><a href="#projects">Projects</a></li>
     <li><a href="#skills">Skills</a></li>
     <li><a href="#education">Education</a></li>
-    <li><a href="#ml-demo">Live Demo</a></li>
     <li><a href="#extracurriculars">Beyond Work</a></li>
     <li><a href="photography.html">Photography</a></li>
     <li><a href="#contact">Contact</a></li>
@@ -2205,10 +2128,9 @@
   <a href="#projects" style="transition-delay:0.15s"><span>02</span>Projects</a>
   <a href="#skills" style="transition-delay:0.2s"><span>03</span>Skills</a>
   <a href="#education" style="transition-delay:0.25s"><span>04</span>Education</a>
-  <a href="#ml-demo" style="transition-delay:0.3s"><span>05</span>Live Demo</a>
-  <a href="#extracurriculars" style="transition-delay:0.35s"><span>06</span>Beyond Work</a>
-  <a href="photography.html" style="transition-delay:0.4s"><span>07</span>Photography</a>
-  <a href="#contact" style="transition-delay:0.45s"><span>08</span>Contact</a>
+  <a href="#extracurriculars" style="transition-delay:0.3s"><span>05</span>Beyond Work</a>
+  <a href="photography.html" style="transition-delay:0.35s"><span>06</span>Photography</a>
+  <a href="#contact" style="transition-delay:0.4s"><span>07</span>Contact</a>
 </div>
 
 <!-- ============================ HERO ============================ -->
@@ -2404,6 +2326,17 @@
             <div class="project-body">
               <div class="project-copy">
                 <p class="project-lede">Know what changed before the IDT meeting.</p>
+                <div class="try-live">
+                  <div class="try-live-copy">
+                    <p class="try-live-title"><span class="live-dot" aria-hidden="true"></span>Try it live</p>
+                    <p>Anyone can open the app and browse the synthetic participants, their briefs, and every step the agent took to write them.</p>
+                    <p>Want to watch the agent work through a chart in real time? <strong>Ask me for a personal access code</strong> and I'll send one over.</p>
+                  </div>
+                  <div class="try-live-actions">
+                    <a href="https://idt.ethancooley.com" target="_blank" rel="noopener" class="btn primary magnetic"><span class="fill"></span>Open the live app <span class="arrow">↗</span></a>
+                    <a href="#contact" class="btn magnetic" data-request-code><span class="fill"></span>Request an access code</a>
+                  </div>
+                </div>
                 <ul class="project-bullets">
                   <li>Built a clinical copilot for PACE interdisciplinary team (IDT) meetings and owned it from the data layer to the interface. An agent reads a participant's chart since the last review and drafts a one-page brief of what changed, citing the note behind every line, for a clinician to approve.</li>
                   <li>Built the data and tooling layer the agent works through: Postgres with pgvector holding EHR-style notes, vitals, encounters, and medications, exposed as read-only MCP tools scoped to one participant.</li>
@@ -2412,7 +2345,6 @@
                   <li>Shipped it as a full-stack product: a React and TypeScript review app where clinicians approve, edit, or reject each line and can watch a new brief stream in live, infrastructure as code on AWS Lambda, CloudFront, and S3, and GitHub Actions that test and deploy every change.</li>
                 </ul>
                 <div class="project-links">
-                  <a href="https://idt.ethancooley.com" target="_blank" rel="noopener" class="btn magnetic" style="padding:0.8rem 1.5rem;"><span class="fill"></span>Live site <span class="arrow">↗</span></a>
                   <a href="https://github.com/ethancooley/idt-prep-copilot" target="_blank" rel="noopener" class="btn magnetic" style="padding:0.8rem 1.5rem;"><span class="fill"></span>View code <span class="arrow">↗</span></a>
                 </div>
               </div>
@@ -2739,55 +2671,15 @@
       </div>
     </section>
 
-    <!-- LIVE ML DEMO -->
-    <section id="ml-demo">
+    <!-- BEYOND WORK -->
+    <section id="extracurriculars">
       <div class="sec-grid">
         <div class="ckpt" aria-hidden="true">
           <div class="ckpt-dot"><span class="pt"></span><span class="num">05</span></div>
         </div>
         <div>
           <div class="sec-head rv">
-            <span class="sec-label">05 / Live Demo</span>
-            <h2 class="sec-title">See It<br><em>Think</em></h2>
-          </div>
-
-          <div class="rv">
-            <p class="demo-intro">This is the same idea behind the sentence-embedding work I do at Stanson Health — turning language into vectors a machine can compare. Except here, it's running entirely in your browser. No server, no API call — just a small model downloaded once and cached.</p>
-
-            <div class="demo-panel">
-              <div class="demo-start" id="demo-start">
-                <button type="button" class="btn primary magnetic" id="demo-load-btn"><span class="fill"></span>Load the model (~25MB) <span class="arrow">→</span></button>
-                <p class="demo-hint">Runs fully client-side via transformers.js — nothing you type ever leaves your browser.</p>
-              </div>
-
-              <div class="demo-loading" id="demo-loading" style="display:none;">
-                <p class="demo-loading-text" id="demo-loading-text">Downloading model…</p>
-                <div class="demo-progress"><div class="demo-progress-fill" id="demo-progress-fill"></div></div>
-              </div>
-
-              <div class="demo-active" id="demo-active" style="display:none;">
-                <label class="demo-label" for="demo-input">Type a sentence — see what it's closest to</label>
-                <div class="demo-input-row">
-                  <input type="text" id="demo-input" class="demo-input" placeholder="e.g. I love being outdoors" autocomplete="off" />
-                  <button type="button" class="btn magnetic" id="demo-run-btn"><span class="fill"></span>Compare</button>
-                </div>
-                <div class="demo-results" id="demo-results"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- BEYOND WORK -->
-    <section id="extracurriculars">
-      <div class="sec-grid">
-        <div class="ckpt" aria-hidden="true">
-          <div class="ckpt-dot"><span class="pt"></span><span class="num">06</span></div>
-        </div>
-        <div>
-          <div class="sec-head rv">
-            <span class="sec-label">06 / Beyond Work</span>
+            <span class="sec-label">05 / Beyond Work</span>
             <h2 class="sec-title">Outside<br><em>the Office</em></h2>
           </div>
 
@@ -2838,11 +2730,11 @@
     <section id="recent-activity">
       <div class="sec-grid">
         <div class="ckpt" aria-hidden="true">
-          <div class="ckpt-dot"><span class="pt"></span><span class="num">07</span></div>
+          <div class="ckpt-dot"><span class="pt"></span><span class="num">06</span></div>
         </div>
         <div>
           <div class="sec-head rv">
-            <span class="sec-label">07 / Recent Activity</span>
+            <span class="sec-label">06 / Recent Activity</span>
             <h2 class="sec-title">Recent<br><em>Miles</em></h2>
           </div>
 
@@ -2883,17 +2775,18 @@
     <section id="contact">
       <div class="sec-grid">
         <div class="ckpt" aria-hidden="true">
-          <div class="ckpt-dot"><span class="pt"></span><span class="num">08</span></div>
+          <div class="ckpt-dot"><span class="pt"></span><span class="num">07</span></div>
         </div>
         <div>
           <div class="sec-head rv">
-            <span class="sec-label">08 / Contact</span>
+            <span class="sec-label">07 / Contact</span>
             <h2 class="sec-title">Get in<br><em>Touch</em></h2>
           </div>
 
           <div class="contact-grid rv">
             <div>
               <p class="contact-blurb">Interested in working together or just want to say hello? Send a message and I'll get back to you.</p>
+              <p class="contact-blurb">Want to watch <a href="https://idt.ethancooley.com" target="_blank" rel="noopener">IDT Prep Copilot</a> run live? <a href="#contact" data-request-code>Ask for an access code</a> and I'll send you one.</p>
               <div class="contact-links">
                 <a href="https://linkedin.com/in/ethancooley" target="_blank" rel="noopener" class="linkedin-link">↗ linkedin.com/in/ethancooley</a>
               </div>
@@ -4059,7 +3952,6 @@ const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
     { label: 'Projects', meta: 'Section', keywords: 'projects work idt prep copilot agent pace groundmark trace capstone', action: () => go('#projects') },
     { label: 'Skills', meta: 'Section', keywords: 'skills stack technical tools', action: () => go('#skills') },
     { label: 'Education', meta: 'Section', keywords: 'education duke wake forest school', action: () => go('#education') },
-    { label: 'Live Demo', meta: 'Section', keywords: 'demo ml machine learning embeddings model', action: () => go('#ml-demo') },
     { label: 'Beyond Work', meta: 'Section', keywords: 'hobbies running guitar skiing biking', action: () => go('#extracurriculars') },
     { label: 'Recent Activity', meta: 'Section', keywords: 'strava running miles training recent activity', action: () => go('#recent-activity') },
     { label: 'Contact', meta: 'Section', keywords: 'contact email message form', action: () => go('#contact') },
@@ -4238,130 +4130,32 @@ const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
 })();
 
 /* ==============================================================
+   "Request an access code" links: prefill the contact message
+============================================================== */
+(function () {
+  const msg = document.getElementById('message');
+  if (!msg) return;
+  const text = "Hi Ethan, I'd like an access code to try IDT Prep Copilot live.";
+  document.querySelectorAll('[data-request-code]').forEach(link => {
+    link.addEventListener('click', () => {
+      if (!msg.value.trim()) {
+        msg.value = text;
+        msg.dispatchEvent(new Event('input', { bubbles: true }));
+      }
+      setTimeout(() => {
+        const name = document.getElementById('name');
+        (name && !name.value ? name : msg).focus({ preventScroll: true });
+      }, 700);
+    });
+  });
+})();
+
+/* ==============================================================
    A little something for anyone checking the console
 ============================================================== */
 console.log('%cHey, curious developer 👋', 'font-size:18px;font-weight:bold;color:#6FB4D6;');
-console.log('%cIf you\'re digging around in here, you\'ll probably enjoy the Live Demo section more. Or say hi: linkedin.com/in/ethancooley', 'font-size:12px;color:#8da0ab;line-height:1.6;');
+console.log('%cIf you\'re digging around in here, you\'ll probably enjoy watching the IDT Prep Copilot agent work at idt.ethancooley.com. Or say hi: linkedin.com/in/ethancooley', 'font-size:12px;color:#8da0ab;line-height:1.6;');
 console.log('%cPsst — this site also knows the Konami code.', 'font-size:12px;color:#56646e;font-style:italic;');
-</script>
-<script type="module">
-  import { pipeline } from 'https://cdn.jsdelivr.net/npm/@xenova/transformers@2.17.2';
-
-  (function () {
-    const startEl = document.getElementById('demo-start');
-    const loadingEl = document.getElementById('demo-loading');
-    const loadingText = document.getElementById('demo-loading-text');
-    const progressFill = document.getElementById('demo-progress-fill');
-    const activeEl = document.getElementById('demo-active');
-    const loadBtn = document.getElementById('demo-load-btn');
-    const runBtn = document.getElementById('demo-run-btn');
-    const input = document.getElementById('demo-input');
-    const resultsEl = document.getElementById('demo-results');
-    if (!loadBtn) return;
-
-    const CANDIDATES = [
-      'I love going for long runs in the mountains.',
-      'Building and optimizing machine learning models is my job.',
-      'The weather today is really nice.',
-      'I play guitar in my free time.',
-      'Data pipelines and cloud infrastructure keep everything running.',
-      'Skiing in the backcountry requires careful planning.',
-    ];
-
-    let extractor = null;
-    let candidateEmbeddings = null;
-
-    function cosineSim(a, b) {
-      let dot = 0;
-      for (let i = 0; i < a.length; i++) dot += a[i] * b[i];
-      return dot; // both vectors are normalized, so the dot product IS the cosine similarity
-    }
-
-    async function embed(text) {
-      const output = await extractor(text, { pooling: 'mean', normalize: true });
-      return output.data;
-    }
-
-    function showError(message) {
-      loadingEl.style.display = 'none';
-      startEl.style.display = 'block';
-      let err = startEl.querySelector('.demo-hint.error');
-      if (!err) {
-        err = document.createElement('p');
-        err.className = 'demo-hint error';
-        startEl.appendChild(err);
-      }
-      err.textContent = message;
-    }
-
-    loadBtn.addEventListener('click', async () => {
-      startEl.style.display = 'none';
-      loadingEl.style.display = 'block';
-      progressFill.style.width = '0%';
-
-      try {
-        extractor = await pipeline('feature-extraction', 'Xenova/all-MiniLM-L6-v2', {
-          progress_callback: (p) => {
-            if (p.status === 'progress' && p.total) {
-              const pct = Math.round((p.loaded / p.total) * 100);
-              progressFill.style.width = pct + '%';
-              loadingText.textContent = `Downloading model… ${pct}%`;
-            }
-          },
-        });
-
-        loadingText.textContent = 'Embedding reference sentences…';
-        progressFill.style.width = '100%';
-        candidateEmbeddings = [];
-        for (const c of CANDIDATES) {
-          candidateEmbeddings.push(await embed(c));
-        }
-
-        loadingEl.style.display = 'none';
-        activeEl.style.display = 'block';
-        input.focus();
-      } catch (err) {
-        showError('Could not load the model in this browser — this can happen with older browsers or strict content blockers.');
-      }
-    });
-
-    async function runComparison() {
-      const text = input.value.trim();
-      if (!text || !extractor) return;
-      runBtn.disabled = true;
-      runBtn.textContent = 'Comparing…';
-
-      try {
-        const inputEmbedding = await embed(text);
-        const scored = CANDIDATES.map((c, i) => ({
-          text: c,
-          score: cosineSim(inputEmbedding, candidateEmbeddings[i]),
-        })).sort((a, b) => b.score - a.score);
-
-        resultsEl.innerHTML = scored.map((r) => {
-          const pct = Math.max(0, Math.min(100, Math.round(r.score * 100)));
-          return `
-            <div class="demo-result-row">
-              <div class="demo-result-label"><span>${r.text}</span><b>${pct}%</b></div>
-              <div class="demo-result-bar-track"><div class="demo-result-bar-fill" data-pct="${pct}"></div></div>
-            </div>
-          `;
-        }).join('');
-
-        requestAnimationFrame(() => {
-          resultsEl.querySelectorAll('.demo-result-bar-fill').forEach((el) => {
-            el.style.width = el.dataset.pct + '%';
-          });
-        });
-      } finally {
-        runBtn.disabled = false;
-        runBtn.textContent = 'Compare';
-      }
-    }
-
-    runBtn.addEventListener('click', runComparison);
-    input.addEventListener('keydown', (e) => { if (e.key === 'Enter') runComparison(); });
-  })();
 </script>
 
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "48402e3d980c471a89538c3cb0592732"}'></script><!-- End Cloudflare Web Analytics -->
