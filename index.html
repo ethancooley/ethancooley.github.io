@@ -2322,7 +2322,7 @@
                   <li>Built a clinical copilot for PACE interdisciplinary team (IDT) meetings and owned it from the data layer to the interface. An agent reads a participant's chart since the last review and drafts a one-page brief of what changed, citing the note behind every line, for a clinician to approve.</li>
                   <li>Built the data and tooling layer the agent works through: Postgres with pgvector holding EHR-style notes, vitals, encounters, and medications, exposed as read-only MCP tools scoped to one participant.</li>
                   <li>Designed the agent and its prompting logic in LangGraph. Claude Haiku plans and gathers, Claude Sonnet drafts, and a verification step rereads each line against only its cited sources and removes anything unsupported before a person sees it.</li>
-                  <li>Ran structured evaluations against clinical expectations, using synthetic charts with planted events and answer keys, scored on recall, high-severity recall, old events wrongly reported as new, cost, and latency. The first run surfaced two failure patterns, which I debugged and fixed before release.</li>
+                  <li>Ran structured evaluations against clinical expectations, using synthetic charts with planted events and answer keys, scored on recall, high-severity recall, old events wrongly reported as new, cost, and latency.</li>
                   <li>Shipped it as a full-stack product: a React and TypeScript review app where clinicians approve, edit, or reject each line and can watch a new brief stream in live, infrastructure as code on AWS Lambda, CloudFront, and S3, and GitHub Actions that test and deploy every change.</li>
                 </ul>
                 <div class="project-links">
