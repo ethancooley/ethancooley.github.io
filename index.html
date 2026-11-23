@@ -1518,7 +1518,7 @@
   }
 
   @media (max-width: 620px) {
-    .np-wrap { left: 1rem; bottom: 1rem; }
+    .np-wrap { display: none; }
   }
 
   .np-tooltip {
@@ -3295,6 +3295,7 @@ const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
 (function () {
   const widget = document.getElementById('np-widget');
   if (!widget) return;
+  if (window.matchMedia('(max-width: 620px)').matches) return; // hidden on phones, so don't poll
 
   const link = document.getElementById('np-link');
   const art = document.getElementById('np-art');
