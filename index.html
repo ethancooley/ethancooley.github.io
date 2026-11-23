@@ -47,7 +47,7 @@
 
     --bone:       #ecf1f4;
     --mist:       #8da0ab;
-    --fog:        #56646e;
+    --fog:        #7d8d97;
 
     --serif: 'DM Serif Display', Georgia, serif;
     --sans:  'DM Sans', system-ui, sans-serif;
@@ -238,7 +238,7 @@
     border: 1px solid var(--line);
     color: var(--bone);
     font-family: var(--mono);
-    font-size: 0.62rem;
+    font-size: 0.7rem;
     letter-spacing: 0.18em;
     text-transform: uppercase;
     padding: 0.5rem 0.9rem;
@@ -288,7 +288,7 @@
     border: 1px solid var(--line);
     color: var(--bone);
     font-family: var(--mono);
-    font-size: 0.62rem;
+    font-size: 0.7rem;
     letter-spacing: 0.18em;
     padding: 0.5rem 0.9rem;
     cursor: pointer;
@@ -444,7 +444,7 @@
     display: flex;
     gap: 2.4rem;
     font-family: var(--mono);
-    font-size: 0.62rem;
+    font-size: 0.7rem;
     color: var(--fog);
     letter-spacing: 0.12em;
     text-transform: uppercase;
@@ -467,7 +467,7 @@
     align-items: center;
     gap: 0.8rem;
     font-family: var(--mono);
-    font-size: 0.6rem;
+    font-size: 0.68rem;
     color: var(--fog);
     letter-spacing: 0.22em;
     text-transform: uppercase;
@@ -564,7 +564,7 @@
   }
   .ckpt-dot .num {
     font-family: var(--mono);
-    font-size: 0.6rem;
+    font-size: 0.68rem;
     color: var(--fog);
     letter-spacing: 0.18em;
     writing-mode: vertical-rl;
@@ -674,7 +674,7 @@
   .about-photo-caption {
     margin-top: 0.4rem;
     font-family: var(--mono);
-    font-size: 0.58rem;
+    font-size: 0.66rem;
     color: var(--fog);
     letter-spacing: 0.14em;
     text-transform: uppercase;
@@ -691,7 +691,7 @@
     background: var(--surface);
     border: 1px dashed var(--line);
     font-family: var(--mono);
-    font-size: 0.62rem;
+    font-size: 0.7rem;
     color: var(--fog);
     letter-spacing: 0.1em;
     text-align: center;
@@ -709,6 +709,31 @@
   .about-bio strong { font-style: normal; color: var(--bone); font-weight: 400; }
   .about-bio em.accent { font-style: normal; color: var(--ocean-hi); }
   .about-bio + .about-bio { margin-top: 1.6rem; }
+  .about-bio a { color: var(--bone); font-style: normal; text-decoration: none; border-bottom: 1px solid var(--ocean-dim); transition: border-color 0.3s, color 0.3s; }
+  .about-bio a:hover { color: var(--ocean-hi); border-color: var(--ocean-hi); }
+
+  .career-strip { margin-top: 1.8rem; }
+  .career-label { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--fog); margin-bottom: 0.8rem; }
+  .career-steps {
+    list-style: none; display: grid; grid-template-columns: repeat(4, 1fr);
+    position: relative; padding-top: 1.1rem;
+  }
+  .career-steps::before {
+    content: ''; position: absolute; top: calc(1.1rem - 4px); left: 4px; right: 0; height: 1px;
+    background: linear-gradient(to right, var(--ocean-dim), var(--ocean-hi));
+  }
+  .career-steps li {
+    position: relative; padding: 0.75rem 0.8rem 0 0;
+    font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.05em; line-height: 1.45; color: var(--mist);
+  }
+  .career-steps li::before {
+    content: ''; position: absolute; top: -8px; left: 0; width: 9px; height: 9px; border-radius: 50%;
+    background: var(--bg); border: 1px solid var(--ocean);
+  }
+  .career-steps li.now { color: var(--ocean-hi); }
+  .career-steps li.now::before { background: var(--ocean-hi); border-color: var(--ocean-hi); box-shadow: 0 0 10px var(--glow); }
+  .about-actions { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 1.8rem; }
+  .about-actions .btn { padding: 0.85rem 1.4rem; }
 
   .about-divider {
     width: 2.6rem; height: 1px;
@@ -767,7 +792,7 @@
   }
   .company-meta {
     font-family: var(--mono);
-    font-size: 0.62rem;
+    font-size: 0.7rem;
     color: var(--fog);
     letter-spacing: 0.12em;
     text-transform: uppercase;
@@ -820,7 +845,7 @@
   .role-title.senior { color: var(--ocean-hi); }
   .role-date {
     font-family: var(--mono);
-    font-size: 0.62rem;
+    font-size: 0.7rem;
     color: var(--fog);
     letter-spacing: 0.12em;
     text-transform: uppercase;
@@ -855,6 +880,25 @@
     background: var(--ocean);
   }
   .highlight { color: var(--bone); font-weight: 400; }
+  .exp-more { margin-top: 1.6rem; padding-left: 2rem; }
+  .exp-more .btn { padding: 0.85rem 1.4rem; }
+
+  /* Earlier roles: one line each */
+  .role-earlier { border-top: 1px solid var(--line-soft); padding: 1.8rem 0 0.4rem 2rem; position: relative; }
+  .role-earlier::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 1px; background: var(--line); }
+  .role-earlier-label { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--fog); margin-bottom: 0.4rem; }
+  .earlier-row {
+    display: grid; grid-template-columns: minmax(12rem, 15rem) 7rem 1fr; gap: 0.4rem 1.4rem; align-items: baseline;
+    padding: 0.9rem 0; border-bottom: 1px solid var(--line-soft);
+  }
+  .earlier-row:last-child { border-bottom: 0; }
+  .earlier-title { font-family: var(--serif); font-size: 1.05rem; color: var(--bone); }
+  .earlier-date { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.12em; color: var(--fog); white-space: nowrap; }
+  .earlier-sum { font-size: 0.88rem; color: var(--mist); line-height: 1.6; max-width: 40rem; }
+  @media (max-width: 760px) {
+    .earlier-row { grid-template-columns: 1fr auto; }
+    .earlier-sum { grid-column: 1 / -1; }
+  }
 
   /* ============================================================
      SKILLS — the kit
@@ -871,7 +915,7 @@
 
   .skill-category-label {
     font-family: var(--mono);
-    font-size: 0.62rem;
+    font-size: 0.7rem;
     color: var(--mist);
     letter-spacing: 0.16em;
     text-transform: uppercase;
@@ -916,7 +960,7 @@
 
   .skill-legend {
     font-family: var(--mono);
-    font-size: 0.62rem;
+    font-size: 0.7rem;
     color: var(--fog);
     letter-spacing: 0.04em;
     margin-bottom: 2.2rem;
@@ -959,7 +1003,7 @@
   }
   .edu-meta {
     font-family: var(--mono);
-    font-size: 0.62rem;
+    font-size: 0.7rem;
     color: var(--fog);
     letter-spacing: 0.08em;
     display: flex;
@@ -969,7 +1013,7 @@
   }
   .edu-status {
     font-family: var(--mono);
-    font-size: 0.56rem;
+    font-size: 0.64rem;
     color: var(--ocean-hi);
     background: rgba(46,125,163,0.08);
     border: 1px solid rgba(46,125,163,0.3);
@@ -1055,14 +1099,14 @@
   }
   .project-role {
     font-family: var(--mono);
-    font-size: 0.62rem;
+    font-size: 0.7rem;
     color: var(--ocean-hi);
     letter-spacing: 0.14em;
     text-transform: uppercase;
   }
   .project-meta {
     font-family: var(--mono);
-    font-size: 0.62rem;
+    font-size: 0.7rem;
     color: var(--fog);
     letter-spacing: 0.1em;
     margin-bottom: 1.6rem;
@@ -1129,10 +1173,11 @@
     padding: 0.55rem 0.9rem;
     background: linear-gradient(to top, rgba(6,9,12,0.92), transparent);
     font-family: var(--mono);
-    font-size: 0.58rem;
+    font-size: 0.66rem;
     color: var(--ocean-hi);
     letter-spacing: 0.12em;
     text-transform: uppercase;
+    gap: 1rem;
     display: flex;
     justify-content: space-between;
     pointer-events: none;
@@ -1151,17 +1196,17 @@
   .project-proof .stat-pill { margin: 0; }
   .project-proof .proof-src { font-size: 0.85rem; color: var(--fog); }
   .verdicts { padding: 1.4rem 1.2rem 3rem; display: flex; flex-direction: column; gap: 0.7rem; }
-  .verdicts .v-title { font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--fog); margin-bottom: 0.2rem; }
+  .verdicts .v-title { font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--fog); margin-bottom: 0.2rem; }
   .verdicts .v { display: flex; align-items: center; gap: 0.8rem; padding: 0.75rem 0.9rem; border: 1px solid var(--line); background: var(--surface, #0e1318); }
   .verdicts .v i { width: 8px; height: 8px; border-radius: 50%; flex: none; background: var(--c); box-shadow: 0 0 8px var(--c); }
   .verdicts .v b { font-family: var(--mono); font-weight: 400; font-size: 0.66rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--bone); }
-  .verdicts .v span { margin-left: auto; font-family: var(--mono); font-size: 0.56rem; letter-spacing: 0.08em; color: var(--fog); text-align: right; }
+  .verdicts .v span { margin-left: auto; font-family: var(--mono); font-size: 0.64rem; letter-spacing: 0.08em; color: var(--fog); text-align: right; }
 
 
   /* Collapsible (older) project cards */
   .project-panel.collapsible .project-top { align-items: center; }
   .project-toggle {
-    font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase;
+    font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase;
     background: none; color: var(--ocean-hi); border: 1px solid var(--ocean-dim);
     padding: 0.55rem 1rem; cursor: pointer; display: inline-flex; gap: 0.6rem; align-items: center;
     transition: color 0.3s, border-color 0.3s, background 0.3s;
@@ -1263,7 +1308,7 @@
   }
   .stat-strip .stat span {
     font-family: var(--mono);
-    font-size: 0.58rem;
+    font-size: 0.66rem;
     color: var(--fog);
     letter-spacing: 0.14em;
     text-transform: uppercase;
@@ -1314,7 +1359,7 @@
   }
   .beyond-card .extra-item-detail {
     font-family: var(--mono);
-    font-size: 0.62rem;
+    font-size: 0.7rem;
     color: var(--ocean-hi);
     letter-spacing: 0.07em;
     line-height: 1.6;
@@ -1336,7 +1381,7 @@
     align-items: center;
     gap: 0.3rem;
     font-family: var(--mono);
-    font-size: 0.58rem;
+    font-size: 0.66rem;
     color: var(--ocean-hi);
     letter-spacing: 0.1em;
     text-transform: uppercase;
@@ -1450,7 +1495,7 @@
   .np-widget:not(.live) .np-title { color: var(--mist); font-style: italic; }
   .np-artist {
     font-family: var(--mono);
-    font-size: 0.58rem;
+    font-size: 0.66rem;
     color: var(--ocean-hi);
     letter-spacing: 0.06em;
     text-transform: uppercase;
@@ -1533,7 +1578,7 @@
   }
   .guitar-panel-label {
     font-family: var(--mono);
-    font-size: 0.6rem;
+    font-size: 0.68rem;
     color: var(--fog);
     letter-spacing: 0.14em;
     text-transform: uppercase;
@@ -1565,7 +1610,7 @@
     border: 1px solid var(--line);
     color: var(--fog);
     font-family: var(--mono);
-    font-size: 0.62rem;
+    font-size: 0.7rem;
     letter-spacing: 0.06em;
     padding: 0.4rem 0.6rem;
     margin-left: 1.6rem;
@@ -1622,7 +1667,7 @@
   .cmdk-input::placeholder { color: var(--fog); }
   .cmdk-esc {
     font-family: var(--mono);
-    font-size: 0.56rem;
+    font-size: 0.64rem;
     color: var(--fog);
     border: 1px solid var(--line);
     padding: 0.15rem 0.4rem;
@@ -1649,7 +1694,7 @@
   .cmdk-item.active { background: rgba(46,125,163,0.14); color: var(--bone); }
   .cmdk-item-meta {
     font-family: var(--mono);
-    font-size: 0.58rem;
+    font-size: 0.66rem;
     color: var(--fog);
     letter-spacing: 0.08em;
     text-transform: uppercase;
@@ -1720,7 +1765,7 @@
   }
   .egg-toast-sub {
     font-family: var(--mono);
-    font-size: 0.62rem;
+    font-size: 0.7rem;
     color: var(--mist);
     letter-spacing: 0.08em;
     text-transform: uppercase;
@@ -1763,7 +1808,7 @@
   }
   .year-stats .stat > span {
     font-family: var(--mono);
-    font-size: 0.58rem;
+    font-size: 0.66rem;
     color: var(--fog);
     letter-spacing: 0.1em;
     text-transform: uppercase;
@@ -1784,14 +1829,14 @@
   }
   .route-panel-label {
     font-family: var(--mono);
-    font-size: 0.6rem;
+    font-size: 0.68rem;
     color: var(--ocean-hi);
     letter-spacing: 0.14em;
     text-transform: uppercase;
   }
   .route-panel-meta {
     font-family: var(--mono);
-    font-size: 0.6rem;
+    font-size: 0.68rem;
     color: var(--fog);
     letter-spacing: 0.06em;
     text-align: right;
@@ -1804,7 +1849,7 @@
 
   .activity-list-label {
     font-family: var(--mono);
-    font-size: 0.62rem;
+    font-size: 0.7rem;
     color: var(--fog);
     letter-spacing: 0.14em;
     text-transform: uppercase;
@@ -1841,14 +1886,14 @@
   }
   .activity-type {
     font-family: var(--mono);
-    font-size: 0.62rem;
+    font-size: 0.7rem;
     color: var(--ocean-hi);
     letter-spacing: 0.1em;
     text-transform: uppercase;
   }
   .activity-date {
     font-family: var(--mono);
-    font-size: 0.58rem;
+    font-size: 0.66rem;
     color: var(--fog);
     letter-spacing: 0.06em;
     text-transform: uppercase;
@@ -1894,12 +1939,12 @@
   .act-photo figcaption, .act-photo .cap {
     position: absolute; left: 0; right: 0; bottom: 0; padding: 1.4rem 0.8rem 0.6rem; text-align: left;
     background: linear-gradient(to top, rgba(6,9,12,0.9), transparent);
-    font-family: var(--mono); font-size: 0.56rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ocean-hi);
+    font-family: var(--mono); font-size: 0.64rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ocean-hi);
     opacity: 0; transform: translateY(6px); transition: opacity 0.35s, transform 0.35s var(--ease-out);
   }
   .act-photo:hover .cap, .act-photo:focus-visible .cap, .act-photo:first-child .cap { opacity: 1; transform: none; }
   .act-badge {
-    display: inline-block; margin-left: 0.2rem; font-family: var(--mono); font-size: 0.56rem; letter-spacing: 0.1em;
+    display: inline-block; margin-left: 0.2rem; font-family: var(--mono); font-size: 0.64rem; letter-spacing: 0.1em;
     text-transform: uppercase; color: var(--ocean-hi); border: 1px solid var(--ocean-dim); padding: 0.1rem 0.45rem;
   }
   @media (max-width: 620px) {
@@ -1974,7 +2019,7 @@
   }
   .field-error {
     font-family: var(--mono);
-    font-size: 0.62rem;
+    font-size: 0.7rem;
     color: #e07070;
     display: block;
     margin-top: 0.35rem;
@@ -1993,7 +2038,7 @@
   }
   .form-label {
     font-family: var(--mono);
-    font-size: 0.6rem;
+    font-size: 0.68rem;
     color: var(--fog);
     letter-spacing: 0.16em;
     text-transform: uppercase;
@@ -2075,7 +2120,7 @@
   }
   .footer-note {
     font-family: var(--mono);
-    font-size: 0.6rem;
+    font-size: 0.68rem;
     color: var(--fog);
     letter-spacing: 0.16em;
     text-transform: uppercase;
@@ -2106,13 +2151,14 @@
   <a class="nav-logo" href="#top"><span class="pip"></span>EFC</a>
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
-    <li><a href="#experience">Experience</a></li>
     <li><a href="#projects">Projects</a></li>
+    <li><a href="#experience">Experience</a></li>
     <li><a href="#skills">Skills</a></li>
     <li><a href="#education">Education</a></li>
     <li><a href="#extracurriculars">Beyond Work</a></li>
     <li><a href="photography.html">Photography</a></li>
     <li><a href="#contact">Contact</a></li>
+    <li><a href="Ethan_Cooley_Resume.pdf" target="_blank" rel="noopener" class="nav-resume">Resume ↗</a></li>
   </ul>
   <button class="cmdk-hint" id="cmdk-open" aria-label="Open command palette" type="button">
     <span class="cmdk-hint-icon">⌘</span>K
@@ -2124,13 +2170,14 @@
 <div class="menu-overlay" id="menu-overlay" aria-hidden="true">
   <button class="menu-close" id="menu-close" aria-label="Close menu">Close</button>
   <a href="#about" style="transition-delay:0.05s"><span>00</span>About</a>
-  <a href="#experience" style="transition-delay:0.1s"><span>01</span>Experience</a>
-  <a href="#projects" style="transition-delay:0.15s"><span>02</span>Projects</a>
+  <a href="#projects" style="transition-delay:0.1s"><span>01</span>Projects</a>
+  <a href="#experience" style="transition-delay:0.15s"><span>02</span>Experience</a>
   <a href="#skills" style="transition-delay:0.2s"><span>03</span>Skills</a>
   <a href="#education" style="transition-delay:0.25s"><span>04</span>Education</a>
   <a href="#extracurriculars" style="transition-delay:0.3s"><span>05</span>Beyond Work</a>
   <a href="photography.html" style="transition-delay:0.35s"><span>06</span>Photography</a>
   <a href="#contact" style="transition-delay:0.4s"><span>07</span>Contact</a>
+  <a href="Ethan_Cooley_Resume.pdf" target="_blank" rel="noopener" style="transition-delay:0.45s"><span>↗</span>Resume</a>
 </div>
 
 <!-- ============================ HERO ============================ -->
@@ -2161,7 +2208,7 @@
   </div>
 
   <div class="hero-stats" aria-hidden="true">
-    <div><b>5+ yrs</b>ML in production</div>
+    <div><b>6 yrs</b>ML in production</div>
     <div><b>Duke MEng</b>AI, in progress</div>
   </div>
 </header>
@@ -2204,99 +2251,31 @@
 
             <div class="rv" style="--d:0.12s">
               <p class="about-bio">
-                <strong>Ethan Cooley</strong> is a Senior Machine Learning Engineer based in
-                <em class="accent">Charlotte, NC</em>, building AI systems that improve how
-                clinicians make decisions. He studied engineering and computer science at
-                <strong>Wake Forest University</strong> and is currently pursuing a
-                Master's in AI at <strong>Duke University's Pratt School of Engineering</strong>.
+                <strong>Ethan Cooley</strong> is a healthcare AI engineer in <em class="accent">Charlotte, NC</em>
+                with six years shipping production AI inside clinicians' daily work. At
+                <strong>Stanson Health</strong>, he builds agentic AI on AWS Bedrock that takes guideline chart
+                review from hours to minutes and builds models for HCC risk adjustment. He owns tools end to
+                end, works directly with the clinicians who use them, and builds his own products too, like
+                <a href="#idt-project">IDT Prep Copilot</a> and <a href="#groundmark-project">Groundmark</a>.
               </p>
+              <div class="career-strip" aria-label="Career at Stanson Health">
+                <p class="career-label">Stanson Health · 2021 to present</p>
+                <ol class="career-steps">
+                  <li>Data Science Intern</li>
+                  <li>Data Scientist</li>
+                  <li>ML Engineer</li>
+                  <li class="now">Senior ML Engineer</li>
+                </ol>
+              </div>
+              <div class="about-actions">
+                <a href="Ethan_Cooley_Resume.pdf" target="_blank" rel="noopener" class="btn primary magnetic"><span class="fill"></span>View resume <span class="arrow">↗</span></a>
+                <a href="https://linkedin.com/in/ethancooley" target="_blank" rel="noopener" class="btn magnetic"><span class="fill"></span>LinkedIn <span class="arrow">↗</span></a>
+              </div>
               <div class="about-divider"></div>
               <p class="about-bio">
-                Outside of work he can be found running ultras in the mountains, competing in triathlons, skiing
-                backcountry, or shredding trails on his mountain bike. He's a brother, a son,
-                and a friend — the people in his life matter more than any finish line or job title.
+                Outside of work he runs ultras in the mountains, races triathlons, and skis backcountry. The
+                people in his life matter more than any finish line or job title.
               </p>
-              <div class="about-meta">
-                <span class="about-meta-item">Charlotte, NC</span>
-                <span class="about-meta-item">Wake Forest University · Duke MEng AI (in progress)</span>
-                <span class="about-meta-item">Ultramarathons · Backcountry Skiing · MTB</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- EXPERIENCE -->
-    <section id="experience">
-      <div class="sec-grid">
-        <div class="ckpt" aria-hidden="true">
-          <div class="ckpt-dot"><span class="pt"></span><span class="num">01</span></div>
-        </div>
-        <div>
-          <div class="sec-head rv">
-            <span class="sec-label">01 / Experience</span>
-            <h2 class="sec-title">Professional<br><em>History</em></h2>
-          </div>
-
-          <!-- Stanson Health -->
-          <div class="company-block rv">
-            <div class="company-head">
-              <h3 class="company-name">Stanson Health</h3>
-              <p class="company-meta">A division of Premier Inc. · Charlotte, NC</p>
-            </div>
-
-            <div class="roles-stack">
-              <div class="role-block">
-                <div class="role-header">
-                  <span class="role-title senior">Senior Machine Learning Engineer</span>
-                  <span class="role-date">July 2025 — Present</span>
-                </div>
-                <ul class="role-bullets">
-                  <li>Build an agentic AI system on AWS Bedrock (Amazon Nova, Claude Haiku and Sonnet, Qwen) that checks whether a patient meets clinical guideline criteria, replacing manual chart review by nurses and reviewers and cutting it from hours to minutes for hundreds to thousands of patients a day.</li>
-                  <li>Work alongside clinicians and reviewers to learn how they annotate HCC cases, and turn that workflow into production models that check whether documentation supports an HCC and flag likely undocumented ones, for thousands of patients a day.</li>
-                  <li>Own the LLM evaluation suite: structured functional tests that catch regressions across model and pipeline updates before they reach users.</li>
-                  <li>Optimize the end-to-end LLM inference pipeline with kernel caching and batched sentence embeddings, reducing latency and compute cost in production.</li>
-                  <li>Own the integration layer from model to product: REST APIs connecting front-end applications to models on AWS SageMaker, and the AWS OpenSearch data engine the data science team builds on.</li>
-                  <li>Run requirements discovery with clinical product teams and engineers, translating clinical workflows into data and model requirements and shipping the solutions end to end.</li>
-                </ul>
-              </div>
-
-              <div class="role-block">
-                <div class="role-header">
-                  <span class="role-title">Machine Learning Engineer</span>
-                  <span class="role-date">September 2023 — July 2025</span>
-                </div>
-                <ul class="role-bullets">
-                  <li>Built an annotation tool with and for healthcare providers so they could label cases quickly, improving the training data behind production models.</li>
-                  <li>Established team-wide coding standards by introducing Black and Flake8 across all repositories, fostering a culture of maintainable, consistent code.</li>
-                  <li>Built production monitoring and logging for ECR pipelines and SageMaker models with AWS CloudWatch, so issues were caught and fixed proactively.</li>
-                  <li>Wrote the documentation for the data engine and its APIs, and ran hands-on training sessions that drove adoption of new tools and workflows across the team.</li>
-                </ul>
-              </div>
-
-              <div class="role-block">
-                <div class="role-header">
-                  <span class="role-title">Data Scientist</span>
-                  <span class="role-date">June 2021 — September 2023</span>
-                </div>
-                <ul class="role-bullets">
-                  <li>Built active learning infrastructure that queried uncertain cases from production and surfaced them for annotation, continuously improving model accuracy over time.</li>
-                  <li>Employed directed acyclic graphs (DAGs) to streamline and automate annotation jobs, significantly enhancing efficiency of case annotation for ML model training.</li>
-                  <li>Applied NLP to electronic health record data to support clinicians’ medical predictions, directly improving patient care outcomes.</li>
-                </ul>
-              </div>
-
-              <div class="role-block">
-                <div class="role-header">
-                  <span class="role-title">Data Science Intern</span>
-                  <span class="role-date">January 2021 — May 2021</span>
-                </div>
-                <ul class="role-bullets">
-                  <li>Collaborated with senior data scientists to iterate on and improve production ML models, gaining hands-on experience with the full model development lifecycle.</li>
-                  <li>Developed and enhanced an internal software app for testing and comparing model predictions, strengthening team understanding of model strengths and weaknesses.</li>
-                </ul>
-              </div>
             </div>
           </div>
         </div>
@@ -2307,11 +2286,11 @@
     <section id="projects">
       <div class="sec-grid">
         <div class="ckpt" aria-hidden="true">
-          <div class="ckpt-dot"><span class="pt"></span><span class="num">02</span></div>
+          <div class="ckpt-dot"><span class="pt"></span><span class="num">01</span></div>
         </div>
         <div>
           <div class="sec-head rv">
-            <span class="sec-label">02 / Projects</span>
+            <span class="sec-label">01 / Projects</span>
             <h2 class="sec-title">Featured<br><em>Work</em></h2>
           </div>
 
@@ -2513,6 +2492,44 @@
             </div>
             </div></div>
           </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="experience">
+      <div class="sec-grid">
+        <div class="ckpt" aria-hidden="true">
+          <div class="ckpt-dot"><span class="pt"></span><span class="num">02</span></div>
+        </div>
+        <div>
+          <div class="sec-head rv">
+            <span class="sec-label">02 / Experience</span>
+            <h2 class="sec-title">Current<br><em>Role</em></h2>
+          </div>
+
+          <div class="company-block rv">
+            <div class="company-head">
+              <h3 class="company-name">Stanson Health</h3>
+              <p class="company-meta">A division of Premier Inc. · Charlotte, NC</p>
+            </div>
+
+            <div class="roles-stack">
+              <div class="role-block">
+                <div class="role-header">
+                  <span class="role-title senior">Senior Machine Learning Engineer</span>
+                  <span class="role-date">July 2025 — Present</span>
+                </div>
+                <ul class="role-bullets">
+                  <li>Build an agentic AI system on AWS Bedrock (Amazon Nova, Claude Haiku and Sonnet, Qwen) that checks whether a patient meets clinical guideline criteria, replacing manual chart review by nurses and reviewers and cutting it from hours to minutes for hundreds to thousands of patients a day.</li>
+                  <li>Work alongside clinicians and reviewers to learn how they annotate HCC cases, and turn that workflow into production models that check whether documentation supports an HCC and flag likely undocumented ones, for thousands of patients a day.</li>
+                  <li>Own the path from model to product: the LLM evaluation suite that catches regressions before release, inference optimization with kernel caching and batched sentence embeddings, and the REST APIs and AWS OpenSearch data engine that connect models to applications.</li>
+                </ul>
+              </div>
+            </div>
+            <div class="exp-more">
+              <a href="Ethan_Cooley_Resume.pdf" target="_blank" rel="noopener" class="btn magnetic"><span class="fill"></span>Full history in my resume <span class="arrow">↗</span></a>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -3948,8 +3965,9 @@ const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
 
   const ITEMS = [
     { label: 'About', meta: 'Section', keywords: 'about person bio', action: () => go('#about') },
-    { label: 'Experience', meta: 'Section', keywords: 'experience work stanson premier job', action: () => go('#experience') },
+    { label: 'Resume', meta: 'PDF', keywords: 'resume cv experience work stanson premier job pdf', action: () => window.open('Ethan_Cooley_Resume.pdf', '_blank', 'noopener') },
     { label: 'Projects', meta: 'Section', keywords: 'projects work idt prep copilot agent pace groundmark trace capstone', action: () => go('#projects') },
+    { label: 'Experience', meta: 'Section', keywords: 'experience work stanson premier job bedrock agent hcc', action: () => go('#experience') },
     { label: 'Skills', meta: 'Section', keywords: 'skills stack technical tools', action: () => go('#skills') },
     { label: 'Education', meta: 'Section', keywords: 'education duke wake forest school', action: () => go('#education') },
     { label: 'Beyond Work', meta: 'Section', keywords: 'hobbies running guitar skiing biking', action: () => go('#extracurriculars') },

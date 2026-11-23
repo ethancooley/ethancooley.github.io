@@ -46,7 +46,7 @@
 
     --bone:       #ecf1f4;
     --mist:       #8da0ab;
-    --fog:        #56646e;
+    --fog:        #7d8d97;
 
     --serif: 'DM Serif Display', Georgia, serif;
     --sans:  'DM Sans', system-ui, sans-serif;
@@ -150,7 +150,7 @@
   .nav-links a:hover::after, .nav-links a.active::after { transform: scaleX(1); transform-origin: left center; }
   .menu-btn {
     display: none; background: none; border: 1px solid var(--line); color: var(--bone);
-    font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.18em;
+    font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.18em;
     text-transform: uppercase; padding: 0.5rem 0.9rem; cursor: pointer;
   }
   .menu-overlay {
@@ -172,7 +172,7 @@
   .menu-close {
     position: absolute; top: 1.2rem; right: 1.5rem; background: none;
     border: 1px solid var(--line); color: var(--bone); font-family: var(--mono);
-    font-size: 0.62rem; letter-spacing: 0.18em; padding: 0.5rem 0.9rem; cursor: pointer;
+    font-size: 0.7rem; letter-spacing: 0.18em; padding: 0.5rem 0.9rem; cursor: pointer;
   }
   @media (max-width: 880px) {
     .nav-links { display: none; }
@@ -202,7 +202,7 @@
     line-height: 1.75;
   }
   .gallery-count {
-    margin-top: 1.6rem; font-family: var(--mono); font-size: 0.62rem;
+    margin-top: 1.6rem; font-family: var(--mono); font-size: 0.7rem;
     color: var(--fog); letter-spacing: 0.14em; text-transform: uppercase;
     display: flex; align-items: center; gap: 0.7rem;
   }
@@ -262,14 +262,14 @@
   }
   .gallery-item .cap-meta {
     display: block;
-    font-family: var(--mono); font-size: 0.58rem; color: var(--ocean-hi);
+    font-family: var(--mono); font-size: 0.66rem; color: var(--ocean-hi);
     letter-spacing: 0.1em; text-transform: uppercase; margin-top: 0.85rem;
   }
 
   .gallery-placeholder {
     display: flex; align-items: center; justify-content: center;
     aspect-ratio: var(--ar, 4 / 5);
-    font-family: var(--mono); font-size: 0.62rem; color: var(--fog);
+    font-family: var(--mono); font-size: 0.7rem; color: var(--fog);
     letter-spacing: 0.06em; text-align: center; line-height: 1.9;
     border: 1px dashed var(--line);
     padding: 1rem;
@@ -331,7 +331,7 @@
   }
   .footer-name { font-family: var(--serif); font-size: 1.25rem; color: var(--mist); }
   .footer-note {
-    font-family: var(--mono); font-size: 0.6rem; color: var(--fog);
+    font-family: var(--mono); font-size: 0.68rem; color: var(--fog);
     letter-spacing: 0.16em; text-transform: uppercase;
     display: flex; align-items: center; gap: 0.7rem;
   }
@@ -354,13 +354,14 @@
   <a class="nav-logo" href="index.html"><span class="pip"></span>EFC</a>
   <ul class="nav-links">
     <li><a href="index.html#about">About</a></li>
-    <li><a href="index.html#experience">Experience</a></li>
     <li><a href="index.html#projects">Projects</a></li>
+    <li><a href="index.html#experience">Experience</a></li>
     <li><a href="index.html#skills">Skills</a></li>
     <li><a href="index.html#education">Education</a></li>
     <li><a href="index.html#extracurriculars">Beyond Work</a></li>
     <li><a href="photography.html" class="active">Photography</a></li>
     <li><a href="index.html#contact">Contact</a></li>
+    <li><a href="Ethan_Cooley_Resume.pdf" target="_blank" rel="noopener">Resume ↗</a></li>
   </ul>
   <button class="menu-btn" id="menu-open" aria-label="Open menu" aria-expanded="false">Menu</button>
 </nav>
@@ -369,13 +370,14 @@
   <button class="menu-close" id="menu-close" aria-label="Close menu">Close</button>
   <a href="index.html" style="transition-delay:0.05s"><span>00</span>Home</a>
   <a href="index.html#about" style="transition-delay:0.1s"><span>01</span>About</a>
-  <a href="index.html#experience" style="transition-delay:0.15s"><span>02</span>Experience</a>
-  <a href="index.html#projects" style="transition-delay:0.2s"><span>03</span>Projects</a>
+  <a href="index.html#projects" style="transition-delay:0.15s"><span>02</span>Projects</a>
+  <a href="index.html#experience" style="transition-delay:0.2s"><span>03</span>Experience</a>
   <a href="index.html#skills" style="transition-delay:0.25s"><span>04</span>Skills</a>
   <a href="index.html#education" style="transition-delay:0.3s"><span>05</span>Education</a>
   <a href="index.html#extracurriculars" style="transition-delay:0.35s"><span>06</span>Beyond Work</a>
   <a href="photography.html" style="transition-delay:0.4s"><span>07</span>Photography</a>
   <a href="index.html#contact" style="transition-delay:0.45s"><span>08</span>Contact</a>
+  <a href="Ethan_Cooley_Resume.pdf" target="_blank" rel="noopener" style="transition-delay:0.5s"><span>↗</span>Resume</a>
 </div>
 
 <header class="gallery-header">
