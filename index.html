@@ -1182,6 +1182,15 @@
   .verdicts .v b { font-family: var(--mono); font-weight: 400; font-size: 0.66rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--bone); }
   .verdicts .v span { margin-left: auto; font-family: var(--mono); font-size: 0.64rem; letter-spacing: 0.08em; color: var(--fog); text-align: right; }
 
+  .rewrite { padding: 1.4rem 1.2rem 3rem; display: flex; flex-direction: column; gap: 0.6rem; }
+  .rewrite .rw-block { padding: 0.9rem 1rem; border: 1px solid var(--line); background: var(--surface, #0e1318); }
+  .rewrite .rw-label { font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--fog); margin-bottom: 0.45rem; }
+  .rewrite p { font-family: var(--serif); font-size: 1.02rem; line-height: 1.45; color: var(--bone); }
+  .rewrite .rw-src { color: var(--mist); font-style: italic; }
+  .rewrite .rw-out { border-color: var(--ocean-dim); box-shadow: inset 3px 0 0 var(--ocean-hi); }
+  .rewrite .rw-out .rw-label { color: var(--ocean-hi); }
+  .rewrite .rw-arrow { align-self: center; color: var(--ocean-hi); font-size: 1rem; line-height: 1; }
+
 
   /* Collapsible (older) project cards */
   .project-panel.collapsible .project-top { align-items: center; }
@@ -2358,6 +2367,46 @@
                   <div class="v" style="--c:#8da0ab"><i></i><b>Couldn't check</b><span>no guessing</span></div>
                 </div>
                 <div class="visual-caption"><span>On-device · Gemini Nano</span><span>Verdicts</span></div>
+              </div>
+            </div>
+          </article>
+
+          <!-- PlainMed -->
+          <article class="project-panel rv" id="plainmed-project">
+            <div class="project-top">
+              <h3 class="project-title">PlainMed</h3>
+              <span class="project-role">Duke AIPI · Fine-tuning</span>
+            </div>
+            <p class="project-meta">2026 · Python, PyTorch, Hugging Face, LoRA, PEFT, Qwen2.5, Gradio, ZeroGPU, Vercel</p>
+
+            <div class="project-body">
+              <div class="project-copy">
+                <p class="project-lede">Medical language, rewritten for the person it's about.</p>
+                <ul class="project-bullets">
+                  <li>Fine-tuned Qwen2.5-1.5B-Instruct with LoRA on PLABA, the National Library of Medicine's set of biomedical sentences paired with professionally written plain-language versions, training only a small adapter while the base weights stay frozen.</li>
+                  <li>Built a live demo that shows the fine-tuned and base model's rewrites side by side, each scored for reading grade, so the effect of fine-tuning is visible on every request.</li>
+                  <li>Served the model on a Hugging Face GPU Space behind a web front end, with GitHub Actions keeping the Space in sync with the repo.</li>
+                  <li>Documented where it fails: a rewrite can read easily and still drop a qualifier or change a dose, which no readability score can catch.</li>
+                </ul>
+                <div class="project-links">
+                  <a href="https://plainmed.ethancooley.com" target="_blank" rel="noopener" class="btn magnetic" style="padding:0.8rem 1.5rem;"><span class="fill"></span>Try it live <span class="arrow">↗</span></a>
+                  <a href="https://github.com/ethancooley/Plain-Med" target="_blank" rel="noopener" class="btn magnetic" style="padding:0.8rem 1.5rem;"><span class="fill"></span>View code <span class="arrow">↗</span></a>
+                </div>
+              </div>
+
+              <div class="project-visual">
+                <div class="rewrite" aria-label="Example: a clinical MRI sentence and PlainMed's plain-language rewrite">
+                  <div class="rw-block">
+                    <div class="rw-label">Clinical text</div>
+                    <p class="rw-src">MRI of the lumbar spine demonstrates a broad-based disc protrusion at L4-L5 with moderate left neural foraminal stenosis and impingement of the exiting L4 nerve root…</p>
+                  </div>
+                  <div class="rw-arrow" aria-hidden="true">↓</div>
+                  <div class="rw-block rw-out">
+                    <div class="rw-label">PlainMed</div>
+                    <p>An MRI shows a big bulge in the lower back discs at L4-L5. This is causing some nerves to get pinched on their way out…</p>
+                  </div>
+                </div>
+                <div class="visual-caption"><span>LoRA · Qwen2.5-1.5B</span><span>Rewrite</span></div>
               </div>
             </div>
           </article>
